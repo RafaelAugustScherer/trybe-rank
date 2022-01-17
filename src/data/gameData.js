@@ -1,17 +1,20 @@
 export const types = [
   {
     id: 1,
-    name: 'map',
+    name: '.map()',
+    color: 'FAFF00',
     difficulty: 2
   },
   {
     id: 2,
-    name: 'reduce',
+    name: '.reduce()',
+    color: '00E593',
     difficulty: 5
   },
   {
     id: 3,
-    name: 'filter',
+    name: '.filter()',
+    color: 'FFA800',
     difficulty: 3
   },
 ]
