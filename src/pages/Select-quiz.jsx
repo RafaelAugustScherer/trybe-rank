@@ -4,7 +4,8 @@ const SelectQuiz = () => {
   const [type, setType] = useState('');
 
   return (
-    <div></div>
+    <div>
+    </div>
   )
 };
 
