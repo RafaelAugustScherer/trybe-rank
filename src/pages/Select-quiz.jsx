@@ -1,11 +1,11 @@
-import { types, data } from '../data/gameData';
+import { types, questions } from '../data/gameData';
 import QuizCard from '../components/quizCard';
 import '../css/Select-page.css';
 
 const SelectQuiz = () => {
   const createCards = () => {
     const cards = types.map(({id, name, difficulty}) => {
-      const quantity = data.filter(({ type }) => id === type).length
+      const quantity = questions.filter(({ type }) => id === type).length
       return (
         <QuizCard 
           id={ id } 

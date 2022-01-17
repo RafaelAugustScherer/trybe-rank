@@ -16,7 +16,7 @@ export const types = [
   },
 ]
 
-export const data = [
+export const questions = [
   {
     type: 1,
     question: 'Primeira questão',
