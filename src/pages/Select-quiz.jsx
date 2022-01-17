@@ -8,7 +8,7 @@ const SelectQuiz = () => {
 
   const createCards = () => {
     const cards = types.map(({id, name, difficulty, color}) => {
-      const quantity = questions.filter(({ type }) => id === type).length
+      const quantity = questions.filter(({ type_id }) => id === type_id).length
       return (
         <QuizCard 
           id={ id }
