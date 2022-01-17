@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AiFillStar } from 'react-icons/ai';
 
 const QuizCard = ({ id, title, quantity, dificulty }) => {
   const [active, setActive] = useState(false);
@@ -6,7 +7,7 @@ const QuizCard = ({ id, title, quantity, dificulty }) => {
   const createStars = () => {
     const stars = [];
     for (let i = 0; i < dificulty; i += 1) {
-
+      stars.push(<AiFillStar />)
     }
     return stars;
   }
