@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { AiFillStar } from 'react-icons/ai';
 
-const QuizCard = ({ id, title, quantity, dificulty, color }) => {
-  const [active, setActive] = useState(false);
-
+const QuizCard = ({ id, title, quantity, dificulty, color, selected, setSelected }) => {
   const createStars = () => {
     const stars = [];
     for (let i = 0; i < dificulty; i += 1) {
@@ -14,8 +11,8 @@ const QuizCard = ({ id, title, quantity, dificulty, color }) => {
 
   return (
     <div
-      onClick={() => setActive(!active)}
-      className={ `type-container ${active ? 'active' : ''}` }
+      onClick={ () => selected !== id ? setSelected(id) : setSelected(null) }
+      className={ `type-container ${selected === id ? 'active' : ''}` }
     >
       <div>
         <div className="star-container">{ createStars() }</div>
