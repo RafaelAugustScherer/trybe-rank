@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { types, data } from '../data/gameData';
+import QuizCard from '../components/quizCard';
+import '../css/Select-page.css';
 
 const SelectQuiz = () => {
-  const [type, setType] = useState('');
+  const createCards = () => {
+    const cards = types.map(({id, name, difficulty}) => {
+      const quantity = data.filter(({ type }) => id === type).length
+      return (
+        <QuizCard 
+          id={ id } 
+          title={ name }
+          quantity={ quantity }
+          dificulty={ difficulty } 
+        />
+      )
+    })
+    return cards;
+  };
 
   return (
-    <div>
+    <div className="select-page">
+      <h1 className="hero-title">Seleção de Quiz</h1>
+      <div>
+        { createCards() }
+      </div>
     </div>
   )
 };
