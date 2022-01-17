@@ -25,13 +25,20 @@
   color: white;
   cursor: pointer;
   display: flex;
+  height: 300px;
   flex-direction: column;
   justify-content: space-between;
   margin: 15px;
   overflow: hidden;
+  position: relative;
   transition: 1s ease;
   width: 300px;
-  height: 200px;
+  z-index: 5;
+}
+
+.type-title {
+  background-color: #383838;
+  z-index: 5;
 }
 
 .type-container > div {
@@ -51,7 +58,7 @@
   color: #C4C4C4;
 }
 
-.type-container button {
+.type-container button{
   border: none;
   color: white;
   display: none;
@@ -61,9 +68,26 @@
 }
 
 .active {
-  height: 400px;
+  height: 460px;
 }
 
-.active button {
+.progress {
+  position: absolute;
+  top: 0;
+  right: 5%;
+  width: 15%;
+  color: #61c9a3;
+  z-index: 6;
+}
+
+.active .progress {
+  top: auto;
+  right: auto;
+  bottom: 30%;
+  width: 40%;
+  z-index: 1;
+}
+
+.active button{
   display: block;
 }

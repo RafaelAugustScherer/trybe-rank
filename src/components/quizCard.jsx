@@ -1,4 +1,5 @@
 import { AiFillStar } from 'react-icons/ai';
+import ProgressBar from './progressBar';
 
 const QuizCard = ({ id, title, quantity, dificulty, color, selected, setSelected }) => {
   const createStars = () => {
@@ -10,23 +11,33 @@ const QuizCard = ({ id, title, quantity, dificulty, color, selected, setSelected
   }
 
   return (
-    <div
+    <button
       onClick={ () => selected !== id ? setSelected(id) : setSelected(null) }
       className={ `type-container ${selected === id ? 'active' : ''}` }
     >
-      <div>
+      <div className="type-title">
         <div className="star-container">{ createStars() }</div>
         <h1 style={ { 'color': `#${color}` } }>{ title }</h1>
       </div>
       <div className="type-info">
+        <ProgressBar
+          id={ id }
+          active={ selected === id }
+          quantity={ quantity }
+          selected={ selected }
+        />
         <p>{ `${quantity} questões` }</p>
         <button
           type="button"
+          onClick={ (e) => {
+            e.preventDefault();
+            console.log('oi')
+          }}
         >
           Entrar
         </button>
       </div>
-    </div>
+    </button>
   )
 };
 
