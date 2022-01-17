@@ -1,0 +1,13 @@
+.select-page {
+  align-items: center;
+  background-color: #292929;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.hero-title {
+  font-size: 5em;
+  color: #61C9A3;
+}
