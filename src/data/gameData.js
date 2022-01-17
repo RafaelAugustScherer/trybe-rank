@@ -19,6 +19,18 @@ export const types = [
   },
 ];
 
+export const questions_completed = [
+  {
+    user_id: 1,
+    question_id: 1,
+    type_id: 1,
+  },
+  {
+    user_id: 1,
+    question_id: 2,
+    type_id: 1,
+  },
+];
 
 export const questions = [
   {
@@ -38,7 +50,7 @@ export const questions = [
   {
     question_id: 3,
     question: 'Terceira questão',
-    type: 1,
+    type_id: 1,
     correct_answer: 3,
     wrong_answers: ['1', '2', '3', '4']
   }
