@@ -4,12 +4,13 @@ import '../css/Select-page.css';
 
 const SelectQuiz = () => {
   const createCards = () => {
-    const cards = types.map(({id, name, difficulty}) => {
+    const cards = types.map(({id, name, difficulty, color}) => {
       const quantity = questions.filter(({ type }) => id === type).length
       return (
         <QuizCard 
           id={ id } 
           title={ name }
+          color={ color }
           quantity={ quantity }
           dificulty={ difficulty } 
         />

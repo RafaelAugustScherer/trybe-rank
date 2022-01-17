@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AiFillStar } from 'react-icons/ai';
 
-const QuizCard = ({ id, title, quantity, dificulty }) => {
+const QuizCard = ({ id, title, quantity, dificulty, color }) => {
   const [active, setActive] = useState(false);
 
   const createStars = () => {
@@ -17,14 +17,18 @@ const QuizCard = ({ id, title, quantity, dificulty }) => {
       onClick={() => setActive(!active)}
       className={ `type-container ${active ? 'active' : ''}` }
     >
-      <div>{ createStars() }</div>
-      <h1>{ title }</h1>
-      <p>{ `${quantity} questões` }</p>
-      <button
-        type="button"
-      >
-        Entrar
-      </button>
+      <div>
+        <div className="star-container">{ createStars() }</div>
+        <h1 style={ { 'color': `#${color}` } }>{ title }</h1>
+      </div>
+      <div className="type-info">
+        <p>{ `${quantity} questões` }</p>
+        <button
+          type="button"
+        >
+          Entrar
+        </button>
+      </div>
     </div>
   )
 };
