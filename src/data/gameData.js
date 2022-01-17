@@ -1,4 +1,4 @@
-const type = [
+export const types = [
   {
     id: 1,
     name: 'map',
@@ -16,27 +16,23 @@ const type = [
   },
 ]
 
-const data = [
+export const data = [
   {
     type: 1,
     question: 'Primeira questão',
-    correct_answer: '1',
-    wrong_answers: ['2', '3', '4']
+    correct_answer: 1,
+    answers: ['1', '2', '3', '4']
   },
   {
     type: 1,
     question: 'Segunda questão',
-    correct_answer: '2',
-    wrong_answers: ['1', '3', '4']
+    correct_answer: 2,
+    wrong_answers: ['1', '2', '3', '4']
   },
   {
     type: 1,
     question: 'Terceira questão',
-    correct_answer: '3',
-    wrong_answers: ['2', '1', '4']
+    correct_answer: 3,
+    wrong_answers: ['1', '2', '3', '4']
   }
 ];
-
-const gameData = { data, type }
-
-export default gameData;
