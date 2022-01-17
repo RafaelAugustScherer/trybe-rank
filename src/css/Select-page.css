@@ -8,6 +8,38 @@
 }
 
 .hero-title {
-  font-size: 5em;
   color: #61C9A3;
+  font-size: 5em;
+}
+
+.type-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.type-container {
+  align-items: center;
+  background-color: #383838;
+  border: 5px solid #036B52;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 15px;
+
+  overflow: hidden;
+  width: 300px;
+  height: 200px;
+}
+
+.type-container svg {
+  color: #C4C4C4;
+}
+
+.type-container button {
+  display: none;
+}
+
+.active button {
+  display: block;
 }

@@ -21,7 +21,7 @@ const SelectQuiz = () => {
   return (
     <div className="select-page">
       <h1 className="hero-title">Seleção de Quiz</h1>
-      <div>
+      <div className="type-cards-container">
         { createCards() }
       </div>
     </div>
