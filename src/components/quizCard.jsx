@@ -31,7 +31,6 @@ const QuizCard = ({ id, title, quantity, dificulty, color, selected, setSelected
           type="button"
           onClick={ (e) => {
             e.preventDefault();
-            console.log('oi')
           }}
         >
           Entrar
