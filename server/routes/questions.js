@@ -47,20 +47,20 @@ const question = new Question({
 
 router.route('/question')
   .get(jsonParser, async (req, res) => {
-    const question = await questionsCollection.findOne();
+    const question = await questionsCollection.findOne({ ...req.body});
     res.json(question);
   })
   .post(jsonParser, ({ body }, res) => {
     let { alternativas } = body;
-    console.log(body);
     const UUID_Correct = ObjectId();
     alternativas = alternativas.map((alternativa, index) => 
-      index === 1
+      index === 0
       ? { [UUID_Correct]: alternativa }
       : { [ObjectId()]: alternativa })
     const question = new Question({
       ...body,
-      alternativas
+      alternativas,
+      id_correta: UUID_Correct,
     });
     questionsCollection.insertOne(question, () => console.log('question has been saved'));
   
@@ -69,8 +69,8 @@ router.route('/question')
 
 router.route('/questions')
   .get(async (_req, res) => {
-    const users = questionsCollection.find();
-    res.json(users);
+    const questions  = await questionsCollection.find().toArray();
+    res.json(questions);
   });
 
 export default router;

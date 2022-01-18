@@ -24,7 +24,7 @@ const User = Mongoose.model('User', userSchema);
 
 router.route('/users')
   .get(async (_req, res) => {
-    const users = usersCollection.find();
+    const users = await usersCollection.find().toArray();
     res.json(users);
   })
   .post(jsonParser, ({ body }, res) => {
