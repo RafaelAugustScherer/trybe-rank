@@ -34,27 +34,39 @@ export const questions_completed = [
 
 export const questions = [
   {
-    question_id: 1,
-    question: 'Primeira questão',
+    pergunta: 'Primeira questão',
     type_id: 1,
-    difficulty: 1,
-    correct_answer: 1,
-    answers: ['1', '2', '3', '4']
+    dificuldade: 1,
+    id_correto: 1,
+    alternativas: {
+      4564: '2',
+      1: '1',
+      8974: '3',
+      8944: '4'
+    }
   },
   {
-    question_id: 2,
-    question: 'Segunda questão',
+    pergunta: 'Segunda questão',
     type_id: 1,
-    difficulty: 1,
-    correct_answer: 2,
-    wrong_answers: ['1', '2', '3', '4']
+    dificuldade: 1,
+    id_correto: 2,
+    alternativas: {
+      4564: '1',
+      2: '2',
+      8974: '3',
+      8954: '4'
+    }
   },
   {
-    question_id: 3,
-    question: 'Terceira questão',
+    pergunta: 'Segunda questão',
     type_id: 1,
-    difficulty: 1,
-    correct_answer: 3,
-    wrong_answers: ['1', '2', '3', '4']
-  }
+    dificuldade: 1,
+    id_correto: 3,
+    alternativas: {
+      4564: '1',
+      3: '3',
+      8974: '2',
+      8984: '4'
+    }
+  },
 ];

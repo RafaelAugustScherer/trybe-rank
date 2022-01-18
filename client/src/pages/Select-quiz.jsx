@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { types, questions } from '../data/gameData';
-import QuizCard from '../components/quizCard';
+import TypeCard from '../components/typeCard';
 import SelectDificulty from '../components/SelectDificulty';
 import '../css/Select-page.css';
 
@@ -17,7 +17,7 @@ const SelectQuiz = () => {
             onClick={ () => setSelected(null) }
             className="backpage"
           />
-          <QuizCard
+          <TypeCard
             key={ id }
             id={ id }
             title={ `.${name}()` }
@@ -43,7 +43,7 @@ const SelectQuiz = () => {
           onClick={ () => setActive(null) }
           className="backpage"
         />
-        <QuizCard
+        <TypeCard
           id={ id }
           title={ `.${name}()` }
           color={ color }
