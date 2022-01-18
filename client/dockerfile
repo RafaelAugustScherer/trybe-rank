@@ -1,13 +1,11 @@
 FROM node:14-alpine as build
 WORKDIR /app
 COPY package*.json ./
-COPY . .
 RUN npm install
+COPY . .
 RUN npm run build
 
-FROM nginx AS prod
-COPY --from=build app/build/index.html /usr/share/nginx/html
-WORKDIR /usr/share/nginx/html
-ENTRYPOINT ["/usr/sbin/nginx"]
-CMD -g daemon off;
+FROM nginx:1.16.0-alpine AS prod
+COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
