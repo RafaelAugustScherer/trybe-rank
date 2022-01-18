@@ -1,28 +1,34 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { gameContext } from "../providers/GameProvider";
+import QuizButton from '../components/quizButton';
+import '../css/quiz-page.css';
 
 const Quiz = () => {
-  const { gameIndex, gameQuestions } = useContext(gameContext);
+  const { pontos, gameIndex, gameQuestions } = useContext(gameContext);
 
   const renderQuiz = () => {
-    const { pergunta, id_correto, type_id, alternativas } = gameQuestions[gameIndex];
-    const correct_answer = alternativas[id_correto];
-    const wrong_anwers = Object
-      .values(alternativas)
-      .filter((answer) => answer !== correct_answer);
+    const { pergunta, id_correto, alternativas } = gameQuestions[gameIndex];
     return (
-      <div>
-        <div>
+      <>
+        <div className="quiz-question">
+          <p>{ `${gameIndex + 1}º questão` }</p>
           <h2>{ pergunta }</h2>
+          <p>{ `Pontos ${pontos}` }</p>
         </div>
-      </div>
+        <div>
+          <QuizButton
+            answers={ alternativas } 
+            correctAnswer={ id_correto }
+          />
+        </div>
+      </>
     )
   }
 
   return (
-    <>
+    <div className="quiz-page">
       { !!gameQuestions.length && renderQuiz() }
-    </>
+    </div>
   )
 }
 

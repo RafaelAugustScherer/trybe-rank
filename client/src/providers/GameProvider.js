@@ -9,6 +9,8 @@ const GameProvider = ({ children }) => {
   const [dificulty, setDificulty] = useState(1);
   const [gameQuestions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [pontos, setPontos] = useState(0);
+  const [streak, setStreack] = useState(0);
 
   const getQuestions = () => {
     if (!type) return;
@@ -16,6 +18,16 @@ const GameProvider = ({ children }) => {
     .filter(({ type_id, dificuldade: diff }) => type_id === type && dificulty === diff);
     const randomQuestions = [...typeQuestions].sort(() => Math.random() - 0.5);
     setQuestions(randomQuestions.slice(0, 5));
+  }
+
+  const acerto = () => {
+    const newPontuation = pontos + 10 + (streak + 1) * 5;
+    setPontos(newPontuation);
+    setStreack(streak + 1);
+  }
+
+  const erro = () => {
+    setStreack(0)
   }
 
   useEffect(() => {
@@ -28,6 +40,9 @@ const GameProvider = ({ children }) => {
     gameQuestions,
     userAnswers,
     dificulty,
+    pontos,
+    acerto,
+    erro,
     setDificulty,
     setType,
     setGameIndex,
