@@ -1,21 +1,36 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { questions } from "../data/gameData";
 
 export const gameContext = createContext();
 
 const GameProvider = ({ children }) => {
-  const [type, setType] = useState('');
+  const [type, setType] = useState(null);
   const [gameIndex, setGameIndex] = useState(0);
-  const [questions, setQuestions] = useState([]);
+  const [dificulty, setDificulty] = useState(1);
+  const [gameQuestions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
+
+  const getQuestions = () => {
+    if (!type) return;
+    const typeQuestions = questions
+      .filter(({ type_id, difficulty: diff }) => type_id === type && dificulty === diff);
+    const randomQuestions = [...typeQuestions].sort(() => Math.random() - 0.5);
+    setQuestions(randomQuestions.slice(0, 5));
+  }
+
+  useEffect(() => {
+    getQuestions()
+  }, [type])
 
   const value = {
     type,
     gameIndex,
-    questions,
+    gameQuestions,
     userAnswers,
+    dificulty,
+    setDificulty,
     setType,
     setGameIndex,
-    setQuestions,
     setUserAnswers
   }
 
