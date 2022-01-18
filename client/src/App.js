@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import GameProvider from './providers/GameProvider';
 import SelectQuiz from './pages/Select-quiz';
@@ -9,7 +9,7 @@ import Quiz from './pages/Quiz';
 function App() {
   return (
     <GameProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={ <Login /> } />
           <Route 
@@ -21,7 +21,7 @@ function App() {
             element={ <Quiz /> }
           />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </GameProvider>
   );
 }
