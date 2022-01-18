@@ -3,7 +3,7 @@ import fs from 'fs';
 
 
 const readTextFile = (file) => {
-    const data = fs.readFileSync('./backend/dbPassword.txt', 'utf8');
+    const data = fs.readFileSync('./dbPassword.txt', 'utf8');
     return data.toString();
 }
 
