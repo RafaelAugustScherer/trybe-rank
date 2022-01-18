@@ -1,17 +1,22 @@
+import { useContext } from 'react';
 import { AiFillStar } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import { gameContext } from '../providers/GameProvider';
 import ProgressBar from './progressBar';
 
-const QuizCard = ({ id, title, quantity, dificulty, color, selected, setSelected }) => {
+const QuizCard = ({ id, jogar, title, quantity, dificulty, color, selected, setSelected, setActive }) => {
+  const { setType } = useContext(gameContext);
+
   const createStars = () => {
     const stars = [];
     for (let i = 0; i < dificulty; i += 1) {
-      stars.push(<AiFillStar />)
+      stars.push(<AiFillStar key={ i } />)
     }
     return stars;
   }
 
   return (
-    <button
+    <div
       onClick={ () => selected !== id ? setSelected(id) : setSelected(null) }
       className={ `type-container ${selected === id ? 'active' : ''}` }
     >
@@ -27,16 +32,23 @@ const QuizCard = ({ id, title, quantity, dificulty, color, selected, setSelected
           selected={ selected }
         />
         <p>{ `${quantity} questões` }</p>
-        <button
-          type="button"
-          onClick={ (e) => {
-            e.preventDefault();
-          }}
-        >
-          Entrar
-        </button>
+        <Link to="/quiz">
+          <button
+            type="button"
+            onClick={ (e) => {
+              if (jogar) {
+                setType(id);
+              } else {
+                e.preventDefault();
+                setActive(id)
+              }
+            }}
+          >
+            { jogar ? 'Jogar' : 'Entrar' }
+          </button>
+        </Link>
       </div>
-    </button>
+    </div>
   )
 };
 
