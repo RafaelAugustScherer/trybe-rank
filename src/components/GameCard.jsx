@@ -8,6 +8,8 @@ const GameCard = ({ pergunta, correctAnswer, wrongAnswers }) => {
   }
 
   return (
-
+    <div>
+      
+    </div>
   )
 }

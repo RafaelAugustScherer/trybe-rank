@@ -58,7 +58,7 @@ export const questions = [
     }
   },
   {
-    pergunta: 'Segunda questão',
+    pergunta: 'Terceira questão',
     type_id: 1,
     dificuldade: 1,
     id_correto: 3,
