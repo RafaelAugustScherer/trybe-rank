@@ -54,7 +54,7 @@ const SelectQuiz = () => {
           setActive={ setActive }
           setSelected={ setSelected }
         />
-        <SelectDificulty />
+        <SelectDificulty color={ color } />
       </>
     )
   }

@@ -38,11 +38,6 @@ a {
   z-index: 5;
 }
 
-.dificulty-selected {
-  color: #FAFF00;
-  border-bottom: 2px solid #FAFF00;
-}
-
 .type-cards-container {
   display: flex;
   flex-wrap: wrap;
