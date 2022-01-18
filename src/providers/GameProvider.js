@@ -13,7 +13,7 @@ const GameProvider = ({ children }) => {
   const getQuestions = () => {
     if (!type) return;
     const typeQuestions = questions
-      .filter(({ type_id, difficulty: diff }) => type_id === type && dificulty === diff);
+    .filter(({ type_id, dificuldade: diff }) => type_id === type && dificulty === diff);
     const randomQuestions = [...typeQuestions].sort(() => Math.random() - 0.5);
     setQuestions(randomQuestions.slice(0, 5));
   }
