@@ -22,16 +22,18 @@ const userSchema = new Mongoose.Schema({
 
 const User = Mongoose.model('User', userSchema);
 
+router.route('/user')
+  .post(jsonParser, ({ body }, res) => {
+    const user = new User(body);
+    usersCollection.insertOne(user, () => console.log('user has been saved'));
+
+    res.sendStatus(200);
+  });
+
 router.route('/users')
   .get(async (_req, res) => {
     const users = await usersCollection.find().toArray();
     res.json(users);
-  })
-  .post(jsonParser, ({ body }, res) => {
-    const user = new User(body);
-    usersCollection.insertOne(user, () => console.log('user has been saved'));
-  
-    res.sendStatus(200);
   });
 
 export default router;
