@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { gameContext } from '../providers/GameProvider';
 import ProgressBar from './progressBar';
 
-const QuizCard = ({ id, jogar, title, quantity, dificulty, color, selected, setSelected, setActive }) => {
+const TypeCard = ({ id, jogar, title, quantity, dificulty, color, selected, setSelected, setActive }) => {
   const { setType } = useContext(gameContext);
 
   const createStars = () => {
@@ -52,4 +52,4 @@ const QuizCard = ({ id, jogar, title, quantity, dificulty, color, selected, setS
   )
 };
 
-export default QuizCard;
+export default TypeCard;
