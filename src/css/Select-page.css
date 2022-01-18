@@ -2,19 +2,65 @@
   align-items: center;
   background-color: #292929;
   display: flex;
-  height: 100vh;
   flex-direction: column;
   width: 100vw;
+  min-height: 100vh;
+  padding-bottom: 5vh;
+}
+
+a {
+  text-decoration: none;
 }
 
 .hero-title {
   color: #61C9A3;
   font-size: 5em;
+  margin: 5vh 0;
+}
+
+.select-dificulty {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 480px;
+  width: 350px;
+}
+
+.dificulty-button {
+  display: flex;
+  border: none;
+  padding-left: 20px;
+  color: white;
+  cursor: pointer;
+  border-radius: 0;
+  border-bottom: 2px solid white;
+  font-size: 2em;
+  background-color: transparent;
+  z-index: 5;
+}
+
+.dificulty-selected {
+  color: #FAFF00;
+  border-bottom: 2px solid #FAFF00;
 }
 
 .type-cards-container {
   display: flex;
   flex-wrap: wrap;
+  width: 100vw;
+  justify-content: center;
+}
+
+.backpage {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  width: 100vw;
+  z-index: 1;
 }
 
 .type-container {
@@ -23,22 +69,27 @@
   border: 5px solid #036B52;
   border-radius: 30px;
   color: white;
-  cursor: pointer;
   display: flex;
-  height: 300px;
+  height: 400px;
   flex-direction: column;
+  font-size: 1.6em;
   justify-content: space-between;
   margin: 15px;
   overflow: hidden;
   position: relative;
   transition: 1s ease;
-  width: 300px;
+  width: 350px;
   z-index: 5;
 }
 
 .type-title {
   background-color: #383838;
+  padding-bottom: 15px;
   z-index: 5;
+}
+
+.type-info p {
+  margin: 15px 0;
 }
 
 .type-container > div {
@@ -62,13 +113,14 @@
   border: none;
   color: white;
   display: none;
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: 700;
   cursor: pointer;
 }
 
 .active {
-  height: 460px;
+  width: 400px;
+  height: 480px;
 }
 
 .progress {
