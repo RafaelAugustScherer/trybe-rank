@@ -11,13 +11,26 @@ const jsonParser = bodyParser.json();
 const { questionsCollection } = await connect();
 
 const questionSchema = new Mongoose.Schema({
-  pergunta: String,
-  alternativas: Object,
+  pergunta: {
+    type: String,
+    required: true,
+  },
+  tipo: {
+    type: String,
+    required: true,
+  },
+  dificuldade: {
+    type: String,
+    required: true,
+  },
+  alternativas: {
+    type: Object,
+    required: true,
+  },
   id_correta: String,
 });
 
 const Question = Mongoose.model('Question', questionSchema);
-
 
 /*
 const UUID_Correct = ObjectId();
@@ -32,13 +45,14 @@ const question = new Question({
 });
 */
 
-router.route('/questions')
-  .get(async (_req, res) => {
-    const users = questionsCollection.find();
-    res.json(users);
+router.route('/question')
+  .get(jsonParser, async (req, res) => {
+    const question = await questionsCollection.findOne();
+    res.json(question);
   })
   .post(jsonParser, ({ body }, res) => {
     let { alternativas } = body;
+    console.log(body);
     const UUID_Correct = ObjectId();
     alternativas = alternativas.map((alternativa, index) => 
       index === 1
@@ -51,6 +65,12 @@ router.route('/questions')
     questionsCollection.insertOne(question, () => console.log('question has been saved'));
   
     res.sendStatus(200);
+  });
+
+router.route('/questions')
+  .get(async (_req, res) => {
+    const users = questionsCollection.find();
+    res.json(users);
   });
 
 export default router;
