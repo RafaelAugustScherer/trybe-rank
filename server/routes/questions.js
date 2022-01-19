@@ -53,10 +53,10 @@ router.route('/question')
   .post(jsonParser, ({ body }, res) => {
     let { alternativas } = body;
     const UUID_Correct = ObjectId();
-    alternativas = alternativas.map((alternativa, index) => 
-      index === 0
-      ? { [UUID_Correct]: alternativa }
-      : { [ObjectId()]: alternativa })
+    alternativas = alternativas.reduce((obj, alternativa, index) => {
+      const newKey = index === 0 ? UUID_Correct : ObjectId();
+      return { ...obj, [newKey]: alternativa };
+    }, {});
     const question = new Question({
       ...body,
       alternativas,
@@ -68,8 +68,8 @@ router.route('/question')
   });
 
 router.route('/questions')
-  .get(async (_req, res) => {
-    const questions  = await questionsCollection.find().toArray();
+  .get(async ({ body = {} }, res) => {
+    const questions  = await questionsCollection.find({ ...body }).toArray();
     res.json(questions);
   });
 
