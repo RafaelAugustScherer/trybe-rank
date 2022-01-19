@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import axios from 'axios';
-// import { questions } from "../data/gameData";
 
 export const gameContext = createContext();
 
@@ -18,7 +17,6 @@ const GameProvider = ({ children }) => {
     let bdQuestoes = await axios.get('http://localhost:5000/questions', JSON.stringify())
       .then(res => res.data);
     setQuestoes(bdQuestoes);
-    console.log(bdQuestoes);
   };
 
   const filterQuestions = () => {
@@ -34,17 +32,6 @@ const GameProvider = ({ children }) => {
     setTipos(bdTipos);
   }
 
-  /*
-  const getQuestions = () => {
-    fetchQuestions();
-    if (!tipo) return;
-    const typeQuestions = questions
-    .filter(({ type_id, dificuldade: diff }) => type_id === tipo && dificuldade === diff);
-    const randomQuestions = [...typeQuestions].sort(() => Math.random() - 0.5);
-    setQuestoes(randomQuestions.slice(0, 5));
-  }
-  */
-
   const acerto = () => {
     const newPontuation = pontos + 10 + (streak + 1) * 5;
     setPontos(newPontuation);
@@ -52,6 +39,13 @@ const GameProvider = ({ children }) => {
   }
 
   const erro = () => {
+    setStreak(0)
+  }
+
+  const resetGame = () => {
+    setTipo(null);
+    fetchQuestions();
+    setPontos(0);
     setStreak(0);
   }
 
@@ -77,6 +71,7 @@ const GameProvider = ({ children }) => {
     erro,
     setDificuldade,
     setTipo,
+    resetGame,
     setGameIndex,
     setUserAnswers
   }

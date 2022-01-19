@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-// import { types, questions } from '../data/gameData';
+import { useState, useContext, useEffect } from 'react';
 import { gameContext } from '../providers/GameProvider';
 import TypeCard from '../components/typeCard';
 import SelectDificulty from '../components/SelectDificulty';
@@ -8,7 +7,7 @@ import '../css/Select-page.css';
 const SelectQuiz = () => {
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(null);
-  const { questoes, tipos } = useContext(gameContext);
+  const { questoes, tipos, resetGame } = useContext(gameContext);
 
   const createCards = () => {
     const cards = tipos.map(({nome, cor, dificuldade}) => {
@@ -59,6 +58,10 @@ const SelectQuiz = () => {
       </>
     )
   }
+
+  useEffect(() => {
+    resetGame();
+  }, [])
 
   return (
     <div className="select-page">
