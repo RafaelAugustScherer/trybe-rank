@@ -20,18 +20,6 @@ const GameProvider = ({ children }) => {
     setQuestions(randomQuestions.slice(0, 5));
   }
 
-  const nextPage = () => {
-    if (gameQuestions.length !== gameIndex + 1) {
-      setGameIndex(gameIndex + 1)
-    }
-  };
-
-  const prevPage = () => {
-    if (gameIndex > 0) {
-      setGameIndex(gameIndex - 1)
-    }
-  }
-
   const acerto = () => {
     const newPontuation = pontos + 10 + (streak + 1) * 5;
     setPontos(newPontuation);
@@ -60,8 +48,6 @@ const GameProvider = ({ children }) => {
     userAnswers,
     dificulty,
     pontos,
-    nextPage,
-    prevPage,
     acerto,
     erro,
     resetGame,

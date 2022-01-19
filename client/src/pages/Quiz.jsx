@@ -16,7 +16,6 @@ const Quiz = () => {
           <p>{ `Pontos ${pontos}` }</p>
         </div>
         <QuizButton
-          last={ gameQuestions.length === gameIndex }
           answers={ alternativas } 
           correctAnswer={ id_correto }
         />
