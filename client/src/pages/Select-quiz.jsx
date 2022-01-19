@@ -11,7 +11,6 @@ const SelectQuiz = () => {
 
   const createCards = () => {
     const cards = tipos.map(({nome, cor, dificuldade}) => {
-      console.log(questoes);
       const quantity = questoes.filter(({ tipo }) => tipo === nome).length
       return (
         <>
