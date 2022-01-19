@@ -10,7 +10,7 @@ const GameProvider = ({ children }) => {
   const [gameQuestions, setQuestions] = useState([]);
   const [userAnswers, setUserAnswers] = useState([]);
   const [pontos, setPontos] = useState(0);
-  const [streak, setStreack] = useState(0);
+  const [streak, setStreak] = useState(0);
 
   const getQuestions = () => {
     if (!type) return;
@@ -20,14 +20,33 @@ const GameProvider = ({ children }) => {
     setQuestions(randomQuestions.slice(0, 5));
   }
 
+  const nextPage = () => {
+    if (gameQuestions.length !== gameIndex + 1) {
+      setGameIndex(gameIndex + 1)
+    }
+  };
+
+  const prevPage = () => {
+    if (gameIndex > 0) {
+      setGameIndex(gameIndex - 1)
+    }
+  }
+
   const acerto = () => {
     const newPontuation = pontos + 10 + (streak + 1) * 5;
     setPontos(newPontuation);
-    setStreack(streak + 1);
+    setStreak(streak + 1);
   }
 
   const erro = () => {
-    setStreack(0)
+    setStreak(0)
+  }
+
+  const resetGame = () => {
+    setType(null);
+    setQuestions([]);
+    setPontos(0);
+    setStreak(0);
   }
 
   useEffect(() => {
@@ -41,8 +60,11 @@ const GameProvider = ({ children }) => {
     userAnswers,
     dificulty,
     pontos,
+    nextPage,
+    prevPage,
     acerto,
     erro,
+    resetGame,
     setDificulty,
     setType,
     setGameIndex,
