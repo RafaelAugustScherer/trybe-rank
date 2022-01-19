@@ -5,7 +5,7 @@ const SelectDificulty = ({ color }) => {
 
   const renderButtons = () => {
     const titles = ['Iniciante', 'Intermediario', 'Dificil'];
-    const buttons = titles.map((title, index) => <DifficultyButton id={ index + 1 } color={ hexColor } title={ title } />)
+    const buttons = titles.map((title) => <DifficultyButton color={ hexColor } title={ title } />)
     return buttons;
   }
 

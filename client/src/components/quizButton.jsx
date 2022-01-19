@@ -9,12 +9,12 @@ const QuizButton = ({ answers, correctAnswer }) => {
   const getOrder = () => {
     const entries = Object.entries(answers);
     const sortedEntries = [...entries].sort(() => Math.random() - 0.5);
-    setQuestions(sortedEntries)
+    setQuestions(sortedEntries);
   }
 
   const Buttons = () => {
     const Buttons = questions.map(([key, value]) => {
-      const isCorrect = +key === +correctAnswer
+      const isCorrect = key === correctAnswer
       return (
         <button
           disabled={ active }

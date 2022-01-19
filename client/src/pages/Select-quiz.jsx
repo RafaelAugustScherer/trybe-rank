@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { types, questions } from '../data/gameData';
+import { useState, useContext } from 'react';
+// import { types, questions } from '../data/gameData';
+import { gameContext } from '../providers/GameProvider';
 import TypeCard from '../components/typeCard';
 import SelectDificulty from '../components/SelectDificulty';
 import '../css/Select-page.css';
@@ -7,10 +8,12 @@ import '../css/Select-page.css';
 const SelectQuiz = () => {
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(null);
+  const { questoes, tipos } = useContext(gameContext);
 
   const createCards = () => {
-    const cards = types.map(({id, name, difficulty, color}) => {
-      const quantity = questions.filter(({ type_id }) => id === type_id).length
+    const cards = tipos.map(({nome, cor, dificuldade}) => {
+      console.log(questoes);
+      const quantity = questoes.filter(({ tipo }) => tipo === nome).length
       return (
         <>
           <div
@@ -18,12 +21,11 @@ const SelectQuiz = () => {
             className="backpage"
           />
           <TypeCard
-            key={ id }
-            id={ id }
-            title={ `.${name}()` }
-            color={ color }
+            key={ nome }
+            name={ nome }
+            color={ cor }
             quantity={ quantity }
-            dificulty={ difficulty }
+            dificulty={ dificuldade }
             selected={ selected }
             setActive={ setActive }
             setSelected={ setSelected }
@@ -35,8 +37,8 @@ const SelectQuiz = () => {
   };
 
   const renderCardActive = () => {
-    const { id, name, color, difficulty } = types.find(({ id }) => id === active);
-    const quantity = questions.filter((question) => question.type_id === id).length;
+    const { nome, cor, dificuldade } = tipos.find(({ nome }) => nome === active);
+    const quantity = questoes.filter((question) => question.tipo === nome).length;
     return (
       <>
         <div
@@ -44,17 +46,16 @@ const SelectQuiz = () => {
           className="backpage"
         />
         <TypeCard
-          id={ id }
-          title={ `.${name}()` }
-          color={ color }
+          name={ nome }
+          color={ cor }
           quantity={ quantity }
-          dificulty={ difficulty }
+          dificulty={ dificuldade }
           jogar
           selected={ active }
           setActive={ setActive }
           setSelected={ setSelected }
         />
-        <SelectDificulty color={ color } />
+        <SelectDificulty color={ cor } />
       </>
     )
   }
@@ -63,7 +64,7 @@ const SelectQuiz = () => {
     <div className="select-page">
       <h1 className="hero-title">Seleção de Quiz</h1>
       <div className="type-cards-container">
-        { active ? renderCardActive() :createCards() }
+        { active ? renderCardActive() : createCards() }
       </div>
     </div>
   )

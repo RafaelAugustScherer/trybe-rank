@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { gameContext } from '../providers/GameProvider';
 import ProgressBar from './progressBar';
 
-const TypeCard = ({ id, jogar, title, quantity, dificulty, color, selected, setSelected, setActive }) => {
-  const { setType } = useContext(gameContext);
+const TypeCard = ({ id, jogar, name, quantity, dificulty, color, selected, setSelected, setActive }) => {
+  const { setTipo } = useContext(gameContext);
 
   const createStars = () => {
     const stars = [];
@@ -17,17 +17,17 @@ const TypeCard = ({ id, jogar, title, quantity, dificulty, color, selected, setS
 
   return (
     <div
-      onClick={ () => selected !== id ? setSelected(id) : setSelected(null) }
-      className={ `type-container ${selected === id ? 'active' : ''}` }
+      onClick={ () => selected !== name ? setSelected(name) : setSelected(null) }
+      className={ `type-container ${selected === name ? 'active' : ''}` }
     >
       <div className="type-title">
         <div className="star-container">{ createStars() }</div>
-        <h1 style={ { 'color': `#${color}` } }>{ title }</h1>
+        <h1 style={ { 'color': `#${color}` } }>{ `.${name}()` }</h1>
       </div>
       <div className="type-info">
         <ProgressBar
           id={ id }
-          active={ selected === id }
+          active={ selected === name }
           quantity={ quantity }
           selected={ selected }
         />
@@ -37,10 +37,10 @@ const TypeCard = ({ id, jogar, title, quantity, dificulty, color, selected, setS
             type="button"
             onClick={ (e) => {
               if (jogar) {
-                setType(id);
+                setTipo(name);
               } else {
                 e.preventDefault();
-                setActive(id)
+                setActive(name);
               }
             }}
           >

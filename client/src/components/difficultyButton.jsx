@@ -1,13 +1,13 @@
 import { useContext } from "react"
 import { gameContext } from "../providers/GameProvider"
 
-const DifficultyButton = ({ id, color, title }) => {
-  const { setDificulty, dificulty } = useContext(gameContext)
+const DifficultyButton = ({ color, title }) => {
+  const { setDificuldade, dificuldade } = useContext(gameContext);
 
   return (
     <button
-      style={ dificulty === id ? { 'color': color, 'borderColor': color } : {} }
-      onClick={ () => setDificulty(id) }
+      style={ dificuldade === title ? { 'color': color, 'borderColor': color } : {} }
+      onClick={ () => setDificuldade(title) }
       className={ 'dificulty-button' }
     >
       { title }
