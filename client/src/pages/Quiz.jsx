@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { gameContext } from "../providers/GameProvider";
 import QuizButton from '../components/quizButton';
 import '../css/quiz-page.css';
@@ -15,12 +15,11 @@ const Quiz = () => {
           <h2>{ pergunta }</h2>
           <p>{ `Pontos ${pontos}` }</p>
         </div>
-        <div>
-          <QuizButton
-            answers={ alternativas } 
-            correctAnswer={ id_correto }
-          />
-        </div>
+        <QuizButton
+          last={ gameQuestions.length === gameIndex }
+          answers={ alternativas } 
+          correctAnswer={ id_correto }
+        />
       </>
     )
   }

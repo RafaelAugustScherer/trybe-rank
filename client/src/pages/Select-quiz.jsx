@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { gameContext } from '../providers/GameProvider';
 import { types, questions } from '../data/gameData';
 import TypeCard from '../components/typeCard';
 import SelectDificulty from '../components/SelectDificulty';
 import '../css/Select-page.css';
 
 const SelectQuiz = () => {
+  const { resetGame } = useContext(gameContext);
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(null);
 
@@ -58,6 +60,10 @@ const SelectQuiz = () => {
       </>
     )
   }
+
+  useEffect(() => {
+    resetGame();
+  }, [])
 
   return (
     <div className="select-page">
