@@ -1,15 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { gameContext } from "../providers/GameProvider";
 
-const QuizButton = ({ answers, correctAnswer }) => {
+const QuizButton = ({ answers, correctAnswer, last }) => {
   const [questions, setQuestions] = useState([]);
-  const { acerto, erro } = useContext(gameContext);
+  const { gameIndex, nextPage, prevPage, acerto, erro } = useContext(gameContext);
   const [active, setActive] = useState(false);
 
   const getOrder = () => {
     const entries = Object.entries(answers);
     const sortedEntries = [...entries].sort(() => Math.random() - 0.5);
     setQuestions(sortedEntries)
+  }
+
+  const resetButtons = () => {
+    setQuestions([]);
+    setActive(false);
   }
 
   const Buttons = () => {
@@ -37,12 +42,40 @@ const QuizButton = ({ answers, correctAnswer }) => {
 
   useEffect(() => {
     getOrder();
-  }, []);
+  }, [gameIndex]);
 
   return (
-    <div className="quiz-bot-container">
-      { Buttons() }
-    </div>
+    <>
+      <div className="quiz-bot-container">
+        { Buttons() }
+      </div>
+      { active && (
+        <div>
+          {
+            gameIndex > 0 && (
+              <button
+                onClick={() => {
+                  prevPage();
+                  if (gameIndex > 0) {
+                    setQuestions([]);
+                  }
+                }}
+              >
+                Prev
+              </button>
+            )
+          }
+          <button
+            onClick={() => {
+              resetButtons();
+              nextPage();
+            }}
+          >
+            { last ? 'Finalizar' : 'Next' }
+          </button>
+        </div>
+      ) }
+    </>
   )
 }
 
