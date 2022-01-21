@@ -5,7 +5,7 @@ import questions from './routes/questions.js';
 import types from './routes/types.js';
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: '*',
   optionSuccessStatus: 200,
 };
 
