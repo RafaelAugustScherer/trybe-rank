@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { gameContext } from '../providers/GameProvider';
+import { infoContext } from '../providers/InfoProvider';
 import TypeCard from '../components/typeCard';
 import SelectDificulty from '../components/SelectDificulty';
 import '../css/Select-page.css';
@@ -7,19 +8,21 @@ import '../css/Select-page.css';
 const SelectQuiz = () => {
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(null);
-  const { questoes, tipos, resetGame } = useContext(gameContext);
+  const { questoes, tipos } = useContext(infoContext)
+  const { resetGame } = useContext(gameContext);
 
   const createCards = () => {
-    const cards = tipos.map(({nome, cor, dificuldade}) => {
+    const cards = tipos.map(({nome, cor, dificuldade}, index) => {
       const quantity = questoes.filter(({ tipo }) => tipo === nome).length
       return (
-        <>
+        <div key={ `typeCard - ${index}` }>
           <div
             onClick={ () => setSelected(null) }
             className="backpage"
           />
           <TypeCard
             key={ nome }
+            id={ nome }
             name={ nome }
             color={ cor }
             quantity={ quantity }
@@ -28,7 +31,7 @@ const SelectQuiz = () => {
             setActive={ setActive }
             setSelected={ setSelected }
           />
-        </>
+        </div>
       )
     })
     return cards;
