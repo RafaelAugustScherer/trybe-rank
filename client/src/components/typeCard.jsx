@@ -1,16 +1,18 @@
 import { useContext } from 'react';
+import { gameContext } from '../providers/GameProvider';
+import { infoContext } from '../providers/InfoProvider';
 import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { gameContext } from '../providers/GameProvider';
 import ProgressBar from './progressBar';
 
 const TypeCard = ({ id, jogar, name, quantity, dificulty, color, selected, setSelected, setActive }) => {
-  const { setTipo } = useContext(gameContext);
+  const { questoes } = useContext(infoContext)
+  const { setTipo, getGameQuestions } = useContext(gameContext);
 
   const createStars = () => {
     const stars = [];
     for (let i = 0; i < dificulty; i += 1) {
-      stars.push(<AiFillStar key={ i } />)
+      stars.push(<AiFillStar key={ `${id} - estrela - ${i}` } />)
     }
     return stars;
   }
@@ -37,9 +39,10 @@ const TypeCard = ({ id, jogar, name, quantity, dificulty, color, selected, setSe
             type="button"
             onClick={ (e) => {
               if (jogar) {
-                setTipo(name);
+                getGameQuestions(questoes)
               } else {
                 e.preventDefault();
+                setTipo(name);
                 setActive(name);
               }
             }}
