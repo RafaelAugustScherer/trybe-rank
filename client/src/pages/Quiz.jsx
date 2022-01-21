@@ -4,10 +4,11 @@ import QuizButton from '../components/quizButton';
 import '../css/quiz-page.css';
 
 const Quiz = () => {
-  const { pontos, gameIndex, questoes } = useContext(gameContext);
+  const { gameQuestions } = useContext(gameContext);
+  const { pontos, gameIndex } = useContext(gameContext);
 
   const renderQuiz = () => {
-    const { pergunta, id_correta, alternativas } = questoes[gameIndex];
+    const { pergunta, id_correta, alternativas } = gameQuestions[gameIndex];
     return (
       <>
         <div className="quiz-question">
@@ -27,7 +28,7 @@ const Quiz = () => {
 
   return (
     <div className="quiz-page">
-      { !!questoes.length && renderQuiz() }
+      { !!gameQuestions.length && renderQuiz() }
     </div>
   )
 }
