@@ -1,8 +1,7 @@
 import { questions_completed } from '../data/gameData';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useState } from 'react/cjs/react.development';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const ProgressBar = ({ active, quantity, id }) => {

@@ -1,19 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { gameContext } from "../providers/GameProvider";
+import { infoContext } from "../providers/InfoProvider";
 
 const QuizButton = ({ answers, correctAnswer }) => {
   const [questions, setQuestions] = useState([]);
+  const { questoes } = useContext(infoContext);
   const { 
     gameIndex, 
     setGameIndex,
     userAnswers,
     setUserAnswers,
-    gameQuestions, 
     acerto, 
     erro 
   } = useContext(gameContext);
   const [active, setActive] = useState(false);
-  const last =  gameIndex + 1 === gameQuestions.length;
+  const last =  gameIndex + 1 === questoes.length;
 
   const isActive = () => {
     const prevQuestion = userAnswers[gameIndex];
@@ -35,7 +36,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
   }
 
   const nextPage = () => {
-    if (gameQuestions.length > gameIndex + 1) {
+    if (questoes.length > gameIndex + 1) {
       setGameIndex(gameIndex + 1)
     }
   };
@@ -49,7 +50,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
       const isCorrect = key === correctAnswer
       return (
         <button
-          id={ key }
+          key={ key }
           disabled={ active }
           className={ `quiz-bot ${active ? isCorrect ? 'quiz-acerto' : 'quiz-erro' : '' }` }
           onClick={ () => {
