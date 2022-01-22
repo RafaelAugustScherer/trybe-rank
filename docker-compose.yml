@@ -8,7 +8,9 @@ services:
   frontend:
     build: ./client
     image: tryberank
+    volumes:
+      - "./client:/app"
     ports:
-      - 3000:80
+      - 3000:3000
     depends_on:
       - backend
