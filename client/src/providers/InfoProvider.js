@@ -4,6 +4,7 @@ import axios from 'axios';
 export const infoContext = createContext();
 
 const InfoProvider = ({ children }) => {
+  const [apelido, setApelido] = useState(null);
   const [tipos, setTipos] = useState([]);
   const [questoes, setQuestoes] = useState([]);
 
@@ -26,7 +27,9 @@ const InfoProvider = ({ children }) => {
 
   const value = {
     questoes,
-    tipos
+    tipos,
+    apelido,
+    setApelido,
   }
 
   return (
