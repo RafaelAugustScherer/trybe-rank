@@ -15,23 +15,17 @@ const SelectQuiz = () => {
     const cards = tipos.map(({nome, cor, dificuldade}, index) => {
       const quantity = questoes.filter(({ tipo }) => tipo === nome).length
       return (
-        <div key={ `typeCard - ${index}` }>
-          <div
-            onClick={ () => setSelected(null) }
-            className="backpage"
-          />
-          <TypeCard
-            key={ nome }
-            id={ nome }
-            name={ nome }
-            color={ cor }
-            quantity={ quantity }
-            dificulty={ dificuldade }
-            selected={ selected }
-            setActive={ setActive }
-            setSelected={ setSelected }
-          />
-        </div>
+        <TypeCard
+          key={ `typeCard - ${index}` }
+          id={ nome }
+          name={ nome }
+          color={ cor }
+          quantity={ quantity }
+          dificulty={ dificuldade }
+          selected={ selected }
+          setActive={ setActive }
+          setSelected={ setSelected }
+        />
       )
     })
     return cards;
@@ -43,20 +37,24 @@ const SelectQuiz = () => {
     return (
       <>
         <div
-          onClick={ () => setActive(null) }
-          className="backpage"
+          onClick={ () => {
+            setActive(null);
+          } }
+          className="backpage on-active-card"
         />
-        <TypeCard
-          name={ nome }
-          color={ cor }
-          quantity={ quantity }
-          dificulty={ dificuldade }
-          jogar
-          selected={ active }
-          setActive={ setActive }
-          setSelected={ setSelected }
-        />
-        <SelectDificulty color={ cor } />
+        <div className="active-card">
+          <TypeCard
+            name={ nome }
+            color={ cor }
+            quantity={ quantity }
+            dificulty={ dificuldade }
+            jogar
+            selected={ active }
+            setActive={ setActive }
+            setSelected={ setSelected }
+          />
+          <SelectDificulty color={ cor } />
+        </div>
       </>
     )
   }
@@ -66,12 +64,21 @@ const SelectQuiz = () => {
   }, [])
 
   return (
-    <div className="select-page">
-      <h1 className="hero-title">Seleção de Quiz</h1>
-      <div className="type-cards-container">
-        { active ? renderCardActive() : createCards() }
+    <>
+      <div
+        onClick={ () => {
+          setSelected(null);
+        } }
+        className="backpage"
+      />
+      <div className="select-page">
+        <h1 className="hero-title">Seleção de Quiz</h1>
+        <div className="type-cards-container">
+          { active && renderCardActive() }
+          { createCards() }
+        </div>
       </div>
-    </div>
+    </>
   )
 };
 
