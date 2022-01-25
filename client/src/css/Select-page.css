@@ -35,7 +35,7 @@ a {
   border-bottom: 2px solid white;
   font-size: 2em;
   background-color: transparent;
-  z-index: 5;
+  z-index: 10;
 }
 
 .type-cards-container {
@@ -55,6 +55,18 @@ a {
   justify-content: center;
   width: 100vw;
   z-index: 1;
+}
+
+.on-active-card {
+  background-color: rgba(0, 0, 0, 0.788);
+  filter: blur(8px);
+  z-index: 6;
+}
+
+.active-card {
+  display: flex;
+  position: absolute;
+  z-index: 10;
 }
 
 .type-container {

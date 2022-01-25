@@ -23,6 +23,11 @@
   place-items: center;
 }
 
+.next-prev-buttons {
+  display: flex;
+  justify-content: center;
+}
+
 .quiz-bot-container {
   display: flex;
   justify-content: center;
@@ -37,6 +42,10 @@
   width: 40%;
   height: 40%;
   margin: 10px;
+}
+
+.quiz-selected {
+  border: 2px solid white;
 }
 
 .quiz-erro {

@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { gameContext } from "../providers/GameProvider";
-import { infoContext } from "../providers/InfoProvider";
 
 const QuizButton = ({ answers, correctAnswer }) => {
   const [questions, setQuestions] = useState([]);
-  const { questoes } = useContext(infoContext);
+  const [quizSelected, setQuizSelected] = useState(null);
   const { 
-    gameIndex, 
+    gameIndex,
+    gameQuestions,
     setGameIndex,
     userAnswers,
     setUserAnswers,
@@ -14,13 +14,14 @@ const QuizButton = ({ answers, correctAnswer }) => {
     erro 
   } = useContext(gameContext);
   const [active, setActive] = useState(false);
-  const last =  gameIndex + 1 === questoes.length;
+  const last =  gameIndex + 1 === gameQuestions.length;
 
   const isActive = () => {
-    const prevQuestion = userAnswers[gameIndex];
-    if (prevQuestion) {
+    const currentQuestion = userAnswers[gameIndex];
+    if (currentQuestion) {
       setActive(true);
-      setQuestions(prevQuestion.questions)
+      setQuestions(currentQuestion.questions)
+      setQuizSelected(currentQuestion.question_id)
     }
   };
 
@@ -36,7 +37,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
   }
 
   const nextPage = () => {
-    if (questoes.length > gameIndex + 1) {
+    if (gameQuestions.length > gameIndex + 1) {
       setGameIndex(gameIndex + 1)
     }
   };
@@ -52,14 +53,19 @@ const QuizButton = ({ answers, correctAnswer }) => {
         <button
           key={ key }
           disabled={ active }
-          className={ `quiz-bot ${active ? isCorrect ? 'quiz-acerto' : 'quiz-erro' : '' }` }
+          className={ `
+            quiz-bot 
+            ${active ? isCorrect ? 'quiz-acerto' : 'quiz-erro' : '' }
+            ${quizSelected === key ? 'quiz-selected' : ''}
+          ` }
           onClick={ () => {
             if (isCorrect) {
               acerto();
             } else {
               erro();
             }
-            setUserAnswers([...userAnswers, { question_id: key, answer: value, questions }])
+            setQuizSelected(key)
+            setUserAnswers([...userAnswers, { question_id: key, answer: value, questions}])
             setActive(true);
           } }
         >
@@ -81,7 +87,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
         { Buttons() }
       </div>
       { active && (
-        <div>
+        <div className="next-prev-buttons">
           {
             gameIndex > 0 && (
               <button
