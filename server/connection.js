@@ -18,8 +18,9 @@ const connect = async () => {
   
   const usersCollection = database.collection('users');
   const questionsCollection = database.collection('questions');
+  const typesCollection = database.collection('types');
   
-  return { database, client, usersCollection, questionsCollection };
+  return { database, client, usersCollection, questionsCollection, typesCollection };
 }
 
 export default connect;

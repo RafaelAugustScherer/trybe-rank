@@ -1,35 +1,56 @@
-import { createContext, useEffect, useState } from "react";
-import { questions } from "../data/gameData";
+import { createContext, useState } from "react";
 
 export const gameContext = createContext();
 
 const GameProvider = ({ children }) => {
-  const [type, setType] = useState(null);
+  const [tipo, setTipo] = useState(null);
+  const [gameQuestions, setGameQuestions] = useState([]);
   const [gameIndex, setGameIndex] = useState(0);
-  const [dificulty, setDificulty] = useState(1);
-  const [gameQuestions, setQuestions] = useState([]);
+  const [dificuldade, setDificuldade] = useState('Iniciante');
   const [userAnswers, setUserAnswers] = useState([]);
+  const [pontos, setPontos] = useState(0);
+  const [streak, setStreak] = useState(0);
 
-  const getQuestions = () => {
-    if (!type) return;
-    const typeQuestions = questions
-    .filter(({ type_id, dificuldade: diff }) => type_id === type && dificulty === diff);
-    const randomQuestions = [...typeQuestions].sort(() => Math.random() - 0.5);
-    setQuestions(randomQuestions.slice(0, 5));
+  const getGameQuestions = (questoes) => {
+    if (!tipo) return;
+    const questoesTipo = questoes.filter((questao) => (
+      questao.tipo === tipo
+      && questao.dificuldade === dificuldade
+    ));
+    const randomQuestoes = [...questoesTipo].sort(() => Math.random() - 0.5);
+    setGameQuestions(randomQuestoes.slice(0, 5));
   }
 
-  useEffect(() => {
-    getQuestions()
-  }, [type])
+  const acerto = () => {
+    const newPontuation = pontos + 10 + (streak + 1) * 5;
+    setPontos(newPontuation);
+    setStreak(streak + 1);
+  }
+
+  const erro = () => {
+    setStreak(0)
+  }
+
+  const resetGame = () => {
+    setTipo(null);
+    setGameQuestions([]);
+    setPontos(0);
+    setStreak(0);
+  }
 
   const value = {
-    type,
-    gameIndex,
+    tipo,
     gameQuestions,
+    gameIndex,
     userAnswers,
-    dificulty,
-    setDificulty,
-    setType,
+    dificuldade,
+    pontos,
+    acerto,
+    erro,
+    setTipo,
+    setDificuldade,
+    getGameQuestions,
+    resetGame,
     setGameIndex,
     setUserAnswers
   }

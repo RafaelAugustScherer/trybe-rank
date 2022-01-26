@@ -1,8 +1,7 @@
 import { questions_completed } from '../data/gameData';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useState } from 'react/cjs/react.development';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const ProgressBar = ({ active, quantity, id }) => {
@@ -11,7 +10,7 @@ const ProgressBar = ({ active, quantity, id }) => {
   const getPercentage = () => {
     const questions = questions_completed.filter(({ type_id }) => type_id === id).length;
     const value = (questions * 100) / quantity;
-    return questions ? Math.floor(value) : 0;
+    return questions ? Math.round(value) : 0;
   }
 
   const showPercentage = () => {

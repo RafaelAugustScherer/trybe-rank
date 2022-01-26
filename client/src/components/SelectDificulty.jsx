@@ -1,31 +1,25 @@
-import { useContext } from "react"
-import { gameContext } from "../providers/GameProvider"
+import DifficultyButton from "./difficultyButton";
 
-const SelectDificulty = () => {
-  const { setDificulty, dificulty } = useContext(gameContext)
+const SelectDificulty = ({ color }) => {
+  const hexColor = `#${color}`
+
+  const renderButtons = () => {
+    const titles = ['Iniciante', 'Intermediario', 'Dificil'];
+    const buttons = titles.map((title, index) => (
+      <DifficultyButton 
+        key={ `dificuldade - ${index}` }
+        color={ hexColor } 
+        title={ title } 
+      />
+    ));
+    return buttons;
+  }
 
   return (
     <div
       className="select-dificulty"
     >
-      <button
-        onClick={ () => setDificulty(1) }
-        className={ `dificulty-button ${dificulty === 1 ? 'dificulty-selected' : ''}` }
-      >
-        Iniciante
-      </button>
-      <button
-        onClick={ () => setDificulty(2) }
-        className={ `dificulty-button ${dificulty === 2 ? 'dificulty-selected' : ''}` }
-      >
-        Intermediario
-      </button>
-      <button
-        onClick={ () => setDificulty(3) }
-        className={ `dificulty-button ${dificulty === 3 ? 'dificulty-selected' : ''}` }
-      >
-        Dificil
-      </button>
+      { renderButtons() }
     </div>
   )
 }

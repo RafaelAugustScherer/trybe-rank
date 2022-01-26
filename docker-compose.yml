@@ -1,0 +1,18 @@
+version: '3'
+services:
+  backend:
+    build: ./server/
+    image: tryberankdb
+    volumes:
+      - "./server:/app"
+    ports:
+      - 5000:5000
+  frontend:
+    build: ./client
+    image: tryberank
+    volumes:
+      - "./client:/app"
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
