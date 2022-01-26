@@ -22,6 +22,23 @@ const userSchema = new Mongoose.Schema({
 
 const User = Mongoose.model('User', userSchema);
 
+router
+  .route('/login')
+  .get(jsonParser, async ({ headers }, res) => {
+    const { apelido, senha } = headers;
+    const user = await usersCollection.findOne({ apelido, senha })
+    console.log(user);
+    if (user) {
+      res
+        .status(200)
+        .json({ message: 'OK' })
+    } else {
+      res
+        .status(200)
+        .json({ message: 'err' })
+    }
+  })
+
 router.route('/user')
   .post(jsonParser, ({ body }, res) => {
     const user = new User(body);
