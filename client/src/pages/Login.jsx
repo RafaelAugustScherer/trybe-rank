@@ -16,16 +16,17 @@ function Login() {
   };
 
   const onLogin = async () => {
-    let bdUsuarios = await axios.get('http://localhost:5000/users', JSON.stringify())
-      .then(res => res.data);
-    const { apelido: apelidoCampo, senha: senhaCampo } = state;
+    const { apelido, senha } = state;
+    const auth = await axios.get('http://localhost:5000/login', 
+      { headers: {
+        apelido,
+        senha
+      } }
+    ).then(res => res.data)
+    .then(({ message }) => message === 'OK');
     
-    const usuariosLogin = bdUsuarios.filter(
-      ({ apelido, senha }) => apelido === apelidoCampo && senha === senhaCampo
-    );
-    
-    if (!!usuariosLogin.length) {
-      setApelido(apelidoCampo);
+    if (auth) {
+      setApelido(apelido);
       navigate('/select-quiz');
     } else {
       setError('Usuário não encontrado!');
