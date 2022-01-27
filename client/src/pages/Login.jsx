@@ -2,7 +2,7 @@ import trybeIcon from '../svg/trybeIcon.svg';
 import Style from '../css/Login.module.css';
 import axios from 'axios';
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { infoContext } from '../providers/InfoProvider';
 
 function Login() {
@@ -34,27 +34,46 @@ function Login() {
   }
 
   return (
-    <div className={Style.page}>
-      <div className={ Style.container}>
-        <div className={ Style.imgContainer}>
-        <h1>Trybe Rank</h1>
-        <img src={trybeIcon} alt="" />
+    <div className={ Style.page }>
+      <div className={ Style.container }> 
+        <div className={ Style.imgContainer }>
+          <h1>Trybe Rank</h1>
+          <img src={trybeIcon} alt="" />
         </div>
         { error && <p>{ error }</p> }
-        <input
-          id="apelido"
-          type="text"
-          placeholder="Apelido"
-          onChange={ onChange }
-        />
-        <input
-          id="senha"
-          type="password"
-          placeholder="Senha"
-          onChange={ onChange }
-        />
-        <button type="button" onClick={ onLogin }>Entrar</button>
-        <p>Entrar como convidado</p>
+        <div className={ Style.inputContainer }>
+          <input
+            id="apelido"
+            type="text"
+            className={ Style.loginInput }
+            placeholder="Apelido"
+            onChange={ onChange }
+          />
+          <input
+            id="senha"
+            type="password"
+            className={ Style.loginInput }
+            placeholder="Senha"
+            onChange={ onChange }
+          />
+        </div>
+        <button 
+          className={ Style.signInBot }
+          type="button" 
+          onClick={ onLogin }
+        >
+          Entrar
+        </button>
+        <Link to="/select-quiz">
+          <p
+            onClick={() => setApelido('Convidado')}
+          >
+            Entrar como convidado
+          </p>
+        </Link>
+        <Link to="/sign-up">
+          <p>Criar uma conta</p>
+        </Link>
       </div>
     </div>
   );
