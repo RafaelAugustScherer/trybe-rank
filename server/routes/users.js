@@ -27,7 +27,6 @@ router
   .get(jsonParser, async ({ headers }, res) => {
     const { apelido, senha } = headers;
     const user = await usersCollection.findOne({ apelido, senha })
-    console.log(user);
     if (user) {
       res
         .status(200)
@@ -40,11 +39,17 @@ router
   })
 
 router.route('/user')
-  .post(jsonParser, ({ body }, res) => {
+  .post(jsonParser, async ({ body }, res) => {
+    const { apelido } = body;
     const user = new User(body);
-    usersCollection.insertOne(user, () => console.log('user has been saved'));
 
-    res.sendStatus(200);
+    const alreadyExists = await usersCollection.findOne({ apelido });
+    if (alreadyExists) return res.status(401).end();
+
+    usersCollection.insertOne(user, () => console.log('user has been saved'));
+    res
+      .status(200)
+      .json({ message: "OK" });
   });
 
 router.route('/users')
