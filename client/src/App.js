@@ -3,8 +3,9 @@ import Login from './pages/Login';
 import InfoProvider from './providers/InfoProvider';
 import GameProvider from './providers/GameProvider';
 import SelectQuiz from './pages/Select-quiz';
-import './App.css';
 import Quiz from './pages/Quiz';
+import SignUp from './pages/SignUp';
+import './App.css';
 
 
 function App() {
@@ -21,6 +22,10 @@ function App() {
             <Route 
               path="/quiz"
               element={ <Quiz /> }
+            />
+            <Route 
+              path="/sign-up"
+              element={ <SignUp /> }
             />
           </Routes>
         </HashRouter>
