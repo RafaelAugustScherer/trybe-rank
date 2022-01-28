@@ -15,17 +15,19 @@ const SelectQuiz = () => {
     const cards = tipos.map(({nome, cor, dificuldade}, index) => {
       const quantity = questoes.filter(({ tipo }) => tipo === nome).length
       return (
-        <TypeCard
-          key={ `typeCard - ${index}` }
-          id={ nome }
-          name={ nome }
-          color={ cor }
-          quantity={ quantity }
-          dificulty={ dificuldade }
-          selected={ selected }
-          setActive={ setActive }
-          setSelected={ setSelected }
-        />
+        <div className="container-type">
+          <TypeCard
+            key={ `typeCard - ${index}` }
+            id={ nome }
+            name={ nome }
+            color={ cor }
+            quantity={ quantity }
+            dificulty={ dificuldade }
+            selected={ selected }
+            setActive={ setActive }
+            setSelected={ setSelected }
+          />
+        </div>
       )
     })
     return cards;
