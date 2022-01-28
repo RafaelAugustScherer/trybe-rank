@@ -14,7 +14,7 @@ const SignUp = () => {
     axios.post('http://localhost:5000/user', newUser)
   }
 
-  const regexApelido = /[\w]/i
+  const regexApelido = /[\w]{4,10}/i
   const regexSenha = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/gm
 
   let disabled = false;
