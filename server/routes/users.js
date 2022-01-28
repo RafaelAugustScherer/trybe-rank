@@ -2,12 +2,12 @@ import connect from '../connection.js';
 import Mongoose from 'mongoose';
 import express from 'express';
 import bodyParser from 'body-parser';
+import generateToken from '../generateToken.js';
 
 const router = express.Router();
 const jsonParser = bodyParser.json();
 
 const { usersCollection } = await connect();
-
 const userSchema = new Mongoose.Schema({
   apelido: {
     type: String,
@@ -21,24 +21,29 @@ const userSchema = new Mongoose.Schema({
 });
 
 const User = Mongoose.model('User', userSchema);
+const auth = { token: '' }
 
 router
   .route('/login')
   .get(jsonParser, async ({ headers }, res) => {
     const { apelido, senha } = headers;
     const user = await usersCollection.findOne({ apelido, senha })
-    if (user) {
-      res
-        .status(200)
-        .json({ message: 'OK' })
-    } else {
-      res
+
+    if (!user) 
+      return res
         .status(200)
         .json({ message: 'err' })
-    }
+
+    const token = generateToken();
+    auth.token = token;
+
+    res
+      .status(200)
+      .json({ message: 'OK', token })
   })
 
-router.route('/user')
+router
+  .route('/user')
   .post(jsonParser, async ({ body }, res) => {
     const { apelido } = body;
     const user = new User(body);
@@ -52,10 +57,19 @@ router.route('/user')
       .json({ message: "OK" });
   });
 
-router.route('/users')
-  .get(async (_req, res) => {
+router
+  .route('/users')
+  .get(async (req, res) => {
+    const { authorization } = req.headers;
     const users = await usersCollection.find().toArray();
-    res.json(users);
+    const userWithOutPass = users.map(({ apelido, questoes_completas }) => ({ apelido, questoes_completas }))
+
+    if (authorization !== auth.token)
+      return res.status(401).json({ message: 'Invalid Token' })
+
+    res
+      .status(200)
+      .json({ users: userWithOutPass });
   });
 
 export default router;
