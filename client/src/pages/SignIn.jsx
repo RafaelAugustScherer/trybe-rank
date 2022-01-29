@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { infoContext } from '../providers/InfoProvider';
 
-function Login() {
+function SignIn() {
   const navigate = useNavigate();
   const { setApelido } = useContext(infoContext);
   const [state, setState] = useState({ apelido: '', senha: '' });
@@ -17,13 +17,13 @@ function Login() {
 
   const onLogin = async () => {
     const { apelido, senha } = state;
-    const auth = await axios.get('http://localhost:5000/login', 
+    const auth = await axios.get('http://localhost:5000/sign-in', 
       { headers: {
         apelido,
         senha
       } }
     ).then(res => res.data)
-    .then(({ message }) => message === 'OK');
+    .then(({ status }) => status === 200);
     
     if (auth) {
       setApelido(apelido);
@@ -38,7 +38,7 @@ function Login() {
       <div className={ Style.container }> 
         <div className={ Style.imgContainer }>
           <h1>Trybe Rank</h1>
-          <img src={trybeIcon} alt="" />
+          <img src={trybeIcon} alt="icone" />
         </div>
         { error && <p>{ error }</p> }
         <div className={ Style.inputContainer }>
@@ -79,4 +79,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignIn;

@@ -24,15 +24,15 @@ const User = Mongoose.model('User', userSchema);
 const auth = { token: '' }
 
 router
-  .route('/login')
+  .route('/sign-in')
   .get(jsonParser, async ({ headers }, res) => {
     const { apelido, senha } = headers;
     const user = await usersCollection.findOne({ apelido, senha })
 
     if (!user) 
       return res
-        .status(200)
-        .json({ message: 'err' })
+        .status(409)
+        .json({ message: 'err' });
 
     const token = generateToken();
     auth.token = token;
