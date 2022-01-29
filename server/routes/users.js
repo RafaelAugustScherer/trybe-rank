@@ -62,7 +62,7 @@ router
   .get(async (req, res) => {
     const { authorization } = req.headers;
     const users = await usersCollection.find().toArray();
-    const userWithOutPass = users.map(({ apelido, questoes_completas }) => ({ apelido, questoes_completas }))
+    const userWithOutPass = users.map(({ senha, ...otherFields }) => ({ otherFields }))
 
     if (authorization !== auth.token)
       return res.status(401).json({ message: 'Invalid Token' })
