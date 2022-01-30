@@ -9,6 +9,10 @@ const jsonParser = bodyParser.json();
 
 const { usersCollection } = await connect();
 const userSchema = new Mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
   nickname: {
     type: String,
     required: true
@@ -26,9 +30,9 @@ const auth = { token: '' }
 router
   .route('/sign-in')
   .get(jsonParser, async ({ headers }, res) => {
-    const { nickname, password } = headers;
-    const user = await usersCollection.findOne({ nickname, password })
-
+    const { username, password } = headers;
+    const user = await usersCollection.findOne({ username, password })
+    const { nickname } = user;
     if (!user) 
       return res
         .status(409)
@@ -39,16 +43,16 @@ router
 
     res
       .status(200)
-      .json({ message: 'OK', status: 200 })
+      .json({ message: 'OK', status: 200, nickname })
   })
 
 router
   .route('/sign-up')
   .post(jsonParser, async ({ body }, res) => {
-    const { nickname } = body;
-    const user = new User(body);
+    const { username } = body;
+    const user = new User({ ...body, nickname: username });
 
-    const alreadyExists = await usersCollection.findOne({ nickname });
+    const alreadyExists = await usersCollection.findOne({ username });
     if (alreadyExists) return res.status(401).end();
 
     usersCollection.insertOne(user, () => console.log('user has been saved'));

@@ -8,7 +8,7 @@ import { infoContext } from '../providers/InfoProvider';
 function SignIn() {
   const navigate = useNavigate();
   const { setNickname } = useContext(infoContext);
-  const [state, setState] = useState({ nickname: '', password: '' });
+  const [state, setState] = useState({ username: '', password: '' });
   const [error, setError] = useState(null);
 
   const onChange = ({ target: { id, value } }) => {
@@ -16,14 +16,14 @@ function SignIn() {
   };
 
   const onLogin = async () => {
-    const { nickname, password } = state;
-    const auth = await axios.get('http://localhost:5000/sign-in', 
+    const { username, password } = state;
+    const [auth, nickname] = await axios.get('http://localhost:5000/sign-in', 
       { headers: {
-        nickname,
+        username,
         password
       } }
     ).then(res => res.data)
-    .then(({ status }) => status === 200);
+    .then(({ status, nickname }) => [status === 200, nickname]);
     
     if (auth) {
       setNickname(nickname);
@@ -43,7 +43,7 @@ function SignIn() {
         { error && <p>{ error }</p> }
         <div className={ Style.inputContainer }>
           <input
-            id="nickname"
+            id="username"
             type="text"
             className={ Style.loginInput }
             placeholder="Apelido"
