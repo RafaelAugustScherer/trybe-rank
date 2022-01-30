@@ -39,7 +39,7 @@ router
 
     res
       .status(200)
-      .json({ message: 'OK', token })
+      .json({ message: 'OK', status: 200 })
   })
 
 router
