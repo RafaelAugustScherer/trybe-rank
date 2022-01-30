@@ -8,15 +8,15 @@ const router = express.Router();
 const { typesCollection } = await connect();
 
 const TypeSchema = new Mongoose.Schema({
-  nome: {
+  name: {
     type: String,
     required: true
   },
-  cor: {
+  color: {
     type: String,
     required: true
   },
-  dificuldade: {
+  difficulty: {
     type: Number,
     required: true
   }

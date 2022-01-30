@@ -7,8 +7,8 @@ import { infoContext } from '../providers/InfoProvider';
 
 function SignIn() {
   const navigate = useNavigate();
-  const { setApelido } = useContext(infoContext);
-  const [state, setState] = useState({ apelido: '', senha: '' });
+  const { setNickname } = useContext(infoContext);
+  const [state, setState] = useState({ nickname: '', password: '' });
   const [error, setError] = useState(null);
 
   const onChange = ({ target: { id, value } }) => {
@@ -16,17 +16,17 @@ function SignIn() {
   };
 
   const onLogin = async () => {
-    const { apelido, senha } = state;
+    const { nickname, password } = state;
     const auth = await axios.get('http://localhost:5000/sign-in', 
       { headers: {
-        apelido,
-        senha
+        nickname,
+        password
       } }
     ).then(res => res.data)
     .then(({ status }) => status === 200);
     
     if (auth) {
-      setApelido(apelido);
+      setNickname(nickname);
       navigate('/select-quiz');
     } else {
       setError('Usuário não encontrado!');
@@ -43,14 +43,14 @@ function SignIn() {
         { error && <p>{ error }</p> }
         <div className={ Style.inputContainer }>
           <input
-            id="apelido"
+            id="nickname"
             type="text"
             className={ Style.loginInput }
             placeholder="Apelido"
             onChange={ onChange }
           />
           <input
-            id="senha"
+            id="password"
             type="password"
             className={ Style.loginInput }
             placeholder="Senha"
@@ -66,7 +66,7 @@ function SignIn() {
         </button>
         <Link to="/select-quiz">
           <p
-            onClick={() => setApelido('Convidado')}
+            onClick={() => setNickname('Convidado')}
           >
             Entrar como convidado
           </p>

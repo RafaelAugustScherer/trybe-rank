@@ -11,23 +11,23 @@ const jsonParser = bodyParser.json();
 const { questionsCollection } = await connect();
 
 const questionSchema = new Mongoose.Schema({
-  pergunta: {
+  question: {
     type: String,
     required: true,
   },
-  tipo: {
+  type: {
     type: String,
     required: true,
   },
-  dificuldade: {
+  difficulty: {
     type: String,
     required: true,
   },
-  alternativas: {
+  alternatives: {
     type: Object,
     required: true,
   },
-  id_correta: String,
+  id_correct: String,
 });
 
 const Question = Mongoose.model('Question', questionSchema);
@@ -35,13 +35,13 @@ const Question = Mongoose.model('Question', questionSchema);
 /*
 const UUID_Correct = ObjectId();
 const question = new Question({
-  pergunta: 'Porque map?',
-  alternativas: {
+  question: 'Porque map?',
+  alternatives: {
     [UUID_Correct]: 'Sim',
     [ObjectId()]: 'Não',
     [ObjectId()]: 'Talvez',
   },
-  id_correta: UUID_Correct,
+  id_correct: UUID_Correct,
 });
 */
 
@@ -51,16 +51,16 @@ router.route('/question')
     res.json(question);
   })
   .post(jsonParser, ({ body }, res) => {
-    let { alternativas } = body;
+    let { alternatives } = body;
     const UUID_Correct = ObjectId();
-    alternativas = alternativas.reduce((obj, alternativa, index) => {
+    alternatives = alternatives.reduce((obj, alternative, index) => {
       const newKey = index === 0 ? UUID_Correct : ObjectId();
-      return { ...obj, [newKey]: alternativa };
+      return { ...obj, [newKey]: alternative };
     }, {});
     const question = new Question({
       ...body,
-      alternativas,
-      id_correta: UUID_Correct,
+      alternatives,
+      id_correct: UUID_Correct,
     });
     questionsCollection.insertOne(question, () => console.log('question has been saved'));
   

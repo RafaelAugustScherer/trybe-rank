@@ -9,15 +9,15 @@ const jsonParser = bodyParser.json();
 
 const { usersCollection } = await connect();
 const userSchema = new Mongoose.Schema({
-  apelido: {
+  nickname: {
     type: String,
     required: true
   },
-  senha: {
+  password: {
     type: String,
     required: true
   },
-  questoes_completas: Array,
+  completed_questions: Array,
 });
 
 const User = Mongoose.model('User', userSchema);
@@ -26,8 +26,8 @@ const auth = { token: '' }
 router
   .route('/sign-in')
   .get(jsonParser, async ({ headers }, res) => {
-    const { apelido, senha } = headers;
-    const user = await usersCollection.findOne({ apelido, senha })
+    const { nickname, password } = headers;
+    const user = await usersCollection.findOne({ nickname, password })
 
     if (!user) 
       return res
@@ -45,10 +45,10 @@ router
 router
   .route('/user')
   .post(jsonParser, async ({ body }, res) => {
-    const { apelido } = body;
+    const { nickname } = body;
     const user = new User(body);
 
-    const alreadyExists = await usersCollection.findOne({ apelido });
+    const alreadyExists = await usersCollection.findOne({ nickname });
     if (alreadyExists) return res.status(401).end();
 
     usersCollection.insertOne(user, () => console.log('user has been saved'));
@@ -62,7 +62,7 @@ router
   .get(async (req, res) => {
     const { authorization } = req.headers;
     const users = await usersCollection.find().toArray();
-    const userWithOutPass = users.map(({ senha, ...otherFields }) => ({ otherFields }))
+    const userWithOutPass = users.map(({ password, ...otherFields }) => ({ otherFields }))
 
     if (authorization !== auth.token)
       return res.status(401).json({ message: 'Invalid Token' })

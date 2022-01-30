@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import ProgressBar from './progressBar';
 
 const TypeCard = ({ id, jogar, name, quantity, dificulty, color, selected, setSelected, setActive }) => {
-  const { questoes } = useContext(infoContext)
-  const { setTipo, getGameQuestions } = useContext(gameContext);
+  const { questions } = useContext(infoContext)
+  const { setType, getGameQuestions } = useContext(gameContext);
 
   const createStars = () => {
     const stars = [];
@@ -39,10 +39,10 @@ const TypeCard = ({ id, jogar, name, quantity, dificulty, color, selected, setSe
             type="button"
             onClick={ (e) => {
               if (jogar) {
-                getGameQuestions(questoes)
+                getGameQuestions(questions)
               } else {
                 e.preventDefault();
-                setTipo(name);
+                setType(name);
                 setActive(name);
               }
             }}

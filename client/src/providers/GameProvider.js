@@ -3,22 +3,22 @@ import { createContext, useState } from "react";
 export const gameContext = createContext();
 
 const GameProvider = ({ children }) => {
-  const [tipo, setTipo] = useState(null);
+  const [type, setType] = useState(null);
   const [gameQuestions, setGameQuestions] = useState([]);
   const [gameIndex, setGameIndex] = useState(0);
-  const [dificuldade, setDificuldade] = useState('Iniciante');
+  const [difficulty, setDifficulty] = useState('Iniciante');
   const [userAnswers, setUserAnswers] = useState([]);
   const [pontos, setPontos] = useState(0);
   const [streak, setStreak] = useState(0);
 
-  const getGameQuestions = (questoes) => {
-    if (!tipo) return;
-    const questoesTipo = questoes.filter((questao) => (
-      questao.tipo === tipo
-      && questao.dificuldade === dificuldade
+  const getGameQuestions = (questions) => {
+    if (!type) return;
+    const questionsType = questions.filter((questao) => (
+      questao.type === type
+      && questao.difficulty === difficulty
     ));
-    const randomQuestoes = [...questoesTipo].sort(() => Math.random() - 0.5);
-    setGameQuestions(randomQuestoes.slice(0, 5));
+    const randomQuestions = [...questionsType].sort(() => Math.random() - 0.5);
+    setGameQuestions(randomQuestions.slice(0, 5));
   }
 
   const acerto = () => {
@@ -32,23 +32,23 @@ const GameProvider = ({ children }) => {
   }
 
   const resetGame = () => {
-    setTipo(null);
+    setType(null);
     setGameQuestions([]);
     setPontos(0);
     setStreak(0);
   }
 
   const value = {
-    tipo,
+    type,
     gameQuestions,
     gameIndex,
     userAnswers,
-    dificuldade,
+    difficulty,
     pontos,
     acerto,
     erro,
-    setTipo,
-    setDificuldade,
+    setType,
+    setDifficulty,
     getGameQuestions,
     resetGame,
     setGameIndex,

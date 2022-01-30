@@ -4,78 +4,78 @@ import Style from '../css/Login.module.css';
 import axios from 'axios';
 
 const SignUp = () => {
-  const [apelido, setApelido] = useState('');
-  const [senha, setSenha] = useState('');
-  const [segundaSenha, setSegundaSenha] = useState('');
-  const [isSenhaActive, setSenhaActive] = useState(false);
+  const [nickname, setNickname] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const [isPasswordActive, setPasswordActive] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
   const CreateUser = () => {
-    const newUser = { apelido, senha };
+    const newUser = { nickname, password };
     axios.post('http://localhost:5000/user', newUser)
   }
 
   const verifyFields = () => {
-    const regexApelido = /[\w]{4,10}/i
-    const regexSenha = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/gm
+    const regexNickname = /[\w]{4,10}/i
+    const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/gm
   
     let isWrong = false;
-    if ([apelido, senha, segundaSenha].includes('')) isWrong = true;
-    if (!regexApelido.test(apelido)) isWrong = true;
-    if (!regexSenha.test(senha)) isWrong = true;
-    if (senha !== segundaSenha) isWrong = true;
+    if ([nickname, password, repeatPassword].includes('')) isWrong = true;
+    if (!regexNickname.test(nickname)) isWrong = true;
+    if (!regexPassword.test(password)) isWrong = true;
+    if (password !== repeatPassword) isWrong = true;
 
     setDisabled(isWrong);
   }
 
   useEffect(() => {
     verifyFields();
-  }, [apelido, senha, segundaSenha])
+  }, [nickname, password, repeatPassword])
 
   return (
     <div className={ Style.page } >
       <form className={ Style.container }>
         <h1 className="hero-title">Sign Up</h1>
-        <label htmlFor='apelido-id'>
+        <label htmlFor='nickname-id'>
           Apelido:
           <input
             className={ Style.loginInput }
             placeholder='Apelido'
-            id='apelido-id'
+            id='nickname-id'
             type="text"
-            onChange={ ({ target: { value } }) => setApelido(value) }
-            value={ apelido }
+            onChange={ ({ target: { value } }) => setNickname(value) }
+            value={ nickname }
           />
         </label>
-        <label htmlFor='senha-id'>
+        <label htmlFor='password-id'>
           Senha:
           <input
-            onFocus={ () => setSenhaActive(true) }
-            onBlur={ () => setSenhaActive(false) }
+            onFocus={ () => setPasswordActive(true) }
+            onBlur={ () => setPasswordActive(false) }
             className={ Style.loginInput }
             placeholder='Senha'
-            id='senha-id'
+            id='password-id'
             type="password"
-            onChange={ ({ target: { value } }) => setSenha(value) }
-            value={ senha }
+            onChange={ ({ target: { value } }) => setPassword(value) }
+            value={ password }
           />
         </label>
-        <label htmlFor='segundaSenha-id'>
+        <label htmlFor='repeat-password-id'>
           Digite novamente a senha:
           <input
-            onFocus={ () => setSenhaActive(true) }
-            onBlur={ () => setSenhaActive(false) }
+            onFocus={ () => setPasswordActive(true) }
+            onBlur={ () => setPasswordActive(false) }
             className={ Style.loginInput }
             placeholder='Digite novamente a senha'
-            id='segundaSenha-id'
+            id='repeat-password-id'
             type="password"
-            onChange={ ({ target: { value } }) => setSegundaSenha(value) }
-            value={ segundaSenha }
+            onChange={ ({ target: { value } }) => setRepeatPassword(value) }
+            value={ repeatPassword }
           />
         </label>
         <div 
-          style={ { 'display': `${isSenhaActive ? 'block' : 'none'}` } }
-          className={ Style.senhaOptions }
+          style={ { 'display': `${isPasswordActive ? 'block' : 'none'}` } }
+          className={ Style.passwordOptions }
         >
           <p>Senha com pelo menos:</p>
           <ul>
