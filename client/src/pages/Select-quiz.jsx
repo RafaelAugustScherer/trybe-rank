@@ -50,7 +50,7 @@ const SelectQuiz = () => {
             color={ color }
             quantity={ quantity }
             dificulty={ difficulty }
-            jogar
+            play
             selected={ active }
             setActive={ setActive }
             setSelected={ setSelected }

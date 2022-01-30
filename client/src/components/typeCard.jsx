@@ -5,7 +5,7 @@ import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import ProgressBar from './progressBar';
 
-const TypeCard = ({ id, jogar, name, quantity, dificulty, color, selected, setSelected, setActive }) => {
+const TypeCard = ({ id, play, name, quantity, dificulty, color, selected, setSelected, setActive }) => {
   const { questions } = useContext(infoContext)
   const { setType, getGameQuestions } = useContext(gameContext);
 
@@ -38,7 +38,7 @@ const TypeCard = ({ id, jogar, name, quantity, dificulty, color, selected, setSe
           <button
             type="button"
             onClick={ (e) => {
-              if (jogar) {
+              if (play) {
                 getGameQuestions(questions)
               } else {
                 e.preventDefault();
@@ -47,7 +47,7 @@ const TypeCard = ({ id, jogar, name, quantity, dificulty, color, selected, setSe
               }
             }}
           >
-            { jogar ? 'Jogar' : 'Entrar' }
+            { play ? 'Jogar' : 'Entrar' }
           </button>
         </Link>
       </div>
