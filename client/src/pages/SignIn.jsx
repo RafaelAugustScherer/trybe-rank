@@ -7,7 +7,7 @@ import { infoContext } from '../providers/InfoProvider';
 
 function SignIn() {
   const navigate = useNavigate();
-  const { setNickname } = useContext(infoContext);
+  const { setNickname, setToken } = useContext(infoContext);
   const [state, setState] = useState({ username: '', password: '' });
   const [error, setError] = useState(null);
 
@@ -15,22 +15,23 @@ function SignIn() {
     setState({ ...state, [id]: value });
   };
 
-  const onLogin = async () => {
+  const onLogin = () => {
     const { username, password } = state;
-    const [auth, nickname] = await axios.get('http://localhost:5000/sign-in', 
+    axios.get('http://localhost:5000/sign-in', 
       { headers: {
         username,
         password
       } }
-    ).then(res => res.data)
-    .then(({ status, nickname }) => [status === 200, nickname]);
-    
-    if (auth) {
-      setNickname(nickname);
-      navigate('/select-quiz');
-    } else {
-      setError('Usuário não encontrado!');
-    }
+    )
+      .then(res => res.data)
+      .then(({ nickname, token }) => {
+        setNickname(nickname);
+        setToken(token);
+        navigate('/select-quiz');
+      })
+      .catch(() => {
+        setError('Usuário não encontrado!');
+      })
   }
 
   return (
