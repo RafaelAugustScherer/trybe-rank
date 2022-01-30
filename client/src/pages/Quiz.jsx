@@ -8,7 +8,7 @@ const Quiz = () => {
   const { score, gameIndex } = useContext(gameContext);
 
   const renderQuiz = () => {
-    const { question, id_correct, alternatives } = gameQuestions[gameIndex];
+    const { question, correct_id, alternatives } = gameQuestions[gameIndex];
     return (
       <>
         <div className="quiz-question">
@@ -19,7 +19,7 @@ const Quiz = () => {
         <div>
           <QuizButton
             answers={ alternatives } 
-            correctAnswer={ id_correct }
+            correctAnswer={ correct_id }
           />
         </div>
       </>

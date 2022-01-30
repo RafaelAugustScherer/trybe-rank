@@ -27,7 +27,7 @@ const questionSchema = new Mongoose.Schema({
     type: Object,
     required: true,
   },
-  id_correct: String,
+  correct_id: String,
 });
 
 const Question = Mongoose.model('Question', questionSchema);
@@ -41,7 +41,7 @@ const question = new Question({
     [ObjectId()]: 'Não',
     [ObjectId()]: 'Talvez',
   },
-  id_correct: UUID_Correct,
+  correct_id: UUID_Correct,
 });
 */
 
@@ -60,7 +60,7 @@ router.route('/question')
     const question = new Question({
       ...body,
       alternatives,
-      id_correct: UUID_Correct,
+      correct_id: UUID_Correct,
     });
     questionsCollection.insertOne(question, () => console.log('question has been saved'));
   
