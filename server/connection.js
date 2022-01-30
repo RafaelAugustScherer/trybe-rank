@@ -2,14 +2,14 @@ import { MongoClient } from 'mongodb';
 import fs from 'fs';
 
 
-const readTextFile = () => {
-    const data = fs.readFileSync('./dbPassword.txt', 'utf8');
+const readTextFile = (file) => {
+    const data = fs.readFileSync(file, 'utf8');
     return data.toString();
 }
 
 const connect = async () => {
   const uri =
-    `mongodb+srv://admin:${readTextFile()}@cluster0.gfw2a.mongodb.net/test?retryWrites=true&w=majority`;
+    `mongodb+srv://admin:${readTextFile('./keys/dbPassword.txt')}@cluster0.gfw2a.mongodb.net/test?retryWrites=true&w=majority`;
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   
   await client.connect();
