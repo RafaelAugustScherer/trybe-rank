@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { gameContext } from '../providers/GameProvider';
 import ProgressBar from './progressBar';
 
-const TypeCard = ({ id, jogar, title, quantity, dificulty, color, selected, setSelected, setActive }) => {
+const TypeCard = ({ id, play, title, quantity, dificulty, color, selected, setSelected, setActive }) => {
   const { setType } = useContext(gameContext);
 
   const createStars = () => {
@@ -36,7 +36,7 @@ const TypeCard = ({ id, jogar, title, quantity, dificulty, color, selected, setS
           <button
             type="button"
             onClick={ (e) => {
-              if (jogar) {
+              if (play) {
                 setType(id);
               } else {
                 e.preventDefault();
@@ -44,7 +44,7 @@ const TypeCard = ({ id, jogar, title, quantity, dificulty, color, selected, setS
               }
             }}
           >
-            { jogar ? 'Jogar' : 'Entrar' }
+            { play ? 'Jogar' : 'Entrar' }
           </button>
         </Link>
       </div>

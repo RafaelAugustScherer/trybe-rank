@@ -8,21 +8,21 @@ import '../css/Select-page.css';
 const SelectQuiz = () => {
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(null);
-  const { questoes, tipos } = useContext(infoContext)
+  const { questions, types } = useContext(infoContext)
   const { resetGame } = useContext(gameContext);
 
   const createCards = () => {
-    const cards = tipos.map(({nome, cor, dificuldade}, index) => {
-      const quantity = questoes.filter(({ tipo }) => tipo === nome).length
+    const cards = types.map(({name, color, difficulty}, index) => {
+      const quantity = questions.filter(({ type }) => type === name).length
       return (
         <div className="container-type">
           <TypeCard
             key={ `typeCard - ${index}` }
-            id={ nome }
-            name={ nome }
-            color={ cor }
+            id={ name }
+            name={ name }
+            color={ color }
             quantity={ quantity }
-            dificulty={ dificuldade }
+            dificulty={ difficulty }
             selected={ selected }
             setActive={ setActive }
             setSelected={ setSelected }
@@ -34,8 +34,8 @@ const SelectQuiz = () => {
   };
 
   const renderCardActive = () => {
-    const { nome, cor, dificuldade } = tipos.find(({ nome }) => nome === active);
-    const quantity = questoes.filter((question) => question.tipo === nome).length;
+    const { name, color, difficulty } = types.find(({ name }) => name === active);
+    const quantity = questions.filter((question) => question.type === name).length;
     return (
       <>
         <div
@@ -46,16 +46,16 @@ const SelectQuiz = () => {
         />
         <div className="active-card">
           <TypeCard
-            name={ nome }
-            color={ cor }
+            name={ name }
+            color={ color }
             quantity={ quantity }
-            dificulty={ dificuldade }
-            jogar
+            dificulty={ difficulty }
+            play
             selected={ active }
             setActive={ setActive }
             setSelected={ setSelected }
           />
-          <SelectDificulty color={ cor } />
+          <SelectDificulty color={ color } />
         </div>
       </>
     )

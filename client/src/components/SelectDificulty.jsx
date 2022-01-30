@@ -7,7 +7,7 @@ const SelectDificulty = ({ color }) => {
     const titles = ['Iniciante', 'Intermediario', 'Dificil'];
     const buttons = titles.map((title, index) => (
       <DifficultyButton 
-        key={ `dificuldade - ${index}` }
+        key={ `difficulty - ${index}` }
         color={ hexColor } 
         title={ title } 
       />
