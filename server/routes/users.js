@@ -1,35 +1,22 @@
+import { readFileSync } from 'fs';
+import jwt from 'jsonwebtoken';
 import connect from '../connection.js';
-import Mongoose from 'mongoose';
 import express from 'express';
-import bodyParser from 'body-parser';
-import generateToken from '../generateToken.js';
+import User from '../models/userModel.js';
+import autenticateToken from '../middlewares/autenticate.js';
 
 const router = express.Router();
-const jsonParser = bodyParser.json();
-
 const { usersCollection } = await connect();
-const userSchema = new Mongoose.Schema({
-  username: {
-    type: String,
-    required: true
-  },
-  nickname: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  completed_questions: Array,
-});
 
-const User = Mongoose.model('User', userSchema);
-const auth = { token: '' }
+const secret = readFileSync('./keys/secret.txt', 'utf-8');
+const jwtConfig = {
+  expiresIn: '7d',
+  algorithm: 'HS256',
+};
 
 router
   .route('/sign-in')
-  .get(jsonParser, async ({ headers }, res) => {
+  .get(async ({ headers }, res) => {
     const { username, password } = headers;
     const user = await usersCollection.findOne({ username, password })
     if (!user)
@@ -37,18 +24,17 @@ router
         .status(409)
         .json({ message: 'err' });
 
-    const token = generateToken();
-    auth.token = token;
+    const token = jwt.sign({ username, password }, secret, jwtConfig);
 
     const { nickname } = user;
     res
       .status(200)
-      .json({ message: 'OK', status: 200, nickname })
+      .json({ message: 'OK', token, nickname })
   })
 
 router
   .route('/sign-up')
-  .post(jsonParser, async ({ body }, res) => {
+  .post(async ({ body }, res) => {
     const { username } = body;
     const user = new User({ ...body, nickname: username });
 
@@ -63,13 +49,9 @@ router
 
 router
   .route('/users')
-  .get(async (req, res) => {
-    const { authorization } = req.headers;
+  .get(autenticateToken, async (req, res) => {
     const users = await usersCollection.find().toArray();
-    const userWithOutPass = users.map(({ password, ...otherFields }) => ({ otherFields }))
-
-    if (authorization !== auth.token)
-      return res.status(401).json({ message: 'Invalid Token' })
+    const userWithOutPass = users.map(({ password, ...otherFields }) => otherFields)
 
     res
       .status(200)
