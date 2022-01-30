@@ -11,8 +11,8 @@ const SignUp = () => {
   const [disabled, setDisabled] = useState(false);
 
   const CreateUser = () => {
-    const newUser = { nickname, password };
-    axios.post('http://localhost:5000/user', newUser)
+    const newUser = { apelido, senha };
+    axios.post('http://localhost:5000/sign-up', newUser)
   }
 
   const verifyFields = () => {

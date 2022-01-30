@@ -39,11 +39,11 @@ router
 
     res
       .status(200)
-      .json({ message: 'OK', token })
+      .json({ message: 'OK', status: 200 })
   })
 
 router
-  .route('/user')
+  .route('/sign-up')
   .post(jsonParser, async ({ body }, res) => {
     const { nickname } = body;
     const user = new User(body);
