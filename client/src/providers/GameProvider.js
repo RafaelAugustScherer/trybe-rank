@@ -8,7 +8,7 @@ const GameProvider = ({ children }) => {
   const [gameIndex, setGameIndex] = useState(0);
   const [difficulty, setDifficulty] = useState('Iniciante');
   const [userAnswers, setUserAnswers] = useState([]);
-  const [pontos, setPontos] = useState(0);
+  const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
 
   const getGameQuestions = (questions) => {
@@ -21,20 +21,20 @@ const GameProvider = ({ children }) => {
     setGameQuestions(randomQuestions.slice(0, 5));
   }
 
-  const acerto = () => {
-    const newPontuation = pontos + 10 + (streak + 1) * 5;
-    setPontos(newPontuation);
+  const handleRightAnswer = () => {
+    const newPontuation = score + 10 + (streak + 1) * 5;
+    setScore(newPontuation);
     setStreak(streak + 1);
   }
 
-  const erro = () => {
+  const handleWrongAnswer = () => {
     setStreak(0)
   }
 
   const resetGame = () => {
     setType(null);
     setGameQuestions([]);
-    setPontos(0);
+    setScore(0);
     setStreak(0);
   }
 
@@ -44,9 +44,9 @@ const GameProvider = ({ children }) => {
     gameIndex,
     userAnswers,
     difficulty,
-    pontos,
-    acerto,
-    erro,
+    score,
+    handleRightAnswer,
+    handleWrongAnswer,
     setType,
     setDifficulty,
     getGameQuestions,

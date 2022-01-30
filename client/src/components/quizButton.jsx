@@ -10,8 +10,8 @@ const QuizButton = ({ answers, correctAnswer }) => {
     setGameIndex,
     userAnswers,
     setUserAnswers,
-    acerto, 
-    erro 
+    handleRightAnswer, 
+    handleWrongAnswer 
   } = useContext(gameContext);
   const [active, setActive] = useState(false);
   const last =  gameIndex + 1 === gameQuestions.length;
@@ -55,14 +55,14 @@ const QuizButton = ({ answers, correctAnswer }) => {
           disabled={ active }
           className={ `
             quiz-bot 
-            ${active ? isCorrect ? 'quiz-acerto' : 'quiz-erro' : '' }
+            ${active ? isCorrect ? 'right-quiz' : 'wrong-quiz' : '' }
             ${quizSelected === key ? 'quiz-selected' : ''}
           ` }
           onClick={ () => {
             if (isCorrect) {
-              acerto();
+              handleRightAnswer();
             } else {
-              erro();
+              handleWrongAnswer();
             }
             setQuizSelected(key)
             setUserAnswers([...userAnswers, { question_id: key, answer: value, questions}])

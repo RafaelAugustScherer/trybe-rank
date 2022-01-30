@@ -5,7 +5,7 @@ import '../css/quiz-page.css';
 
 const Quiz = () => {
   const { gameQuestions } = useContext(gameContext);
-  const { pontos, gameIndex } = useContext(gameContext);
+  const { score, gameIndex } = useContext(gameContext);
 
   const renderQuiz = () => {
     const { question, id_correct, alternatives } = gameQuestions[gameIndex];
@@ -14,7 +14,7 @@ const Quiz = () => {
         <div className="quiz-question">
           <p>{ `${gameIndex + 1}º questão` }</p>
           <h2>{ question }</h2>
-          <p>{ `Pontos ${pontos}` }</p>
+          <p>{ `Pontos ${score}` }</p>
         </div>
         <div>
           <QuizButton
