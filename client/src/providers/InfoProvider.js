@@ -5,6 +5,7 @@ export const infoContext = createContext();
 
 const InfoProvider = ({ children }) => {
   const [nickname, setNickname] = useState(null);
+  const [token, setToken] = useState(null);
   const [types, setTypes] = useState([]);
   const [questions, setQuestions] = useState([]);
 
@@ -29,7 +30,9 @@ const InfoProvider = ({ children }) => {
     questions,
     types,
     nickname,
+    token,
     setNickname,
+    setToken
   }
 
   return (
