@@ -12,7 +12,7 @@ const SignUp = () => {
 
   const CreateUser = () => {
     const newUser = { nickname, password };
-    axios.post('http://localhost:5000/user', newUser)
+    axios.post('http://localhost:5000/sign-up', newUser)
   }
 
   const verifyFields = () => {
