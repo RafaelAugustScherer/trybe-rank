@@ -1,36 +1,10 @@
 import connect from '../connection.js';
-import Mongoose from 'mongoose';
 import { ObjectId } from 'mongodb';
 import express from 'express';
-import bodyParser from 'body-parser';
-
+import Question from '../models/questionModel.js';
 
 const router = express.Router();
-const jsonParser = bodyParser.json();
-
 const { questionsCollection } = await connect();
-
-const questionSchema = new Mongoose.Schema({
-  question: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
-  difficulty: {
-    type: String,
-    required: true,
-  },
-  answers: {
-    type: Object,
-    required: true,
-  },
-  correct_id: String,
-});
-
-const Question = Mongoose.model('Question', questionSchema);
 
 /*
 const UUID_Correct = ObjectId();
@@ -46,11 +20,11 @@ const question = new Question({
 */
 
 router.route('/question')
-  .get(jsonParser, async (req, res) => {
+  .get(async (req, res) => {
     const question = await questionsCollection.findOne({ ...req.body});
     res.json(question);
   })
-  .post(jsonParser, ({ body }, res) => {
+  .post(({ body }, res) => {
     let { answers } = body;
     const UUID_Correct = ObjectId();
     answers = answers.reduce((obj, answer, index) => {
