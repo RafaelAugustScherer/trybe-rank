@@ -23,7 +23,7 @@ const questionSchema = new Mongoose.Schema({
     type: String,
     required: true,
   },
-  alternatives: {
+  answers: {
     type: Object,
     required: true,
   },
@@ -36,7 +36,7 @@ const Question = Mongoose.model('Question', questionSchema);
 const UUID_Correct = ObjectId();
 const question = new Question({
   question: 'Porque map?',
-  alternatives: {
+  answers: {
     [UUID_Correct]: 'Sim',
     [ObjectId()]: 'Não',
     [ObjectId()]: 'Talvez',
@@ -51,15 +51,15 @@ router.route('/question')
     res.json(question);
   })
   .post(jsonParser, ({ body }, res) => {
-    let { alternatives } = body;
+    let { answers } = body;
     const UUID_Correct = ObjectId();
-    alternatives = alternatives.reduce((obj, alternative, index) => {
+    answers = answers.reduce((obj, answer, index) => {
       const newKey = index === 0 ? UUID_Correct : ObjectId();
-      return { ...obj, [newKey]: alternative };
+      return { ...obj, [newKey]: answer };
     }, {});
     const question = new Question({
       ...body,
-      alternatives,
+      answers,
       correct_id: UUID_Correct,
     });
     questionsCollection.insertOne(question, () => console.log('question has been saved'));
