@@ -32,8 +32,7 @@ router
   .get(jsonParser, async ({ headers }, res) => {
     const { username, password } = headers;
     const user = await usersCollection.findOne({ username, password })
-    const { nickname } = user;
-    if (!user) 
+    if (!user)
       return res
         .status(409)
         .json({ message: 'err' });
@@ -41,6 +40,7 @@ router
     const token = generateToken();
     auth.token = token;
 
+    const { nickname } = user;
     res
       .status(200)
       .json({ message: 'OK', status: 200, nickname })
