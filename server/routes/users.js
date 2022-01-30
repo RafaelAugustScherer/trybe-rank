@@ -43,7 +43,7 @@ router
   })
 
 router
-  .route('/user')
+  .route('/sign-up')
   .post(jsonParser, async ({ body }, res) => {
     const { apelido } = body;
     const user = new User(body);
