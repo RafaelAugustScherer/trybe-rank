@@ -1,10 +1,11 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
 import InfoProvider from './providers/InfoProvider';
 import GameProvider from './providers/GameProvider';
 import SelectQuiz from './pages/Select-quiz';
-import './App.css';
 import Quiz from './pages/Quiz';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import './App.css';
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
       <GameProvider>
         <HashRouter>
           <Routes>
-            <Route path="/" element={ <Login /> } />
+            <Route path="/" element={ <SignIn /> } />
             <Route 
               path="/select-quiz" 
               element={ <SelectQuiz /> } 
@@ -21,6 +22,10 @@ function App() {
             <Route 
               path="/quiz"
               element={ <Quiz /> }
+            />
+            <Route 
+              path="/sign-up"
+              element={ <SignUp /> }
             />
           </Routes>
         </HashRouter>

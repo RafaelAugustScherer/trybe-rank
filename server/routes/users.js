@@ -1,39 +1,61 @@
+import { readFileSync } from 'fs';
+import jwt from 'jsonwebtoken';
 import connect from '../connection.js';
-import Mongoose from 'mongoose';
 import express from 'express';
-import bodyParser from 'body-parser';
+import User from '../models/userModel.js';
+import autenticateToken from '../middlewares/autenticate.js';
 
 const router = express.Router();
-const jsonParser = bodyParser.json();
-
 const { usersCollection } = await connect();
 
-const userSchema = new Mongoose.Schema({
-  apelido: {
-    type: String,
-    required: true
-  },
-  senha: {
-    type: String,
-    required: true
-  },
-  questoes_completas: Array,
-});
+const secret = readFileSync('./keys/secret.txt', 'utf-8');
+const jwtConfig = {
+  expiresIn: '7d',
+  algorithm: 'HS256',
+};
 
-const User = Mongoose.model('User', userSchema);
+router
+  .route('/sign-in')
+  .get(async ({ headers }, res) => {
+    const { username, password } = headers;
+    const user = await usersCollection.findOne({ username, password })
+    if (!user)
+      return res
+        .status(409)
+        .json({ message: 'err' });
 
-router.route('/user')
-  .post(jsonParser, ({ body }, res) => {
-    const user = new User(body);
+    const token = jwt.sign({ username, password }, secret, jwtConfig);
+
+    const { nickname } = user;
+    res
+      .status(200)
+      .json({ message: 'OK', token, nickname })
+  })
+
+router
+  .route('/sign-up')
+  .post(async ({ body }, res) => {
+    const { username } = body;
+    const user = new User({ ...body, nickname: username });
+
+    const alreadyExists = await usersCollection.findOne({ username });
+    if (alreadyExists) return res.status(401).end();
+
     usersCollection.insertOne(user, () => console.log('user has been saved'));
-
-    res.sendStatus(200);
+    res
+      .status(200)
+      .json({ message: "OK" });
   });
 
-router.route('/users')
-  .get(async (_req, res) => {
+router
+  .route('/users')
+  .get(autenticateToken, async (req, res) => {
     const users = await usersCollection.find().toArray();
-    res.json(users);
+    const userWithOutPass = users.map(({ password, ...otherFields }) => otherFields)
+
+    res
+      .status(200)
+      .json({ users: userWithOutPass });
   });
 
 export default router;

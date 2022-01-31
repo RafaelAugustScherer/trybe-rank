@@ -48,12 +48,12 @@
   border: 2px solid white;
 }
 
-.quiz-erro {
+.wrong-quiz {
   color: #E4E4E4;
   background-color: #e63946;
 }
 
-.quiz-acerto {
+.right-quiz {
   color: #E4E4E4;
   background-color: #61C9A3;
 }

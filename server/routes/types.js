@@ -1,28 +1,9 @@
 import connect from '../connection.js';
 import express from 'express';
-import Mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-const jsonParser = bodyParser.json();
+import Type from '../models/typeModel.js';
 
 const router = express.Router();
 const { typesCollection } = await connect();
-
-const TypeSchema = new Mongoose.Schema({
-  nome: {
-    type: String,
-    required: true
-  },
-  cor: {
-    type: String,
-    required: true
-  },
-  dificuldade: {
-    type: Number,
-    required: true
-  }
-});
-
-const Type = Mongoose.model('Type', TypeSchema);
 
 
 router.route('/types')
@@ -32,7 +13,7 @@ router.route('/types')
   });
 
 router.route('/type')
-  .post(jsonParser, async ({ body }, res) => {
+  .post(async ({ body }, res) => {
     const type = new Type(body);
     typesCollection.insertOne(type, () => console.log("type has been saved"))
 

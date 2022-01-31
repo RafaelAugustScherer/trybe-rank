@@ -118,7 +118,9 @@ a {
 }
 
 .type-container button{
+  width: 400px;
   border: none;
+  background-color: #61c9a3;
   color: white;
   display: none;
   font-size: 1.5em;

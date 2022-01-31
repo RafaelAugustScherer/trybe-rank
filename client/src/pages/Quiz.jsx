@@ -5,21 +5,21 @@ import '../css/quiz-page.css';
 
 const Quiz = () => {
   const { gameQuestions } = useContext(gameContext);
-  const { pontos, gameIndex } = useContext(gameContext);
+  const { score, gameIndex } = useContext(gameContext);
 
   const renderQuiz = () => {
-    const { pergunta, id_correta, alternativas } = gameQuestions[gameIndex];
+    const { question, correct_id, answers } = gameQuestions[gameIndex];
     return (
       <>
         <div className="quiz-question">
           <p>{ `${gameIndex + 1}º questão` }</p>
-          <h2>{ pergunta }</h2>
-          <p>{ `Pontos ${pontos}` }</p>
+          <h2>{ question }</h2>
+          <p>{ `Pontos ${score}` }</p>
         </div>
         <div>
           <QuizButton
-            answers={ alternativas } 
-            correctAnswer={ id_correta }
+            answers={ answers } 
+            correctAnswer={ correct_id }
           />
         </div>
       </>

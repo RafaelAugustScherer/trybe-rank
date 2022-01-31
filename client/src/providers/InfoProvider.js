@@ -4,19 +4,21 @@ import axios from 'axios';
 export const infoContext = createContext();
 
 const InfoProvider = ({ children }) => {
-  const [tipos, setTipos] = useState([]);
-  const [questoes, setQuestoes] = useState([]);
+  const [nickname, setNickname] = useState(null);
+  const [token, setToken] = useState(null);
+  const [types, setTypes] = useState([]);
+  const [questions, setQuestions] = useState([]);
 
   const fetchQuestions = async () => {
-    let bdQuestoes = await axios.get('http://localhost:5000/questions', JSON.stringify())
+    let bdQuestions = await axios.get('http://localhost:5000/questions', JSON.stringify())
       .then(res => res.data);
-    setQuestoes(bdQuestoes);
+    setQuestions(bdQuestions);
   };
 
   const fetchTypes = async () => {
-    const bdTipos = await axios.get('http://localhost:5000/types')
+    const bdTypes = await axios.get('http://localhost:5000/types')
       .then(res => res.data);
-    setTipos(bdTipos);
+    setTypes(bdTypes);
   }
 
   useEffect(() => {
@@ -25,8 +27,12 @@ const InfoProvider = ({ children }) => {
   }, [])
 
   const value = {
-    questoes,
-    tipos
+    questions,
+    types,
+    nickname,
+    token,
+    setNickname,
+    setToken
   }
 
   return (
