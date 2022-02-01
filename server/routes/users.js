@@ -49,6 +49,13 @@ router
 
 router
   .route('/user')
+  .get(autenticateToken, async (req, res) => {
+    const { password, ...otherFields } = req.user;
+
+    res
+      .status(200)
+      .json({ user: otherFields });
+  })
   .put(autenticateToken, async (req, res) => {
     const { username, completed_questions } = req.user;
     const { newQuestions } = req.body;
