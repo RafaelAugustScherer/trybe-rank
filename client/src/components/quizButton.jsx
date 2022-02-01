@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { gameContext } from "../providers/GameProvider";
+import { infoContext } from "../providers/InfoProvider";
+import axios from 'axios';
 
 const QuizButton = ({ answers, correctAnswer }) => {
   const [questions, setQuestions] = useState([]);
   const [quizSelected, setQuizSelected] = useState(null);
-  const { 
+  const { token } = useContext(infoContext)
+  const {
+    type,
     gameIndex,
     gameQuestions,
     setGameIndex,
@@ -31,9 +35,19 @@ const QuizButton = ({ answers, correctAnswer }) => {
     setQuestions(sortedEntries);
   }
 
-  const resetButtons = () => {
+  const resetQuestions = () => {
     setQuestions([]);
     setActive(false);
+  }
+
+  const finishGame = () => {
+    const correctAnswer = userAnswers.filter(({ correct }) => correct);
+    if (!correctAnswer.length) return;
+
+    const headers = { 'Authorization': `${token}` }
+    const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
+
+    axios.put('http://localhost:5000/user', { newQuestions }, { headers })
   }
 
   const nextPage = () => {
@@ -65,7 +79,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
               handleWrongAnswer();
             }
             setQuizSelected(key)
-            setUserAnswers([...userAnswers, { question_id: key, answer: value, questions}])
+            setUserAnswers([...userAnswers, { question_id: key, answer: value, questions, correct: isCorrect }])
             setActive(true);
           } }
         >
@@ -100,13 +114,15 @@ const QuizButton = ({ answers, correctAnswer }) => {
             )
           }
           { last ? (
-            <button>
+            <button
+              onClick={ finishGame }
+            >
               Finalizar
             </button>
           ) : (
             <button
               onClick={() => {
-                resetButtons();
+                resetQuestions();
                 nextPage();
               }}
             >
