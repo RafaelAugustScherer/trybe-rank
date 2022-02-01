@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { gameContext } from '../providers/GameProvider';
 import { infoContext } from '../providers/InfoProvider';
+import axios from 'axios';
 import TypeCard from '../components/typeCard';
 import SelectDificulty from '../components/SelectDificulty';
 import '../css/Select-page.css';
@@ -8,11 +9,22 @@ import '../css/Select-page.css';
 const SelectQuiz = () => {
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(null);
-  const { questions, types } = useContext(infoContext)
+  const [completedQuestions, setCompletedQuestions] = useState(null);
+  const { questions, types, token } = useContext(infoContext)
   const { resetGame } = useContext(gameContext);
+
+  const fetchCompletedQuestions = async () => {
+    const headers = { 'Authorization': `${token}` };
+    const data = await axios.get('http://localhost:5000/user', { headers })
+      .then((res) => res.data)
+      .then(({ user: { completed_questions } }) => completed_questions);
+  
+    setCompletedQuestions(data);
+  }
 
   const createCards = () => {
     const cards = types.map(({name, color, difficulty}, index) => {
+      const completedQuestionsByType = completedQuestions.filter(({ type }) => type === name).length;
       const quantity = questions.filter(({ type }) => type === name).length
       return (
         <div className="container-type">
@@ -23,6 +35,7 @@ const SelectQuiz = () => {
             color={ color }
             quantity={ quantity }
             dificulty={ difficulty }
+            completedQuestions={ completedQuestionsByType }
             selected={ selected }
             setActive={ setActive }
             setSelected={ setSelected }
@@ -51,6 +64,7 @@ const SelectQuiz = () => {
             quantity={ quantity }
             dificulty={ difficulty }
             play
+            completedQuestions={ completedQuestions }
             selected={ active }
             setActive={ setActive }
             setSelected={ setSelected }
@@ -62,6 +76,7 @@ const SelectQuiz = () => {
   }
 
   useEffect(() => {
+    fetchCompletedQuestions();
     resetGame();
   }, [])
 
@@ -77,7 +92,7 @@ const SelectQuiz = () => {
         <h1 className="hero-title">Seleção de Quiz</h1>
         <div className="type-cards-container">
           { active && renderCardActive() }
-          { createCards() }
+          { completedQuestions && createCards() }
         </div>
       </div>
     </>
