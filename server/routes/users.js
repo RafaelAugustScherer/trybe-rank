@@ -10,7 +10,7 @@ const { usersCollection } = await connect();
 
 const secret = readFileSync('./keys/secret.txt', 'utf-8');
 const jwtConfig = {
-  expiresIn: '7d',
+  expiresIn: '24h',
   algorithm: 'HS256',
 };
 
@@ -48,8 +48,35 @@ router
   });
 
 router
+  .route('/user')
+  .put(autenticateToken, async (req, res) => {
+    const { username, completed_questions } = req.user;
+    const { newQuestions } = req.body;
+
+    if (!newQuestions || !newQuestions.length)
+      return res.status(401).json({ message: 'Invalid questions format' });
+
+    const questionsIds = completed_questions.map(({ question_id }) => question_id);
+    const filterQuestions = newQuestions
+      .filter(({ question_id }) => !questionsIds.includes(question_id));
+
+    if (!filterQuestions.length)
+      return res.status(401).json({ message: 'No questions to save' });
+
+    const newCompletedQuestions = [...completed_questions, ...filterQuestions];
+    await usersCollection.updateOne(
+      { username }, 
+      { $set: { completed_questions: newCompletedQuestions } }
+    );
+
+    res
+      .status(200)
+      .json({ message: 'OK' })
+  });
+
+router
   .route('/users')
-  .get(autenticateToken, async (req, res) => {
+  .get(autenticateToken, async (_req, res) => {
     const users = await usersCollection.find().toArray();
     const userWithOutPass = users.map(({ password, ...otherFields }) => otherFields)
 
