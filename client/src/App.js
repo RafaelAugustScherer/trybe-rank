@@ -5,6 +5,7 @@ import SelectQuiz from './pages/Select-quiz';
 import Quiz from './pages/Quiz';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Score from './pages/Score';
 import './App.css';
 
 
@@ -26,6 +27,10 @@ function App() {
             <Route 
               path="/sign-up"
               element={ <SignUp /> }
+            />
+            <Route 
+              path="/score"
+              element={ <Score /> }
             />
           </Routes>
         </HashRouter>
