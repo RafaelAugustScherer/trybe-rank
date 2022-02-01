@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { gameContext } from "../providers/GameProvider";
 import { infoContext } from "../providers/InfoProvider";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 const QuizButton = ({ answers, correctAnswer }) => {
   const [questions, setQuestions] = useState([]);
@@ -47,7 +48,9 @@ const QuizButton = ({ answers, correctAnswer }) => {
     const headers = { 'Authorization': `${token}` }
     const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
 
-    axios.put('http://localhost:5000/user', { newQuestions }, { headers })
+    axios
+      .put('http://localhost:5000/user', { newQuestions }, { headers })
+      .catch((err) => new Error(err.message))
   }
 
   const nextPage = () => {
@@ -114,11 +117,13 @@ const QuizButton = ({ answers, correctAnswer }) => {
             )
           }
           { last ? (
-            <button
-              onClick={ finishGame }
-            >
-              Finalizar
-            </button>
+            <Link to="/score">
+              <button
+                onClick={ finishGame }
+              >
+                Finalizar
+              </button>
+            </Link>
           ) : (
             <button
               onClick={() => {
