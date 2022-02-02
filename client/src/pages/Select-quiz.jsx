@@ -17,7 +17,8 @@ const SelectQuiz = () => {
     const headers = { 'Authorization': `${token}` };
     const data = await axios.get('http://localhost:5000/user', { headers })
       .then((res) => res.data)
-      .then(({ user: { completed_questions } }) => completed_questions);
+      .then(({ user: { completed_questions } }) => completed_questions)
+      .catch(() => []);
   
     setCompletedQuestions(data);
   }
