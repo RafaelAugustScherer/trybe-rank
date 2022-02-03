@@ -9,8 +9,6 @@ const validateUserInfo = (req, res, next) => {
   const { username, password } = req.body;
   const code = 422;
 
-  console.log(username)
-
   const regexUsername = /[\w]{4,10}/i
   const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/gm
 
