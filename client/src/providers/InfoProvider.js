@@ -23,7 +23,6 @@ const InfoProvider = ({ children }) => {
   }
 
   const getToken = async () => {
-    document.cookie = 'token='
     const tokenCookie = getCookie('token');
     
     if (tokenCookie) {
