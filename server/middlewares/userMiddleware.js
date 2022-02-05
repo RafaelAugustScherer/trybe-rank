@@ -24,6 +24,24 @@ const validateUserInfo = (req, res, next) => {
   next();
 }
 
+const validateQuizes = (req, res, next) => {
+  const { newQuizes } = req.body;
+
+  if (!newQuizes || !newQuizes.length)
+    return res.status(401).json({ message: 'Invalid quizes format' });
+
+  next();
+}
+
+const validateQuestions = (req, res, next) => {
+  const { newQuestions } = req.body;
+
+  if (!newQuestions || !newQuestions.length)
+    return res.status(401).json({ message: 'Invalid questions format' });
+
+  next();
+}
+
 const authenticateToken = async (req, res, next) => {
   const { authorization: token } = req.headers;
 
@@ -46,4 +64,9 @@ const authenticateToken = async (req, res, next) => {
 
 }
 
-export default { authenticateToken, validateUserInfo };
+export default { 
+  authenticateToken,
+  validateUserInfo,
+  validateQuestions,
+  validateQuizes
+};
