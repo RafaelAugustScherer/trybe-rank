@@ -28,7 +28,6 @@ const InfoProvider = ({ children }) => {
     if (tokenCookie) {
       setToken(tokenCookie);
     }
-    console.log(tokenCookie);
   }
 
   useEffect(() => {
