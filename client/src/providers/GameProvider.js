@@ -23,16 +23,18 @@ const GameProvider = ({ children }) => {
     setGameQuestions(randomQuestions.slice(0, 5));
   }
 
-  const handleRightAnswer = () => {
-    const newPontuation = score + 10 + (streak + 1) * 5;
-    setScore(newPontuation);
-    setHits(hits + 1);
-    setStreak(streak + 1);
-    if (streak + 1 > bestStreak) setBestStreak(streak + 1);
-  }
-
-  const handleWrongAnswer = () => {
-    setStreak(0)
+  const handleAnswer = (isCorrect, answer) => {
+    if (isCorrect) {
+      const newPontuation = score + 10 + (streak + 1) * 5;
+      setScore(newPontuation);
+      setHits(hits + 1);
+      setStreak(streak + 1);
+      if (streak + 1 > bestStreak) setBestStreak(streak + 1);
+    }
+    else {
+      setStreak(0);
+    }
+    setUserAnswers([...userAnswers, answer]);
   }
 
   const resetGame = () => {
@@ -55,8 +57,7 @@ const GameProvider = ({ children }) => {
     hits,
     bestStreak,
     score,
-    handleRightAnswer,
-    handleWrongAnswer,
+    handleAnswer,
     setType,
     setDifficulty,
     getGameQuestions,

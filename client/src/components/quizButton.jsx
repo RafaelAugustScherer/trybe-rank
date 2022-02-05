@@ -15,8 +15,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
     setGameIndex,
     userAnswers,
     setUserAnswers,
-    handleRightAnswer, 
-    handleWrongAnswer 
+    handleAnswer
   } = useContext(gameContext);
   const [active, setActive] = useState(false);
   const last =  gameIndex + 1 === gameQuestions.length;
@@ -76,13 +75,8 @@ const QuizButton = ({ answers, correctAnswer }) => {
             ${quizSelected === key ? 'quiz-selected' : ''}
           ` }
           onClick={ () => {
-            if (isCorrect) {
-              handleRightAnswer();
-            } else {
-              handleWrongAnswer();
-            }
-            setQuizSelected(key)
-            setUserAnswers([...userAnswers, { question_id: key, answer: value, questions, correct: isCorrect }])
+            handleAnswer(isCorrect, { question_id: key, answer: value, questions, correct: isCorrect });
+            setQuizSelected(key);
             setActive(true);
           } }
         >
