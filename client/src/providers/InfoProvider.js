@@ -27,6 +27,8 @@ const InfoProvider = ({ children }) => {
     
     if (tokenCookie) {
       setToken(tokenCookie);
+    } else {
+      setToken('guest');
     }
   }
 
