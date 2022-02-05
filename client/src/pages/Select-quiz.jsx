@@ -24,13 +24,12 @@ const SelectQuiz = () => {
   }
 
   const createCards = () => {
-    const cards = types.map(({name, color, difficulty}, index) => {
+    const cards = types.map(({name, color, difficulty}) => {
       const completedQuestionsByType = completedQuestions.filter(({ type }) => type === name).length;
       const quantity = questions.filter(({ type }) => type === name).length
       return (
-        <div className="container-type">
+        <div key={ `typeCard - ${name}` } className="container-type">
           <TypeCard
-            key={ `typeCard - ${index}` }
             id={ name }
             name={ name }
             color={ color }
@@ -58,7 +57,7 @@ const SelectQuiz = () => {
           } }
           className="backpage on-active-card"
         />
-        <div className="active-card">
+        <div key={ `typeCard - ${name}` } className="active-card">
           <TypeCard
             name={ name }
             color={ color }

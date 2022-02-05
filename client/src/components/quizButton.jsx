@@ -14,7 +14,6 @@ const QuizButton = ({ answers, correctAnswer }) => {
     gameQuestions,
     setGameIndex,
     userAnswers,
-    setUserAnswers,
     handleAnswer
   } = useContext(gameContext);
   const [active, setActive] = useState(false);
