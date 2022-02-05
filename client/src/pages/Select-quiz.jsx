@@ -48,6 +48,7 @@ const SelectQuiz = () => {
 
   const renderCardActive = () => {
     const { name, color, difficulty } = types.find(({ name }) => name === active);
+    const completedQuestionsByType = completedQuestions.filter(({ type }) => type === name).length;
     const quantity = questions.filter((question) => question.type === name).length;
     return (
       <>
@@ -64,7 +65,7 @@ const SelectQuiz = () => {
             quantity={ quantity }
             dificulty={ difficulty }
             play
-            completedQuestions={ completedQuestions }
+            completedQuestions={ completedQuestionsByType }
             selected={ active }
             setActive={ setActive }
             setSelected={ setSelected }

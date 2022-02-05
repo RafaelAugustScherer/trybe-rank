@@ -100,17 +100,20 @@ const QuizButton = ({ answers, correctAnswer }) => {
           {
             gameIndex > 0 && (
               <button
+                style={ {'backgroundColor': '#b1b1b1'} }
+                className="wrong-quiz"
                 onClick={() => {
                   prevPage();
                 }}
               >
-                Prev
+                Voltar
               </button>
             )
           }
           { last ? (
             <Link to="/score">
               <button
+                className="right-quiz"
                 onClick={ finishGame }
               >
                 Finalizar
@@ -118,12 +121,13 @@ const QuizButton = ({ answers, correctAnswer }) => {
             </Link>
           ) : (
             <button
+              className="right-quiz"
               onClick={() => {
                 resetQuestions();
                 nextPage();
               }}
             >
-              Next
+              Avançar
             </button>
           ) }
         </div>

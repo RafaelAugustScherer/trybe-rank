@@ -14,9 +14,7 @@ const ProgressBar = ({ active, completed, quantity, id }) => {
   const showPercentage = () => {
     setTimeout(() => {
       const total = getPercentage();
-      for(let i = 0; i <= total; i += 1) {
-        setPercentage(i)
-      }
+      setPercentage(total)
     }, 500)
   }
 

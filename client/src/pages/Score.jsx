@@ -14,6 +14,7 @@ const Score = () => {
       <div>
         <Link to="/select-quiz">
           <button
+            className="voltar-menu"
             onClick={ () => resetGame() }
           >
             Voltar para o menu
