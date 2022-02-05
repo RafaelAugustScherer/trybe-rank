@@ -40,7 +40,7 @@ const updateQuestions = async (req, res) => {
     .filter(({ question_id }) => !questionsIds.includes(question_id));
 
   if (!filterQuestions.length)
-    return res.status(401).json({ message: 'No questions to save' });
+    return res.status(200).json({ message: 'No questions to save' });
 
   const newCompletedQuestions = [...completed_questions, ...filterQuestions];
   await usersCollection.updateOne(
