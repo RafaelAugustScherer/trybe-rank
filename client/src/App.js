@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route  } from 'react-router-dom';
 import InfoProvider from './providers/InfoProvider';
 import GameProvider from './providers/GameProvider';
 import SelectQuiz from './pages/Select-quiz';
@@ -11,31 +11,31 @@ import './App.css';
 
 function App() {
   return (
-    <InfoProvider>
-      <GameProvider>
-        <HashRouter>
+    <BrowserRouter>
+      <InfoProvider>
+        <GameProvider>
           <Routes>
-            <Route path="/" element={ <SignIn /> } />
-            <Route 
-              path="/select-quiz" 
-              element={ <SelectQuiz /> } 
+            <Route path="/" element={<SignIn />} />
+            <Route
+              path="/select-quiz"
+              element={<SelectQuiz />}
             />
-            <Route 
+            <Route
               path="/quiz"
-              element={ <Quiz /> }
+              element={<Quiz />}
             />
-            <Route 
+            <Route
               path="/sign-up"
-              element={ <SignUp /> }
+              element={<SignUp />}
             />
-            <Route 
+            <Route
               path="/score"
-              element={ <Score /> }
+              element={<Score />}
             />
           </Routes>
-        </HashRouter>
-      </GameProvider>
-    </InfoProvider>
+        </GameProvider>
+      </InfoProvider>
+    </BrowserRouter>
   );
 }
 

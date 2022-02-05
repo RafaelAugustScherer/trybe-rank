@@ -76,7 +76,10 @@ function SignIn() {
         </button>
         <Link to="/select-quiz">
           <p
-            onClick={() => setNickname('Convidado')}
+            onClick={() => {
+              setNickname('Convidado');
+              setToken('guest');
+            } }
           >
             Entrar como convidado
           </p>
