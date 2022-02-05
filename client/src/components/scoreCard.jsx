@@ -1,4 +1,11 @@
-const ScoreCard = ({ hits, score, streak }) => (
+import { useContext } from 'react';
+import { gameContext } from '../providers/GameProvider';
+
+const ScoreCard = () => {
+  const { userAnswers, score, bestStreak } = useContext(gameContext);
+  const hits = userAnswers.filter(({ correct }) => correct).length;
+
+  return (
   <div className="score-card-container">
     <div>
       <h4>{ hits }</h4>
@@ -9,10 +16,11 @@ const ScoreCard = ({ hits, score, streak }) => (
       <h6>Pontos</h6>
     </div>
     <div>
-      <h4>{ streak }</h4>
+      <h4>{ bestStreak }</h4>
       <h6>Maior sequencia</h6>
     </div>
   </div>
-);
+  );
+};
 
 export default ScoreCard;

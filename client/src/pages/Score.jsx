@@ -5,18 +5,12 @@ import ScoreCard from '../components/scoreCard';
 import '../css/score-page.css';
 
 const Score = () => {
-  const {
-    score,
-    hits,
-    bestStreak: streak,
-    resetGame
-  } = useContext(gameContext);
-  const scoreCardInfo = { score, hits, streak };
+  const { resetGame } = useContext(gameContext);
 
   return (
     <div className='quiz-page'>
       <h1 className='hero-title'>Pontuação</h1>
-      <ScoreCard { ...scoreCardInfo } />
+      <ScoreCard />
       <div>
         <Link to="/select-quiz">
           <button
