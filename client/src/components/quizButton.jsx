@@ -45,7 +45,6 @@ const QuizButton = ({ answers, correctAnswer }) => {
 
     const headers = { 'Authorization': `${token}` }
     const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
-    console.log(headers, newQuestions);
     axios
       .put('http://localhost:5000/user', { newQuestions }, { headers })
       .catch((err) => new Error(err.message))
