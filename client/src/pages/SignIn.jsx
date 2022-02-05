@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { infoContext } from '../providers/InfoProvider';
+import { setCookie } from '../utils/cookie';
 
 function SignIn() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function SignIn() {
       .then(({ nickname, token }) => {
         setNickname(nickname);
         setToken(token);
-        document.cookie = 'token='
+        setCookie('token', token, 24);
         navigate('/select-quiz');
       })
       .catch(() => {

@@ -76,9 +76,9 @@ const SelectQuiz = () => {
   }
 
   useEffect(() => {
-    fetchCompletedQuestions();
+    token && fetchCompletedQuestions();
     resetGame();
-  }, [])
+  }, [token])
 
   return (
     <>
