@@ -21,10 +21,24 @@ const InfoProvider = ({ children }) => {
     setTypes(bdTypes);
   }
 
+  const getToken = async () => {
+    document.cookie = 'token='
+    let tokenCookie = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('token='))
+    .split('=')[1];
+    
+    if (tokenCookie) {
+      setToken(tokenCookie);
+    }
+    console.log(tokenCookie);
+  }
+
   useEffect(() => {
+    getToken();
     fetchQuestions();
     fetchTypes();
-  }, [])
+  }, []);
 
   const value = {
     questions,
