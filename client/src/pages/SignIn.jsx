@@ -1,19 +1,20 @@
 import trybeIcon from '../svg/trybeIcon.svg';
 import Style from '../css/Login.module.css';
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { infoContext } from '../providers/InfoProvider';
 
 function SignIn() {
   const navigate = useNavigate();
-  const { setNickname, setToken } = useContext(infoContext);
+  const { setNickname, token, setToken } = useContext(infoContext);
   const [state, setState] = useState({ username: '', password: '' });
   const [error, setError] = useState(null);
 
   const onChange = ({ target: { id, value } }) => {
     setState({ ...state, [id]: value });
   };
+
 
   const onLogin = () => {
     const { username, password } = state;
@@ -27,12 +28,19 @@ function SignIn() {
       .then(({ nickname, token }) => {
         setNickname(nickname);
         setToken(token);
+        document.cookie = 'token='
         navigate('/select-quiz');
       })
       .catch(() => {
         setError('Usuário não encontrado!');
       })
   }
+
+  useEffect(() => {
+    if (token) {
+      navigate('/select-quiz');
+    }
+  }, [token, navigate]);
 
   return (
     <div className={ Style.page }>
