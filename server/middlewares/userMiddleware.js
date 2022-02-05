@@ -47,6 +47,8 @@ const authenticateToken = async (req, res, next) => {
 
   if (!token)
     return res.status(401).json({ message: 'Token not found!' });
+  if (token === 'guest')
+    return res.status(200).json({ message: 'Guest User' });
 
   try {
     const { username, password } = jwt.verify(token, secret);
