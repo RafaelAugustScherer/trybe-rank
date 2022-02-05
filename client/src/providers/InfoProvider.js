@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import axios from 'axios';
+import { getCookie } from '../utils/cookie';
 
 export const infoContext = createContext();
 
@@ -23,10 +24,7 @@ const InfoProvider = ({ children }) => {
 
   const getToken = async () => {
     document.cookie = 'token='
-    let tokenCookie = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('token='))
-    .split('=')[1];
+    const tokenCookie = getCookie('token');
     
     if (tokenCookie) {
       setToken(tokenCookie);
