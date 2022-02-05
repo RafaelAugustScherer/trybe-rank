@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Style from '../css/Login.module.css';
 import axios from 'axios';
+
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -9,10 +10,25 @@ const SignUp = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [isPasswordActive, setPasswordActive] = useState(false);
   const [disabled, setDisabled] = useState(false);
-
+  const [created, setCreated] = useState(false);
+  const [notCreated, setNotCreated] = useState(false);
+  const navigate = useNavigate();
+  
   const CreateUser = () => {
     const newUser = { username, password };
     axios.post('http://localhost:5000/sign-up', newUser)
+      .then(() => {
+        setCreated(true);
+        setTimeout(() => {
+          navigate('/');
+        }, 1500)
+      })
+      .catch(() => {
+        setNotCreated(true);
+        setTimeout(() => {
+          setNotCreated(false);
+        }, 1500)
+      })
   }
 
   const verifyFields = () => {
@@ -36,6 +52,8 @@ const SignUp = () => {
     <div className={ Style.page } >
       <form className={ Style.container }>
         <h1 className="hero-title">Sign Up</h1>
+        { created && <p style={{ 'color': '#61C9A3' }}>Usuario criado!</p> }
+        { notCreated && <p style={{ 'color': '#e63946' }}>Usuario já existe!</p> }
         <label htmlFor='username-id'>
           Apelido:
           <input
@@ -85,16 +103,14 @@ const SignUp = () => {
             <li>Tamanho de 8 caracteres</li>
           </ul>
         </div>
-        <Link to="/">
-          <button
-            type="button"
-            onClick={ CreateUser }
-            className={ Style.signInBot }
-            disabled={ disabled }
-          >
-            Sign Up
-          </button>
-        </Link>
+        <button
+          type="button"
+          onClick={ CreateUser }
+          className={ Style.signInBot }
+          disabled={ disabled }
+        >
+          Sign Up
+        </button>
       </form>
     </div>
   );
