@@ -95,43 +95,46 @@ const QuizButton = ({ answers, correctAnswer }) => {
       <div className="quiz-bot-container">
         { Buttons() }
       </div>
-      { active && (
-        <div className="next-prev-buttons">
-          {
-            gameIndex > 0 && (
-              <button
-                style={ {'backgroundColor': '#b1b1b1'} }
-                className="wrong-quiz"
-                onClick={() => {
-                  prevPage();
-                }}
-              >
-                Voltar
-              </button>
-            )
-          }
-          { last ? (
-            <Link to="/score">
-              <button
-                className="right-quiz"
-                onClick={ finishGame }
-              >
-                Finalizar
-              </button>
-            </Link>
-          ) : (
+      <div className="next-prev-buttons">
+        {
+          gameIndex > 0 && (
             <button
-              className="right-quiz"
+              style={ {'backgroundColor': '#b1b1b1', 'display': `${active ? 'block': 'none'}`} }
+              disabled={ !active }
+              className="wrong-quiz"
               onClick={() => {
-                resetQuestions();
-                nextPage();
+                prevPage();
               }}
             >
-              Avançar
+              Voltar
             </button>
-          ) }
-        </div>
-      ) }
+          )
+        }
+        { last ? (
+          <Link to="/score">
+            <button
+              style={ {'display': `${active ? 'block': 'none'}` } }
+              disabled={ !active }
+              className="right-quiz"
+              onClick={ finishGame }
+            >
+              Finalizar
+            </button>
+          </Link>
+        ) : (
+          <button
+            disabled={ !active }
+            style={ {'display': `${active ? 'block': 'none'}` } }
+            className="right-quiz"
+            onClick={() => {
+              resetQuestions();
+              nextPage();
+            }}
+          >
+            Avançar
+          </button>
+        ) }
+      </div>
     </>
   )
 }

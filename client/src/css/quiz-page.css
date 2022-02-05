@@ -26,6 +26,7 @@
 .next-prev-buttons {
   display: flex;
   margin-top: 5vh;
+  height: 50px;
   justify-content: space-around;
 }
 
