@@ -1,17 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { gameContext } from "../providers/GameProvider";
+import { infoContext } from "../providers/InfoProvider";
+import axios from 'axios';
+import { Link } from "react-router-dom";
 
 const QuizButton = ({ answers, correctAnswer }) => {
   const [questions, setQuestions] = useState([]);
   const [quizSelected, setQuizSelected] = useState(null);
-  const { 
+  const { token } = useContext(infoContext)
+  const {
+    type,
     gameIndex,
     gameQuestions,
     setGameIndex,
     userAnswers,
-    setUserAnswers,
-    handleRightAnswer, 
-    handleWrongAnswer 
+    handleAnswer
   } = useContext(gameContext);
   const [active, setActive] = useState(false);
   const last =  gameIndex + 1 === gameQuestions.length;
@@ -31,9 +34,20 @@ const QuizButton = ({ answers, correctAnswer }) => {
     setQuestions(sortedEntries);
   }
 
-  const resetButtons = () => {
+  const resetQuestions = () => {
     setQuestions([]);
     setActive(false);
+  }
+
+  const finishGame = () => {
+    const correctAnswer = userAnswers.filter(({ correct }) => correct);
+    if (!correctAnswer.length) return;
+
+    const headers = { 'Authorization': `${token}` }
+    const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
+    axios
+      .put('http://localhost:5000/user', { newQuestions }, { headers })
+      .catch((err) => new Error(err.message))
   }
 
   const nextPage = () => {
@@ -59,13 +73,8 @@ const QuizButton = ({ answers, correctAnswer }) => {
             ${quizSelected === key ? 'quiz-selected' : ''}
           ` }
           onClick={ () => {
-            if (isCorrect) {
-              handleRightAnswer();
-            } else {
-              handleWrongAnswer();
-            }
-            setQuizSelected(key)
-            setUserAnswers([...userAnswers, { question_id: key, answer: value, questions}])
+            handleAnswer(isCorrect, { question_id: key, answer: value, questions, correct: isCorrect });
+            setQuizSelected(key);
             setActive(true);
           } }
         >
@@ -86,35 +95,46 @@ const QuizButton = ({ answers, correctAnswer }) => {
       <div className="quiz-bot-container">
         { Buttons() }
       </div>
-      { active && (
-        <div className="next-prev-buttons">
-          {
-            gameIndex > 0 && (
-              <button
-                onClick={() => {
-                  prevPage();
-                }}
-              >
-                Prev
-              </button>
-            )
-          }
-          { last ? (
-            <button>
-              Finalizar
-            </button>
-          ) : (
+      <div className="next-prev-buttons">
+        {
+          gameIndex > 0 && (
             <button
+              style={ {'backgroundColor': '#b1b1b1', 'display': `${active ? 'block': 'none'}`} }
+              disabled={ !active }
+              className="wrong-quiz"
               onClick={() => {
-                resetButtons();
-                nextPage();
+                prevPage();
               }}
             >
-              Next
+              Voltar
             </button>
-          ) }
-        </div>
-      ) }
+          )
+        }
+        { last ? (
+          <Link to="/score">
+            <button
+              style={ {'display': `${active ? 'block': 'none'}` } }
+              disabled={ !active }
+              className="right-quiz"
+              onClick={ finishGame }
+            >
+              Finalizar
+            </button>
+          </Link>
+        ) : (
+          <button
+            disabled={ !active }
+            style={ {'display': `${active ? 'block': 'none'}` } }
+            className="right-quiz"
+            onClick={() => {
+              resetQuestions();
+              nextPage();
+            }}
+          >
+            Avançar
+          </button>
+        ) }
+      </div>
     </>
   )
 }

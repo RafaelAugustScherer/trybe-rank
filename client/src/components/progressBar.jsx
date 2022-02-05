@@ -1,24 +1,20 @@
-import { questions_completed } from '../data/gameData';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
 import { useEffect, useState } from 'react';
+import 'react-circular-progressbar/dist/styles.css';
 
 
-const ProgressBar = ({ active, quantity, id }) => {
+const ProgressBar = ({ active, completed, quantity, id }) => {
   const [percentage, setPercentage] = useState(0);
 
   const getPercentage = () => {
-    const questions = questions_completed.filter(({ type_id }) => type_id === id).length;
-    const value = (questions * 100) / quantity;
-    return questions ? Math.round(value) : 0;
+    const value = (completed * 100) / quantity;
+    return Math.round(value);
   }
 
   const showPercentage = () => {
     setTimeout(() => {
       const total = getPercentage();
-      for(let i = 0; i < total; i += 1) {
-        setPercentage(i)
-      }
+      setPercentage(total)
     }, 500)
   }
 

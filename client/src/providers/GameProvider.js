@@ -10,6 +10,7 @@ const GameProvider = ({ children }) => {
   const [userAnswers, setUserAnswers] = useState([]);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
 
   const getGameQuestions = (questions) => {
     if (!type) return;
@@ -21,21 +22,27 @@ const GameProvider = ({ children }) => {
     setGameQuestions(randomQuestions.slice(0, 5));
   }
 
-  const handleRightAnswer = () => {
-    const newPontuation = score + 10 + (streak + 1) * 5;
-    setScore(newPontuation);
-    setStreak(streak + 1);
-  }
-
-  const handleWrongAnswer = () => {
-    setStreak(0)
+  const handleAnswer = (isCorrect, answer) => {
+    if (isCorrect) {
+      const newPontuation = score + 10 + (streak + 1) * 5;
+      setScore(newPontuation);
+      setStreak(streak + 1);
+      if (streak + 1 > bestStreak) setBestStreak(streak + 1);
+    }
+    else {
+      setStreak(0);
+    }
+    setUserAnswers([...userAnswers, answer]);
   }
 
   const resetGame = () => {
     setType(null);
     setGameQuestions([]);
+    setUserAnswers([]);
+    setGameIndex(0);
     setScore(0);
     setStreak(0);
+    setBestStreak(0);
   }
 
   const value = {
@@ -44,9 +51,9 @@ const GameProvider = ({ children }) => {
     gameIndex,
     userAnswers,
     difficulty,
+    bestStreak,
     score,
-    handleRightAnswer,
-    handleWrongAnswer,
+    handleAnswer,
     setType,
     setDifficulty,
     getGameQuestions,

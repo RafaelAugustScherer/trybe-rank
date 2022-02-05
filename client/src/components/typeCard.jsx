@@ -5,7 +5,7 @@ import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import ProgressBar from './progressBar';
 
-const TypeCard = ({ id, play, name, quantity, dificulty, color, selected, setSelected, setActive }) => {
+const TypeCard = ({ id, play, name, quantity, dificulty, completedQuestions, color, selected, setSelected, setActive }) => {
   const { questions } = useContext(infoContext)
   const { setType, getGameQuestions } = useContext(gameContext);
 
@@ -29,6 +29,7 @@ const TypeCard = ({ id, play, name, quantity, dificulty, color, selected, setSel
       <div className="type-info">
         <ProgressBar
           id={ id }
+          completed={ completedQuestions }
           active={ selected === name }
           quantity={ quantity }
           selected={ selected }

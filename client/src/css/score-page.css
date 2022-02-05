@@ -1,0 +1,26 @@
+.score-card-container {
+  display: flex;
+  width: 800px;
+  height: 150px;
+  justify-content: center;
+  background-color: #E4E4E4;
+  border-radius: 30px;
+}
+
+.score-card-container > div {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.score-card-container > div > h4 {
+  font-size: 3em;
+  color: #61C9A3;
+}
+
+.score-card-container > div > h6 {
+  font-size: 1.5em;
+}

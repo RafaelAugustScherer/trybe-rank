@@ -25,7 +25,27 @@
 
 .next-prev-buttons {
   display: flex;
-  justify-content: center;
+  margin-top: 5vh;
+  height: 50px;
+  justify-content: space-around;
+}
+
+.next-prev-buttons button {
+  width: 200px;
+  height: 50px;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.voltar-menu {
+  width: 200px;
+  height: 50px;
+  border: none;
+  margin-top: 5vh;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .quiz-bot-container {
@@ -38,6 +58,9 @@
 
 .quiz-bot {
   background-color: #E4E4E4;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.5em;
   cursor: pointer;
   width: 40%;
   height: 40%;
