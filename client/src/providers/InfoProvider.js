@@ -34,7 +34,7 @@ const InfoProvider = ({ children }) => {
     
     setUsers(users);
   };
-
+  
   const GetToken = async () => {
     const tokenCookie = getCookie('token');
 
