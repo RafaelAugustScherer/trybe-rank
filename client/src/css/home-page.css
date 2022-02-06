@@ -51,6 +51,17 @@ section {
   font-weight: 500;
 }
 
+.profile-div-edit input[type="text"],
+.profile-div-edit input[type="text"]:focus {
+  background-color: #00000000;
+  border: none;
+  border-bottom: 1px solid black;
+  margin-left: 10px;
+  max-width: 180px;
+  font-size: .8em;
+  outline:none;
+}
+
 .profile-div-edit > svg {
   position: absolute;
   cursor: pointer;

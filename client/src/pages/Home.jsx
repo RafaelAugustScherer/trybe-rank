@@ -1,31 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { infoContext } from '../providers/InfoProvider';
-import { BsPersonCircle, BsPencilSquare, BsTrophyFill, BsFillPeopleFill, BsFront } from 'react-icons/bs';
+import { BsTrophyFill, BsFillPeopleFill, BsFront } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import '../css/home-page.css';
-import axios from 'axios';
+import ProfileCard from '../components/profileCard';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [isEditing, setIsEditing] = useState(false);
-  const { userInfo, setUserInfo, types, questions } = useContext(infoContext);
-  const { username, nickname, completed_questions: completedQuestions } = userInfo;
-
-  const onChange = ({ target: { id, value } }) => {
-    setUserInfo({ ...userInfo, [id]: value });
-  }
-
-  const onEdit = () => {
-    if (!isEditing) {
-      setIsEditing(true);
-      return;
-    }
-    setIsEditing(false);
-    const headers = { 'Authorization': `${token}` };
-    axios
-      .put('http:://localhost:5000/user', { username, nickname }, { headers })
-      .catch((err) => new Error(err.message));
-  }
+  const { userInfo, types, questions } = useContext(infoContext);
+  const { nickname, completed_questions: completedQuestions } = userInfo;
 
   const createQuestionsCards = () => {
     const cards = types.map(({ name, color }) => {
@@ -54,42 +37,7 @@ const Home = () => {
         className="welcome"
       >
         <h2>Bem-vindo {nickname}!</h2>
-        <div className="profile-div">
-          <div>
-            <BsPersonCircle className="profile-image" />
-            <p>{nickname}</p>
-          </div>
-          <div className="profile-div-edit">
-            {isEditing ? (
-              <>
-              <p>
-                Nome: 
-                <input
-                  type="text"
-                  id="username"
-                  onChange={ (e) => onChange(e) }
-                  value={ username }>
-                </input>
-              </p>
-              <p>
-              Apelido: 
-              <input
-                type="text"
-                id="nickname"
-                onChange={ onChange }
-                value={ nickname }>
-              </input>
-            </p>
-            </>
-            ) : (
-              <>
-                <p>Nome: <span>{username}</span></p>
-                <p>Apelido: <span>{nickname}</span></p>
-              </>
-            )}
-            <BsPencilSquare onClick={ onEdit } />
-          </div>
-        </div>
+        <ProfileCard />
       </section>
       <section
         key="quick-access-section"
