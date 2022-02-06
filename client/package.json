@@ -10,8 +10,7 @@
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.1",
-    "react-spring": "^9.4.2",
-    "update": "^0.4.2"
+    "react-spring": "^9.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,12 +18,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon ./backend/index.js"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -39,7 +32,7 @@
     ]
   },
   "devDependencies": {
-    "mini-css-extract-plugin": "2.4.5",
+    "mini-css-extract-plugin": "^2.5.3",
     "react-scripts": "^5.0.0"
   }
 }
