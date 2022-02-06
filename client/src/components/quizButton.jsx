@@ -10,6 +10,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
   const { token } = useContext(infoContext)
   const {
     type,
+    difficulty,
     score,
     gameIndex,
     gameQuestions,
@@ -46,7 +47,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
 
     const headers = { 'Authorization': `${token}` }
     const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
-    const newQuiz = { type, score }
+    const newQuiz = { type, score, difficulty }
     axios
       .put('http://localhost:5000/user-progress', { newQuestions, newQuiz }, { headers })
       .catch((err) => new Error(err.message))
