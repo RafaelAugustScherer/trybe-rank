@@ -1,9 +1,12 @@
 import { createContext, useState, useEffect } from "react";
 import axios from 'axios';
+import { getCookie } from '../utils/cookie';
+import { useNavigate } from 'react-router-dom';
 
 export const infoContext = createContext();
 
 const InfoProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState(null);
   const [token, setToken] = useState(null);
   const [types, setTypes] = useState([]);
@@ -21,10 +24,21 @@ const InfoProvider = ({ children }) => {
     setTypes(bdTypes);
   }
 
+  const GetToken = async () => {
+    const tokenCookie = getCookie('token');
+
+    if (tokenCookie) {
+      setToken(tokenCookie);
+    } else {
+      navigate('/');
+    }
+  }
+
   useEffect(() => {
+    GetToken();
     fetchQuestions();
     fetchTypes();
-  }, [])
+  }, []);
 
   const value = {
     questions,
