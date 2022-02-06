@@ -32,6 +32,7 @@ function App() {
             <Route
               path="/score"
               element={<Score />}
+            />
             <Route 
               path="/leaderboard"
               element={<Leaderboard />}

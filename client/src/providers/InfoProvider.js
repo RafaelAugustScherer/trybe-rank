@@ -7,7 +7,6 @@ export const infoContext = createContext();
 
 const InfoProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
   const [nickname, setNickname] = useState(null);
   const [token, setToken] = useState(null);
   const [types, setTypes] = useState([]);
@@ -24,16 +23,6 @@ const InfoProvider = ({ children }) => {
       .then(res => res.data);
     setTypes(bdTypes);
   }
-
-  const fetchUsers = async () => {
-    if (!token) return;
-    const headers = { 'Authorization': `${token}` }
-
-    const { users } = await axios.get('http://localhost:5000/users', { headers })
-      .then((res) => res.data);
-    
-    setUsers(users);
-  };
   
   const GetToken = async () => {
     const tokenCookie = getCookie('token');
@@ -51,12 +40,7 @@ const InfoProvider = ({ children }) => {
     fetchTypes();
   }, []);
 
-  useEffect(() => {
-    fetchUsers();
-  }, [token])
-
   const value = {
-    users,
     questions,
     types,
     nickname,

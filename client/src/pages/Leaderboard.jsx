@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { infoContext } from "../providers/InfoProvider";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import fetchUsers from '../utils/getUsers'
 import '../css/Leaderboard.css'
 
 const Leaderboard = () => {
@@ -11,11 +11,7 @@ const Leaderboard = () => {
   const { types, token } = useContext(infoContext);
 
   const getUsers = async () => {
-    const headers = { 'Authorization': `${token}` }
-
-    const { users: leaderboardUsers } = await axios.get('http://localhost:5000/users', { headers })
-      .then((res) => res.data);
-    
+    const leaderboardUsers = await fetchUsers(token);
     setUsers(leaderboardUsers);
   }
 
@@ -32,7 +28,7 @@ const Leaderboard = () => {
       return { nickname, pontuation }
     });
     const getTop10Players = getUserAndPontuation
-      .sort(({ pontuation: a }, { pontuation: b }) => a - b)
+      .sort(({ pontuation: a }, { pontuation: b }) => b - a)
       .slice(0, 10);
 
     return getTop10Players;
