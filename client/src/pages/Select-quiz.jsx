@@ -4,13 +4,11 @@ import { infoContext } from '../providers/InfoProvider';
 import TypeCard from '../components/typeCard';
 import SelectDificulty from '../components/SelectDificulty';
 import '../css/Select-page.css';
-import { fetchCompletedQuestions } from '../utils/fetch';
 
 const SelectQuiz = () => {
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(null);
-  const [completedQuestions, setCompletedQuestions] = useState(null);
-  const { questions, types, token } = useContext(infoContext)
+  const { questions, types, completedQuestions } = useContext(infoContext)
   const { resetGame } = useContext(gameContext);
 
   const createCards = () => {
@@ -67,14 +65,8 @@ const SelectQuiz = () => {
   }
 
   useEffect(() => {
-    const initCompletedQuestions = async () => {
-      const newCompletedQuestions = await fetchCompletedQuestions(token);
-      setCompletedQuestions(newCompletedQuestions);
-    }
-
-    token && initCompletedQuestions();
     resetGame();
-  }, [token])
+  }, []);
 
   return (
     <>
