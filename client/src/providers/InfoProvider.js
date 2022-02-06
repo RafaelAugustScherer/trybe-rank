@@ -8,6 +8,7 @@ export const infoContext = createContext();
 const InfoProvider = ({ children }) => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState(null);
+  const [username, setUsername] = useState(null);
   const [token, setToken] = useState(null);
   const [types, setTypes] = useState([]);
   const [questions, setQuestions] = useState([]);
@@ -35,6 +36,7 @@ const InfoProvider = ({ children }) => {
       .then(({ data }) => data.user);
     console.log(bdUser);
     setNickname(bdUser.nickname);
+    setUsername(bdUser.username);
     setCompletedQuestions(bdUser.completed_questions);
   }
 
@@ -62,8 +64,10 @@ const InfoProvider = ({ children }) => {
     questions,
     types,
     nickname,
+    username,
     token,
     setNickname,
+    setUsername,
     setToken,
     completedQuestions
   }

@@ -25,16 +25,19 @@ section {
 }
 
 .profile-div {
+  position: relative;
   background-color: rgb(214, 214, 214);
   border-radius: 20px;
+  display: flex;
   padding: 10px 20px;
   width: 500px;
+  height: 200px;
 }
 
 .profile-image {
   font-size: 8em;
   border: 3px solid #00fb9f;
-  border-radius: 70px;
+  border-radius: 100%;
 }
 
 .profile-div p {
@@ -42,6 +45,17 @@ section {
   margin-left: 1em;
   font-size: 1.3em;
   font-weight: 800;
+}
+
+.profile-div-edit span {
+  font-weight: 500;
+}
+
+.profile-div-edit > svg {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  right: 20px;
 }
 
 .quick-access button {
