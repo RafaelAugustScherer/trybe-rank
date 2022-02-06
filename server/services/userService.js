@@ -42,12 +42,12 @@ const getOne = (req, res) => {
 };
 
 const getAll = async (_req, res) => {
-  const users = userModel.getUsers();
+  const users = await userModel.getUsers();
 
   if (!users)
     return res.status(404).json({ message: 'Not users in our database' })
 
-  const userWithOutPass = users.map(({ password, ...otherFields }) => otherFields)
+  const userWithOutPass = users.map(({ nickname, completed_quizes }) => ({ nickname, completed_quizes }))
 
   res
     .status(200)
