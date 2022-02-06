@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Score from './pages/Score';
 import './App.css';
+import Home from './pages/Home';
 
 
 function App() {
@@ -15,14 +16,21 @@ function App() {
       <InfoProvider>
         <GameProvider>
           <Routes>
-            <Route path="/" element={<SignIn />} />
+            <Route
+              path="/"
+              element={ <SignIn /> }
+            />
+            <Route
+              path="/home"
+              element={ <Home /> }
+            />
             <Route
               path="/select-quiz"
-              element={<SelectQuiz />}
+              element={ <SelectQuiz /> }
             />
             <Route
               path="/quiz"
-              element={<Quiz />}
+              element={ <Quiz /> }
             />
             <Route
               path="/sign-up"
@@ -30,7 +38,7 @@ function App() {
             />
             <Route
               path="/score"
-              element={<Score />}
+              element={ <Score /> }
             />
           </Routes>
         </GameProvider>
