@@ -2,26 +2,24 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { useEffect, useState } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 
-
 const ProgressBar = ({ active, completed, quantity }) => {
   const [percentage, setPercentage] = useState(0);
 
   const getPercentage = () => {
-    console.log(completed, quantity)
     const value = (completed * 100) / quantity;
-    return Math.round(value);
-  }
+    return value ? Math.round(value) : 0;
+  };
 
   const showPercentage = () => {
     setTimeout(() => {
       const total = getPercentage();
-      setPercentage(total)
+      setPercentage(total);
     }, 500)
   }
 
   useEffect(() => {
     showPercentage();
-  }, [completed, quantity])
+  }, [completed, quantity]);
   
   return (
     <div className="progress">
