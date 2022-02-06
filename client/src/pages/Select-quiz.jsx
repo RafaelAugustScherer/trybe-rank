@@ -1,10 +1,10 @@
 import { useState, useContext, useEffect } from 'react';
 import { gameContext } from '../providers/GameProvider';
 import { infoContext } from '../providers/InfoProvider';
-import axios from 'axios';
 import TypeCard from '../components/typeCard';
 import SelectDificulty from '../components/SelectDificulty';
 import '../css/Select-page.css';
+import { fetchCompletedQuestions } from '../utils/fetch';
 
 const SelectQuiz = () => {
   const [selected, setSelected] = useState(null);
@@ -12,16 +12,6 @@ const SelectQuiz = () => {
   const [completedQuestions, setCompletedQuestions] = useState(null);
   const { questions, types, token } = useContext(infoContext)
   const { resetGame } = useContext(gameContext);
-
-  const fetchCompletedQuestions = async () => {
-    const headers = { 'Authorization': `${token}` };
-    const data = await axios.get('http://localhost:5000/user', { headers })
-      .then((res) => res.data)
-      .then(({ user: { completed_questions } }) => completed_questions)
-      .catch(() => []);
-  
-    setCompletedQuestions(data);
-  }
 
   const createCards = () => {
     const cards = types.map(({name, color, difficulty}) => {
@@ -77,7 +67,12 @@ const SelectQuiz = () => {
   }
 
   useEffect(() => {
-    token && fetchCompletedQuestions();
+    const initCompletedQuestions = async () => {
+      const newCompletedQuestions = await fetchCompletedQuestions(token);
+      setCompletedQuestions(newCompletedQuestions);
+    }
+
+    token && initCompletedQuestions();
     resetGame();
   }, [token])
 
