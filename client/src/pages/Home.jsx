@@ -48,7 +48,7 @@ const Home = () => {
           <BsFront />
           <p>Quizes</p>
         </button>
-        <button disabled>
+        <button onClick={() => navigate('/leaderboard') }>
           <BsTrophyFill />
           <p>Leaderboard</p>
         </button>
