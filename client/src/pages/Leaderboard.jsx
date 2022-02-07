@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { infoContext } from "../providers/InfoProvider";
 import { Link } from "react-router-dom";
-import fetchUsers from '../utils/getUsers'
-import '../css/Leaderboard.css'
+import { fetchUsers } from '../utils/fetch/users';
+import '../css/Leaderboard.css';
 
 const Leaderboard = () => {
   const [type, setType] = useState('All');
@@ -14,6 +14,10 @@ const Leaderboard = () => {
     const leaderboardUsers = await fetchUsers(token);
     setUsers(leaderboardUsers);
   }
+
+  useEffect(() => {
+    token && getUsers();
+  }, [token]);
 
   const getPlayers = () => {
     const filterByQuizes = users.filter(({ completed_quizes: completedQuizes }) => completedQuizes.length);
@@ -77,10 +81,6 @@ const Leaderboard = () => {
     )
   }
 
-  useEffect(() => {
-    getUsers();
-  }, []);
-
   return (
     <>
       <div className="leaderboard-page">
@@ -115,9 +115,14 @@ const Leaderboard = () => {
             </div>
           </div>
           <div className="next-prev-buttons">
+            <Link to="/home">
+              <button className="voltar-menu">
+                Voltar para Home
+              </button>
+            </Link>
             <Link to="/select-quiz">
               <button className="voltar-menu">
-                Voltar para o menu
+                Selecionar Quiz
               </button>
             </Link>
           </div>
