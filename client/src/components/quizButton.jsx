@@ -45,7 +45,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
     const correctAnswer = userAnswers.filter(({ correct }) => correct);
     if (!correctAnswer.length) return;
 
-    const headers = { 'Authorization': `${token}` }
+    const headers = { Authorization: token }
     const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
     const newQuiz = { type, score, difficulty }
     axios

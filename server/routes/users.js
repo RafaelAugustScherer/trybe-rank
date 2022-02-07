@@ -14,6 +14,7 @@ router
 router
   .route('/user')
   .get(userMiddleware.authenticateToken, user.getOne)
+  .put(userMiddleware.authenticateToken, user.updateOne)
 
 router
   .route('/user-progress')

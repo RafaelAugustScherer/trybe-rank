@@ -1,26 +1,38 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { infoContext } from '../providers/InfoProvider';
 import { BsPersonCircle, BsPencilSquare } from 'react-icons/bs';
 
 const ProfileCard = () => {
+  const { token, userInfo, setUserInfo } = useContext(infoContext);
+  const { username, nickname } = userInfo;
+  const [usernameBkp, setUsernameBkp] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const { userInfo, setUserInfo } = useContext(infoContext);
-  const { token, username, nickname } = userInfo;
+
+  useEffect(() => {
+    if (!usernameBkp && username) {
+      setUsernameBkp(username);
+    }
+  }, [username]);
 
   const onChange = ({ target: { id, value } }) => {
     setUserInfo({ ...userInfo, [id]: value });
   };
 
-  const onEdit = () => {
+  const onEdit = async () => {
     if (!isEditing) {
       setIsEditing(true);
       return;
     }
     setIsEditing(false);
-    const headers = { Authorization: `${token}` };
-    axios
-      .put('http:://localhost:5000/user', { username, nickname }, { headers })
+
+    const headers = { Authorization: token };
+    await axios
+      .put('http://localhost:5000/user', {
+        username_prev: usernameBkp,
+        username,
+        nickname
+      }, { headers })
       .catch((err) => new Error(err.message));
   };
 

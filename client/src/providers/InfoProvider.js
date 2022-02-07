@@ -37,7 +37,7 @@ const InfoProvider = ({ children }) => {
       });
       return;
     }
-    const headers = { 'Authorization': `${token}` };
+    const headers = { Authorization: token };
     const bdUser = await axios.get('http://localhost:5000/user', { headers })
       .then(({ data }) => data.user);
     setUserInfo({ ...bdUser });
