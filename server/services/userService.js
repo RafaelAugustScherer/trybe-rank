@@ -77,10 +77,9 @@ const signIn = async ({ headers }, res) => {
 
   const token = jwt.sign({ username, password }, secret, jwtConfig);
 
-  const { nickname } = user;
   res
     .status(200)
-    .json({ message: 'OK', token, nickname })
+    .json({ message: 'OK', token })
 }
 
 export default { updateProgress, getOne, getAll, insertOne, signIn }
