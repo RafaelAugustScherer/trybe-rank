@@ -29,7 +29,7 @@ function SignIn() {
       .then(({ token }) => {
         setCookie('token', token, 24);
         getToken();
-        navigate('/select-quiz');
+        navigate('/home');
       })
       .catch(() => {
         setError('Usuário não encontrado!');
@@ -38,7 +38,7 @@ function SignIn() {
 
   useEffect(() => {
     if (token) {
-      navigate('/select-quiz');
+      navigate('/home');
     }
   }, [token, navigate]);
 
