@@ -8,7 +8,8 @@ import '../css/Select-page.css';
 const SelectQuiz = () => {
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(null);
-  const { questions, types, completedQuestions } = useContext(infoContext)
+  const { questions, types, userInfo } = useContext(infoContext)
+  const { completed_questions: completedQuestions } = userInfo;
   const { resetGame } = useContext(gameContext);
 
   const createCards = () => {
