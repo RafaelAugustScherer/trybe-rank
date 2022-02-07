@@ -20,11 +20,8 @@ const ProfileCard = () => {
   };
 
   const onEdit = async () => {
-    if (!isEditing) {
-      setIsEditing(true);
-      return;
-    }
-    setIsEditing(false);
+    setIsEditing(!isEditing);
+    if (!isEditing) return;
 
     const headers = { Authorization: token };
     await axios
