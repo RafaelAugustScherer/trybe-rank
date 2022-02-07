@@ -16,7 +16,9 @@ const Home = () => {
     const cards = types.map(({ name, color }) => {
       const completedQuestionsByType = completedQuestions.filter(({ type }) => type === name).length;
       const totalQuestionsByType = questions.filter(({ type }) => type === name).length
-      const progress = Math.round(completedQuestionsByType / totalQuestionsByType * 100);
+      
+      let progress = Math.round(completedQuestionsByType / totalQuestionsByType * 100);
+      if (!progress) progress = 0;
 
       return (
         <div
