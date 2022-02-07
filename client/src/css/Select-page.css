@@ -13,6 +13,7 @@ a {
 
 .hero-title {
   color: #61C9A3;
+  text-align: center;
   font-size: 5em;
   margin: 5vh 0;
 }

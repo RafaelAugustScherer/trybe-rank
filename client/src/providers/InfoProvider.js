@@ -42,7 +42,7 @@ const InfoProvider = ({ children }) => {
       .then(({ data }) => data.user);
     setUserInfo({ ...bdUser });
   }
-
+  
   const GetToken = async () => {
     const tokenCookie = getCookie('token');
 

@@ -11,13 +11,21 @@ const Score = () => {
     <div className='quiz-page'>
       <h1 className='hero-title'>Pontuação</h1>
       <ScoreCard />
-      <div>
+      <div className="next-prev-buttons">
         <Link to="/select-quiz">
           <button
             className="voltar-menu"
             onClick={ () => resetGame() }
           >
             Voltar para o menu
+          </button>
+        </Link>
+        <Link to="/leaderboard">
+          <button
+            className="right-quiz"
+            onClick={ () => resetGame() }
+          >
+            Leaderboard
           </button>
         </Link>
       </div>

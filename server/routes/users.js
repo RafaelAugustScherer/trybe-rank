@@ -1,5 +1,5 @@
 import express from 'express';
-import user from '../models/userModel.js';
+import user from '../services/userService.js';
 import userMiddleware from '../middlewares/userMiddleware.js';
 const router = express.Router();
 
@@ -14,7 +14,11 @@ router
 router
   .route('/user')
   .get(userMiddleware.authenticateToken, user.getOne)
-  .put(userMiddleware.authenticateToken, user.updateQuestions);
+
+router
+  .route('/user-progress')
+  .put(userMiddleware.authenticateToken, user.updateProgress);
+
 
 router
   .route('/users')
