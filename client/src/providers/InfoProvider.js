@@ -23,7 +23,7 @@ const InfoProvider = ({ children }) => {
       .then(res => res.data);
     setTypes(bdTypes);
   }
-
+  
   const GetToken = async () => {
     const tokenCookie = getCookie('token');
 

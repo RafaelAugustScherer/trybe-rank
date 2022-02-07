@@ -25,6 +25,7 @@
 
 .next-prev-buttons {
   display: flex;
+  width: 40vw;
   margin-top: 5vh;
   height: 50px;
   justify-content: space-around;
@@ -43,7 +44,7 @@
   width: 200px;
   height: 50px;
   border: none;
-  margin-top: 5vh;
+  font-size: 1em !important;
   cursor: pointer;
   border-radius: 5px;
 }

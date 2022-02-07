@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Score from './pages/Score';
 import './App.css';
+import Leaderboard from './pages/Leaderboard';
 
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
             <Route
               path="/score"
               element={<Score />}
+            />
+            <Route 
+              path="/leaderboard"
+              element={<Leaderboard />}
             />
           </Routes>
         </GameProvider>

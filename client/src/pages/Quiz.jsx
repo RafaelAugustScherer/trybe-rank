@@ -16,7 +16,7 @@ const Quiz = () => {
           <h2>{ question }</h2>
           <p>{ `Pontos ${score}` }</p>
         </div>
-        <div>
+        <div style={{ 'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center' }}>
           <QuizButton
             answers={ answers } 
             correctAnswer={ correct_id }
