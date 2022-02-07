@@ -98,6 +98,10 @@ section {
   margin-bottom: 20px;
 }
 
+.leaderboard {
+  width: 500px;
+}
+
 .leaderboard p {
   color: white;
 }

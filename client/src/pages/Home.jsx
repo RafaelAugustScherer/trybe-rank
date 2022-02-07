@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
-import { infoContext } from '../providers/InfoProvider';
-import { BsTrophyFill, BsFillPeopleFill, BsFront } from 'react-icons/bs';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/home-page.css';
+import { BsTrophyFill, BsFillPeopleFill, BsFront } from 'react-icons/bs';
+import { infoContext } from '../providers/InfoProvider';
 import ProfileCard from '../components/profileCard';
+import { fetchUsers } from '../utils/fetch/users';
+import '../css/home-page.css';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { userInfo, types, questions } = useContext(infoContext);
+  const { token, userInfo, types, questions } = useContext(infoContext);
   const { nickname, completed_questions: completedQuestions } = userInfo;
+  const [users, setUsers] = useState([]);
 
   const createQuestionsCards = () => {
     const cards = types.map(({ name, color }) => {
@@ -28,6 +30,66 @@ const Home = () => {
     });
     return cards;
   };
+
+  const getUsers = async () => {
+    const leaderboardUsers = await fetchUsers(token);
+    setUsers(leaderboardUsers);
+  }
+
+  useEffect(() => {
+    token && getUsers();
+  }, [token]);
+
+  const getPlayers = () => {
+    const filterByQuizes = users.filter(({ completed_quizes: completedQuizes }) => completedQuizes.length);
+    let userAndPoints = filterByQuizes.map(({ completed_quizes: completedQuizes, nickname }) => {
+      const pontuation = completedQuizes.reduce((acc, curr) => acc + curr.score, 0);
+      return { nickname, pontuation };
+    });
+    userAndPoints.sort(({ pontuation: a }, { pontuation: b }) => b - a);
+    const userPosition = userAndPoints.findIndex(({ nickname: objNickname }) => objNickname === nickname);
+    console.log(userAndPoints);
+    const usersAround = userAndPoints.reduce((acc, cur, index) => {
+      console.log(acc);
+      if (acc.length === 10) return acc;
+      if (index >= userPosition - 5) {
+        return [...acc, cur];
+      }
+      return acc;
+    }, []);
+
+    return usersAround;
+  }
+
+  useEffect(() => {
+    !!users.length && getPlayers();
+  }, [users]);
+
+  const renderLeaderboard = () => {
+    const players = getPlayers();
+    const rows = players.map(({ nickname, pontuation }, index) => (
+      <tr key={ `jogador - ${nickname} / pontuacao - ${ pontuation }` }>
+        <td>{ index + 1 + 'º' }</td>
+        <td>{ nickname }</td>
+        <td>{ pontuation }</td>
+      </tr>
+    ));
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Top</th>
+            <th>Jogador</th>
+            <th>Pontuação</th>
+          </tr>
+        </thead>
+        <tbody>
+          { rows }
+        </tbody>
+      </table>
+    )
+  }
 
   return (
     <div className="home-page">
@@ -61,11 +123,11 @@ const Home = () => {
         <h2>Progresso nos Quizes</h2>
         {createQuestionsCards()}
       </section>
-      <section
-        key="leaderboard-section"
-        className="leaderboard">
+      <section key="leaderboard-section">
         <h2>Leaderboard</h2>
-        <p>Leaderboard aqui.</p>
+        <div className="leaderboard">
+          { !!users.length && renderLeaderboard() }
+        </div>
       </section>
     </div>
   );
