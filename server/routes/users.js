@@ -9,7 +9,7 @@ router
 
 router
   .route('/sign-up')
-  .post(userMiddleware.validateUserInfo, user.insertOne);
+  .post(user.insertOne);
 
 router
   .route('/user')

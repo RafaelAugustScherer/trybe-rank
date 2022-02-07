@@ -8,7 +8,7 @@ import { setCookie } from '../utils/cookie';
 
 function SignIn() {
   const navigate = useNavigate();
-  const { setNickname, token, setToken } = useContext(infoContext);
+  const { token, getToken } = useContext(infoContext);
   const [state, setState] = useState({ username: '', password: '' });
   const [error, setError] = useState(null);
 
@@ -26,10 +26,9 @@ function SignIn() {
       } }
     )
       .then(res => res.data)
-      .then(({ nickname, token }) => {
-        setNickname(nickname);
-        setToken(token);
+      .then(({ token }) => {
         setCookie('token', token, 24);
+        getToken();
         navigate('/select-quiz');
       })
       .catch(() => {

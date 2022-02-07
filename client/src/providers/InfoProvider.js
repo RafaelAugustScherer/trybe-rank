@@ -43,7 +43,7 @@ const InfoProvider = ({ children }) => {
     setUserInfo({ ...bdUser });
   }
   
-  const GetToken = async () => {
+  const getToken = async () => {
     const tokenCookie = getCookie('token');
 
     if (tokenCookie) {
@@ -54,7 +54,7 @@ const InfoProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    GetToken();
+    getToken();
     fetchQuestions();
     fetchTypes();
   }, []);
@@ -68,7 +68,7 @@ const InfoProvider = ({ children }) => {
     types,
     token,
     userInfo,
-    setToken,
+    getToken,
     setUserInfo,
   }
 
