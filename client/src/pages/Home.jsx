@@ -50,9 +50,8 @@ const Home = () => {
     });
     userAndPoints.sort(({ pontuation: a }, { pontuation: b }) => b - a);
     const userPosition = userAndPoints.findIndex(({ nickname: objNickname }) => objNickname === nickname);
-    console.log(userAndPoints);
+
     const usersAround = userAndPoints.reduce((acc, cur, index) => {
-      console.log(acc);
       if (acc.length === 10) return acc;
       if (index >= userPosition - 5) {
         return [...acc, cur];
