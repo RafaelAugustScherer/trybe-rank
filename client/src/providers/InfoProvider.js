@@ -10,7 +10,8 @@ const InfoProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({
     username: '',
     nickname: '',
-    completed_questions: []
+    completed_questions: [],
+    completed_quizes: [],
   });
   const [token, setToken] = useState(null);
   const [types, setTypes] = useState([]);
