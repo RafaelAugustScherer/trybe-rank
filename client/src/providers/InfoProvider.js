@@ -70,6 +70,7 @@ const InfoProvider = ({ children }) => {
     userInfo,
     getToken,
     setUserInfo,
+    setToken
   }
 
   return (
