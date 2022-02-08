@@ -4,14 +4,17 @@ import { typeCardsContext } from '../providers/TypeCardsProvider';
 import TypeCard from './typeCard';
 import SelectDifficulty from './selectDifficulty';
 
-const TypeCards = ({isMini, isActive}) => {
+const TypeCards = ({ isMini, isActive }) => {
   const { questions, types, userInfo } = useContext(infoContext);
   const { completed_questions: completedQuestions } = userInfo;
 
   const filterByType = (type) => {
     const completed = completedQuestions.filter(({ type: completedType }) => completedType === type).length;
     const total = questions.filter(({ type: questionType }) => questionType === type).length;
-    return { completed, total };
+    let progress = Math.round(completed / total * 100);
+    if (!progress) progress = 0;
+
+    return { completed, total, progress };
   }
 
   const createCardActive = () => {
@@ -21,49 +24,55 @@ const TypeCards = ({isMini, isActive}) => {
     return (
       <>
         <div
-          onClick={ () => {
+          onClick={() => {
             setActive(null);
             setSelected(null);
-          } }
+          }}
           className="backpage on-active-card"
         />
-        <div key={ `typeCard-${name}-active` } className="active-card">
+        <div key={`typeCard-${name}-active`} className="active-card">
           <TypeCard
-            name={ name }
-            color={ color }
-            difficulty={ difficulty }
-            completedQuestions={ completed }
-            totalQuestions={ total }
+            name={name}
+            color={color}
+            difficulty={difficulty}
+            completedQuestions={completed}
+            totalQuestions={total}
             activeCard
           />
-          <SelectDifficulty color={ color } />
+          <SelectDifficulty color={color} />
         </div>
       </>
     );
   }
 
-  const createMiniCards = () => {
-
-  }
-
   const createCards = () =>
-    types.map(({name, color, difficulty}) => {
-      const { completed, total } = filterByType(name);
+    types.map(({ name, color, difficulty }) => {
+      const { completed, total, progress } = filterByType(name);
       return (
-        <div key={ `typeCard-${name}` } className="type-container">
-          <TypeCard
-            name={ name }
-            color={ color }
-            difficulty={ difficulty }
-            completedQuestions={ completed }
-            totalQuestions={ total }
-          />
-        </div>
+        !isMini
+          ? (
+            <div key={`typeCard-${name}`} className="type-container">
+              <TypeCard
+                name={name}
+                color={color}
+                difficulty={difficulty}
+                completedQuestions={completed}
+                totalQuestions={total}
+              />
+            </div>
+          ) : (
+            <div
+              key={`${name}-question-card`}
+              className="question-card"
+            >
+              <p style={{ color: `#${color}` }} >{name}</p>
+              <p>{completed}/{total}  {progress}%</p>
+            </div>
+          )
       );
     });
 
-    if (isMini) return createMiniCards();
-    return !isActive ? createCards() : createCardActive();
+  return !isActive ? createCards() : createCardActive();
 }
 
 export default TypeCards;

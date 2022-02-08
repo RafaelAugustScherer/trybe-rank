@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { BsTrophyFill, BsFillPeopleFill, BsFront } from 'react-icons/bs';
 import { infoContext } from '../providers/InfoProvider';
 import ProfileCard from '../components/profileCard';
+import TypeCards from '../components/typeCards';
 import { fetchUsers } from '../utils/fetch/users';
 import '../css/home-page.css';
 
@@ -11,27 +12,6 @@ const Home = () => {
   const { token, userInfo, types, questions } = useContext(infoContext);
   const { nickname, completed_questions: completedQuestions } = userInfo;
   const [users, setUsers] = useState([]);
-
-  const createQuestionsCards = () => {
-    const cards = types.map(({ name, color }) => {
-      const completedQuestionsByType = completedQuestions.filter(({ type }) => type === name).length;
-      const totalQuestionsByType = questions.filter(({ type }) => type === name).length
-      
-      let progress = Math.round(completedQuestionsByType / totalQuestionsByType * 100);
-      if (!progress) progress = 0;
-
-      return (
-        <div
-          key={`${name}-question-card`}
-          className="question-card"
-        >
-          <p style={{ color: `#${color}` }} >{name}</p>
-          <p>{completedQuestionsByType}/{totalQuestionsByType}  {progress}%</p>
-        </div>
-      )
-    });
-    return cards;
-  };
 
   const getUsers = async () => {
     const leaderboardUsers = await fetchUsers(token);
@@ -122,7 +102,7 @@ const Home = () => {
       </section>
       <section key="quiz-progress-section">
         <h2>Progresso nos Quizes</h2>
-        {createQuestionsCards()}
+        <TypeCards isMini />
       </section>
       <section key="leaderboard-section">
         <h2>Leaderboard</h2>
