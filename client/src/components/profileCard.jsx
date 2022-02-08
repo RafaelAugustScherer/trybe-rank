@@ -3,11 +3,12 @@ import axios from 'axios';
 import { infoContext } from '../providers/InfoProvider';
 import { BsPersonCircle, BsPencilSquare } from 'react-icons/bs';
 
-const ProfileCard = () => {
-  const { token, userInfo, setUserInfo } = useContext(infoContext);
-  const { username, nickname } = userInfo;
+const ProfileCard = ({ score, rank }) => {
+  const { token, userInfo, setUserInfo, questions } = useContext(infoContext);
+  const { username, nickname, completed_questions: completedQuestions } = userInfo;
   const [usernameBkp, setUsernameBkp] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [hoverInfo, setHoverInfo] = useState(false);
 
   useEffect(() => {
     if (!usernameBkp && username) {
@@ -34,11 +35,16 @@ const ProfileCard = () => {
   };
 
   return (
-    <div className="profile-div">
+    <div
+      className="profile-div"
+      onMouseEnter={ () => setHoverInfo(true) }
+      onMouseLeave={ () => setHoverInfo(false) }
+    >
       <div>
         <BsPersonCircle className="profile-image" />
-        <p>{nickname}</p>
+        <h3 className="nickname">{nickname}</h3>
       </div>
+      <div className="profile-info-div">
       <div className="profile-div-edit">
         {isEditing ? (
           <>
@@ -63,15 +69,17 @@ const ProfileCard = () => {
           </>
         ) : (
           <>
-            <p>
-              Nome: <span>{username}</span>
-            </p>
-            <p>
-              Apelido: <span>{nickname}</span>
-            </p>
+            <p>Nome: <span>{username}</span></p>
+            <p>Apelido: <span>{nickname}</span></p>
           </>
         )}
-        <BsPencilSquare onClick={onEdit} />
+        <BsPencilSquare onClick={onEdit} className={ hoverInfo ? 'show' : '' } />
+      </div>
+      <div className="ranking-div">
+          <p>Pontuação: <span>{ score }</span></p>
+          <p>Exercícios: <span>{completedQuestions.length}/{questions.length}</span></p>
+          <p>Rank: <span>{rank}º</span></p>
+      </div>
       </div>
     </div>
   );

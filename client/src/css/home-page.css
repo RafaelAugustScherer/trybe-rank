@@ -12,7 +12,7 @@
   text-align: center;
 }
 
-section > h2 {
+.home-section > h2 {
   border-bottom: 2px solid #61C9A3;
   color: white;
   font-size: 2em;
@@ -20,7 +20,7 @@ section > h2 {
   margin-bottom: 20px;
 }
 
-section {
+.home-section {
   padding-bottom: 50px;
   margin-right: 30px;
 }
@@ -31,7 +31,7 @@ section {
   border-radius: 20px;
   display: flex;
   padding: 10px 20px;
-  width: 500px;
+  max-width: 700px;
   height: 200px;
 }
 
@@ -41,15 +41,37 @@ section {
   border-radius: 100%;
 }
 
+.profile-info-div {
+  display: flex;
+  margin-top: 10px;
+}
+
+.profile-div > div:first-child {
+  max-width: 150px;
+}
+
 .profile-div p {
   margin-top: .5em;
-  margin-left: 1em;
+  margin-left: .9em;
   font-size: 1.3em;
   font-weight: 800;
 }
 
-.profile-div-edit span {
+.nickname {
+  margin-top: .5em;
+  margin-left: .3em;
+  font-size: 1.4em;
+  font-weight: 800;
+  text-align: center;
+}
+
+.profile-div-edit span,
+.ranking-div span {
   font-weight: 500;
+}
+
+.profile-div-edit {
+  max-width: 200px;
 }
 
 .profile-div-edit input[type="text"],
@@ -58,8 +80,8 @@ section {
   border: none;
   border-bottom: 1px solid black;
   margin-left: 10px;
-  max-width: 180px;
-  font-size: .8em;
+  max-width: 100px;
+  font-size: .9em;
   outline:none;
 }
 
@@ -68,13 +90,18 @@ section {
   cursor: pointer;
   top: 10px;
   right: 20px;
+  display: none;
+}
+
+.show {
+  display: block !important;
 }
 
 .quick-access button {
   width: 150px;
   height: 100px;
   padding: 10px;
-  margin: 0 10px;
+  margin: 10px 10px;
   font-size: 1.2em;
   border: none;
   border-radius: 5px;
@@ -99,9 +126,25 @@ section {
   margin-bottom: 20px;
 }
 
-section .leaderboard {
+.home-section .leaderboard {
   max-width: 1000px;
   margin: 20px;
   margin-top: 40px;
+}
+
+.ranking-div {
+  margin-left: 40px;
+}
+
+@media (max-width: 750px) {
+  .profile-div {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .profile-info-div p {
+    margin: 10px 0;
+  }
 }
 

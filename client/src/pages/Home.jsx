@@ -23,7 +23,6 @@ const Home = () => {
     const thisPlayer = newPlayers.find(({nickname: ply3rNickname}) => ply3rNickname === nickname);
     if (thisPlayer) {
       const newRank = newPlayers.indexOf(thisPlayer) + 1;
-      console.log(thisPlayer.score, newRank);
       setScore(thisPlayer.score);
       setRank(newRank);
     } 
@@ -35,7 +34,7 @@ const Home = () => {
 
   return (
     <div className="container-master">
-      <Menu path="home" />
+      <Menu path="home"/>
       <div className="home-page">
         <h1 className="hero-title">Home</h1>
         <section
