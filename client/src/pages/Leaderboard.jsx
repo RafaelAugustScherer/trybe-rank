@@ -1,43 +1,24 @@
 import { useContext, useEffect, useState } from "react";
 import { infoContext } from "../providers/InfoProvider";
 import { Link } from "react-router-dom";
-import { fetchUsers } from '../utils/fetch/users';
+import { getPlayersByFilter, createTable } from '../utils/leaderboard';
 import '../css/Leaderboard.css';
 import Menu from "../components/Menu";
 
 const Leaderboard = () => {
   const [type, setType] = useState('All');
   const [difficulty, setDificulty] = useState('All')
-  const [users, setUsers] = useState([]);
+  const [players, setPlayers] = useState([]);
   const { types, token } = useContext(infoContext);
 
-  const getUsers = async () => {
-    const leaderboardUsers = await fetchUsers(token);
-    setUsers(leaderboardUsers);
+  const getPlayers = async () => {
+    const newPlayers = await getPlayersByFilter(token, type, difficulty);
+    setPlayers(newPlayers);
   }
 
   useEffect(() => {
-    token && getUsers();
-  }, [token]);
-
-  const getPlayers = () => {
-    const filterByQuizes = users.filter(({ completed_quizes: completedQuizes }) => completedQuizes.length);
-    const getUserAndPontuation = filterByQuizes.map(({ completed_quizes: completedQuizes, nickname }) => {
-      const pontuation = completedQuizes.reduce((acc, curr) => {
-        if (type === 'All' && difficulty === 'All') return acc += curr.score;
-        if (type === 'All' && difficulty === curr.difficulty) return acc += curr.score;
-        if (difficulty === 'All' && type === curr.type) return acc += curr.score;
-        if (difficulty === curr.difficulty && type === curr.type) return acc += curr.score;
-        return acc;
-      }, 0);
-      return { nickname, pontuation }
-    });
-    const getTop10Players = getUserAndPontuation
-      .sort(({ pontuation: a }, { pontuation: b }) => b - a)
-      .slice(0, 10);
-
-    return getTop10Players;
-  }
+    token && getPlayers();
+  }, [token, type, difficulty]);
 
   const renderOptions = (option) => {
     let options;
@@ -52,34 +33,7 @@ const Leaderboard = () => {
         <option key={ `option - ${dificulty}` } value={ dificulty }>{ dificulty }</option>
       ))
     }
-
     return options;
-  }
-
-  const renderLeaderboard = () => {
-    const players = getPlayers();
-    const rows = players.map(({ nickname, pontuation }, index) => (
-      <tr key={ `jogador - ${nickname} / pontuacao - ${ pontuation }` }>
-        <td>{ index + 1 + 'º' }</td>
-        <td>{ nickname }</td>
-        <td>{ pontuation }</td>
-      </tr>
-    ))
-
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Top</th>
-            <th>Jogador</th>
-            <th>Pontuação</th>
-          </tr>
-        </thead>
-        <tbody>
-          { rows }
-        </tbody>
-      </table>
-    )
   }
 
   return (
@@ -113,7 +67,7 @@ const Leaderboard = () => {
               </label>
             </div>
             <div className="leaderboard">
-              { !!users.length && renderLeaderboard() }
+              { !!players.length && createTable(players) }
             </div>
           </div>
         </div>

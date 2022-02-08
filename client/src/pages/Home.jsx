@@ -6,72 +6,23 @@ import { fetchUsers } from '../utils/fetch/users';
 import ProfileCard from '../components/profileCard';
 import TypeCards from '../components/typeCards';
 import Menu from '../components/Menu';
+import { getPlayersAround, createTable } from '../utils/leaderboard';
 import '../css/home-page.css';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { token, userInfo, types, questions } = useContext(infoContext);
-  const { nickname, completed_questions: completedQuestions } = userInfo;
-  const [users, setUsers] = useState([]);
+  const { token, userInfo } = useContext(infoContext);
+  const { nickname } = userInfo;
+  const [players, setPlayers] = useState([]);
 
-  const getUsers = async () => {
-    const leaderboardUsers = await fetchUsers(token);
-    setUsers(leaderboardUsers);
-  }
+  const getPlayers = async () => {
+    const newPlayers = await getPlayersAround(token, nickname);
+    setPlayers(newPlayers);
+  };
 
   useEffect(() => {
-    token && getUsers();
+    token && getPlayers();
   }, [token]);
-
-  const getPlayers = () => {
-    const filterByQuizes = users.filter(({ completed_quizes: completedQuizes }) => completedQuizes.length);
-    let userAndPoints = filterByQuizes.map(({ completed_quizes: completedQuizes, nickname }) => {
-      const pontuation = completedQuizes.reduce((acc, curr) => acc + curr.score, 0);
-      return { nickname, pontuation };
-    });
-    userAndPoints.sort(({ pontuation: a }, { pontuation: b }) => b - a);
-    const userPosition = userAndPoints.findIndex(({ nickname: objNickname }) => objNickname === nickname);
-
-    const usersAround = userAndPoints.reduce((acc, cur, index) => {
-      if (acc.length === 10) return acc;
-      if (index >= userPosition - 5) {
-        return [...acc, cur];
-      }
-      return acc;
-    }, []);
-
-    return usersAround;
-  }
-
-  useEffect(() => {
-    !!users.length && getPlayers();
-  }, [users]);
-
-  const renderLeaderboard = () => {
-    const players = getPlayers();
-    const rows = players.map(({ nickname, pontuation }, index) => (
-      <tr key={ `jogador - ${nickname} / pontuacao - ${ pontuation }` }>
-        <td>{ index + 1 + 'º' }</td>
-        <td>{ nickname }</td>
-        <td>{ pontuation }</td>
-      </tr>
-    ));
-
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Top</th>
-            <th>Jogador</th>
-            <th>Pontuação</th>
-          </tr>
-        </thead>
-        <tbody>
-          { rows }
-        </tbody>
-      </table>
-    )
-  }
 
   return (
     <div className="container-master">

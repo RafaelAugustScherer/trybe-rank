@@ -98,3 +98,10 @@ section {
 .question-card p:first-child {
   margin-bottom: 20px;
 }
+
+section .leaderboard {
+  max-width: 1000px;
+  margin: 20px;
+  margin-top: 40px;
+}
+

@@ -24,8 +24,8 @@ const GameProvider = ({ children }) => {
 
   const handleAnswer = (isCorrect, answer) => {
     if (isCorrect) {
-      const newPontuation = score + 10 + (streak + 1) * 5;
-      setScore(newPontuation);
+      const newScore = score + 10 + (streak + 1) * 5;
+      setScore(newScore);
       setStreak(streak + 1);
       if (streak + 1 > bestStreak) setBestStreak(streak + 1);
     }
