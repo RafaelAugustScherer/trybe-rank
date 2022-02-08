@@ -3,6 +3,7 @@ import { gameContext } from '../providers/GameProvider';
 import { infoContext } from '../providers/InfoProvider';
 import { typeCardsContext } from '../providers/TypeCardsProvider';
 import TypeCards from '../components/typeCards';
+import Menu from '../components/Menu';
 import '../css/Select-page.css';
 
 const SelectQuiz = () => {
@@ -13,7 +14,8 @@ const SelectQuiz = () => {
   useEffect(() => resetGame(), []);
 
   return (
-    <>
+    <div className="container-master">
+      <Menu path="quiz" />
       <div
         onClick={ () => setSelected(null) }
         className="backpage"
@@ -25,7 +27,7 @@ const SelectQuiz = () => {
           { userInfo && <TypeCards /> }
         </div>
       </div>
-    </>
+    </div>
   )
 };
 

@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.container-master {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 370px;
+  padding: 15px;
+  z-index: 5;
+  border-right: 2px solid #2FC18C;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25%;
+  width: 80%;
+  color: #2FC18C;
+  text-shadow: 1px 1px white;
+  font-size: 2em;
+  font-family: 'Press Start 2P', sans-serif;
+  background-image: url(../svg/trybeIcon.svg);
+  background-size: 100% 100%;
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 100%;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #259c71;
+  border: none;
+  font-size: 1.5em;
+  width: 250px;
+  min-height: 50px;
+  border-radius: 50px;
+  margin: 10px 0;
+  padding: 10px 5px;
+}
+
+.leave {
+  color: white;
+  background-color: #e63946;
+}
+
+.menu-link svg {
+  margin-right: 5px;
+}
+
+.button-active-menu {
+  color: white;
+  background-color: #259c71;
+}
+
+.leave-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 22%;
+}

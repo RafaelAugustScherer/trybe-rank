@@ -3,6 +3,7 @@ import { infoContext } from "../providers/InfoProvider";
 import { Link } from "react-router-dom";
 import { fetchUsers } from '../utils/fetch/users';
 import '../css/Leaderboard.css';
+import Menu from "../components/Menu";
 
 const Leaderboard = () => {
   const [type, setType] = useState('All');
@@ -82,7 +83,8 @@ const Leaderboard = () => {
   }
 
   return (
-    <>
+    <div className="container-master">
+      <Menu path="leaderboard"/>
       <div className="leaderboard-page">
         <h1 className="hero-title">
         { `
@@ -114,21 +116,9 @@ const Leaderboard = () => {
               { !!users.length && renderLeaderboard() }
             </div>
           </div>
-          <div className="next-prev-buttons">
-            <Link to="/home">
-              <button className="voltar-menu">
-                Voltar para Home
-              </button>
-            </Link>
-            <Link to="/select-quiz">
-              <button className="voltar-menu">
-                Selecionar Quiz
-              </button>
-            </Link>
-          </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

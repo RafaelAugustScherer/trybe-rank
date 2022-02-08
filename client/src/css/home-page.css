@@ -1,6 +1,7 @@
 .home-page {
   display: flex;
   flex-direction: column;
+  overflow: scroll;
   margin: 20px;
 }
 
@@ -96,12 +97,4 @@ section {
 
 .question-card p:first-child {
   margin-bottom: 20px;
-}
-
-.leaderboard {
-  width: 500px;
-}
-
-.leaderboard p {
-  color: white;
 }
