@@ -98,10 +98,8 @@ section {
   margin-bottom: 20px;
 }
 
-.leaderboard {
-  width: 500px;
-}
-
-.leaderboard p {
-  color: white;
+section .leaderboard {
+  max-width: 1000px;
+  margin: 20px;
+  margin-top: 40px;
 }
