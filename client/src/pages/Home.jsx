@@ -4,73 +4,23 @@ import { BsTrophyFill, BsFillPeopleFill, BsFront } from 'react-icons/bs';
 import { infoContext } from '../providers/InfoProvider';
 import ProfileCard from '../components/profileCard';
 import TypeCards from '../components/typeCards';
-import { fetchUsers } from '../utils/fetch/users';
+import { getPlayersAround, createTable } from '../utils/leaderboard';
 import '../css/home-page.css';
 
 const Home = () => {
   const navigate = useNavigate();
   const { token, userInfo } = useContext(infoContext);
   const { nickname } = userInfo;
-  const [users, setUsers] = useState([]);
+  const [players, setPlayers] = useState([]);
 
-  const getUsers = async () => {
-    const leaderboardUsers = await fetchUsers(token);
-    setUsers(leaderboardUsers);
-  }
+  const getPlayers = async () => {
+    const newPlayers = await getPlayersAround(token, nickname);
+    setPlayers(newPlayers);
+  };
 
   useEffect(() => {
-    token && getUsers();
+    token && getPlayers();
   }, [token]);
-
-  const getPlayers = () => {
-    const filterByQuizes = users.filter(({ completed_quizes: completedQuizes }) => completedQuizes.length);
-    let userAndPoints = filterByQuizes.map(({ completed_quizes: completedQuizes, nickname }) => {
-      const score = completedQuizes.reduce((acc, curr) => acc + curr.score, 0);
-      return { nickname, score };
-    });
-    userAndPoints.sort(({ score: a }, { score: b }) => b - a);
-    const userPosition = userAndPoints.findIndex(({ nickname: objNickname }) => objNickname === nickname);
-
-    const usersAround = userAndPoints.reduce((acc, cur, index) => {
-      if (acc.length === 10) return acc;
-      if (index >= userPosition - 5) {
-        return [...acc, cur];
-      }
-      return acc;
-    }, []);
-
-    return usersAround;
-  }
-
-  useEffect(() => {
-    !!users.length && getPlayers();
-  }, [users]);
-
-  const renderLeaderboard = () => {
-    const players = getPlayers();
-    const rows = players.map(({ nickname, score }, index) => (
-      <tr key={ `jogador - ${nickname} / pontuacao - ${ score }` }>
-        <td>{ index + 1 + 'º' }</td>
-        <td>{ nickname }</td>
-        <td>{ score }</td>
-      </tr>
-    ));
-
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Top</th>
-            <th>Jogador</th>
-            <th>Pontuação</th>
-          </tr>
-        </thead>
-        <tbody>
-          { rows }
-        </tbody>
-      </table>
-    )
-  }
 
   return (
     <div className="home-page">
@@ -107,7 +57,7 @@ const Home = () => {
       <section key="leaderboard-section">
         <h2>Leaderboard</h2>
         <div className="leaderboard">
-          { !!users.length && renderLeaderboard() }
+          { !!players.length && createTable(players) }
         </div>
       </section>
     </div>

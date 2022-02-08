@@ -1,24 +1,23 @@
 import { fetchUsers } from './fetch/users';
 
-const getPlayers = async () => {
+const getPlayers = async (token) => {
   const users = await fetchUsers(token);
 
-  const usersAndPoints = users
-    .reduce((arr, { completed_quizes, nickname }) => {
-      if (!completed_quizes.length) return arr;
+  const usersAndPoints = users.reduce((arr, { completed_quizes: completedQuizes, nickname }) => {
+    if (!completedQuizes.length) return arr;
 
-      const score = completed_quizes.reduce((acc, { score }) => acc + score, 0);
-      return { nickname, score };
-    }, [])
-    .sort(({ score: a }, { score: b }) => b - a);
+    const score = completedQuizes.reduce((acc, { score }) => acc + score, 0);
+    return [ ...arr, { nickname, score, completedQuizes } ];
+  }, []);
+  usersAndPoints.sort(({ score: a }, { score: b }) => b - a);
 
   return usersAndPoints;
-}
+};
 
-const getPlayersByFilter = async (type, difficulty) => {
-  const players = await getPlayers();
+const getPlayersByFilter = async (token, type, difficulty) => {
+  const players = await getPlayers(token);
 
-  const filteredPlayers = players.map(({ completed_quizes: completedQuizes, nickname }) => {
+  const filteredPlayers = players.map(({ completedQuizes, nickname }) => {
     const score = completedQuizes.reduce((acc, cur) => {
       const ALL = 'All';
       const sum = () => acc += cur.score;
@@ -38,8 +37,8 @@ const getPlayersByFilter = async (type, difficulty) => {
   return topTenPlayers;
 }
 
-const getPlayersAround = async (nickname) => {
-  const players = await getPlayers();
+const getPlayersAround = async (token, nickname) => {
+  const players = await getPlayers(token);
 
   const userPosition = players.findIndex(({ nickname: ply3rNickname }) => ply3rNickname === nickname);
 
@@ -50,9 +49,35 @@ const getPlayersAround = async (nickname) => {
   }, []);
 
   return usersAround;
-}
+};
+
+const createTable = (players) => {
+  const rows = players.map(({ nickname, score }, index) => (
+    <tr key={ `jogador-${nickname}` }>
+      <td>{ index + 1 + 'º' }</td>
+      <td>{ nickname }</td>
+      <td>{ score }</td>
+    </tr>
+  ))
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Jogador</th>
+          <th>Pontuação</th>
+        </tr>
+      </thead>
+      <tbody>
+        { rows }
+      </tbody>
+    </table>
+  );
+};
 
 export {
   getPlayersByFilter,
-  getPlayersAround
+  getPlayersAround,
+  createTable
 }
