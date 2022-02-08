@@ -13,10 +13,15 @@ const setCookie = (name, value, expiryInHours) => {
   expiryDate.setTime(expiryDate.getTime() + ((expiryInHours - 3) * 60 * 60 * 1000));
   const expires = `expires=${expiryDate.toUTCString()}`;
 
-  document.cookie = `${name}=${value};${expires};`;
+  document.cookie = `${name}=${value};${expires};path=/`;
+}
+
+const deleteCookie = () => {
+  document.cookie = `token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
 }
 
 export {
   getCookie,
+  deleteCookie,
   setCookie
 };

@@ -66,7 +66,7 @@ const TypeCards = ({ isMini, isActive }) => {
               className="question-card"
             >
               <p style={{ color: `#${color}` }} >{name}</p>
-              <p>{completed}/{total}  {progress}%</p>
+              <p>{completed}/{total} | {progress}%</p>
             </div>
           )
       );
