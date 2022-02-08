@@ -9,8 +9,8 @@ import '../css/home-page.css';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { token, userInfo, types, questions } = useContext(infoContext);
-  const { nickname, completed_questions: completedQuestions } = userInfo;
+  const { token, userInfo } = useContext(infoContext);
+  const { nickname } = userInfo;
   const [users, setUsers] = useState([]);
 
   const getUsers = async () => {
@@ -25,10 +25,10 @@ const Home = () => {
   const getPlayers = () => {
     const filterByQuizes = users.filter(({ completed_quizes: completedQuizes }) => completedQuizes.length);
     let userAndPoints = filterByQuizes.map(({ completed_quizes: completedQuizes, nickname }) => {
-      const pontuation = completedQuizes.reduce((acc, curr) => acc + curr.score, 0);
-      return { nickname, pontuation };
+      const score = completedQuizes.reduce((acc, curr) => acc + curr.score, 0);
+      return { nickname, score };
     });
-    userAndPoints.sort(({ pontuation: a }, { pontuation: b }) => b - a);
+    userAndPoints.sort(({ score: a }, { score: b }) => b - a);
     const userPosition = userAndPoints.findIndex(({ nickname: objNickname }) => objNickname === nickname);
 
     const usersAround = userAndPoints.reduce((acc, cur, index) => {
@@ -48,11 +48,11 @@ const Home = () => {
 
   const renderLeaderboard = () => {
     const players = getPlayers();
-    const rows = players.map(({ nickname, pontuation }, index) => (
-      <tr key={ `jogador - ${nickname} / pontuacao - ${ pontuation }` }>
+    const rows = players.map(({ nickname, score }, index) => (
+      <tr key={ `jogador - ${nickname} / pontuacao - ${ score }` }>
         <td>{ index + 1 + 'º' }</td>
         <td>{ nickname }</td>
-        <td>{ pontuation }</td>
+        <td>{ score }</td>
       </tr>
     ));
 

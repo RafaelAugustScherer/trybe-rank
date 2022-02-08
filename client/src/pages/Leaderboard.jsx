@@ -21,18 +21,18 @@ const Leaderboard = () => {
 
   const getPlayers = () => {
     const filterByQuizes = users.filter(({ completed_quizes: completedQuizes }) => completedQuizes.length);
-    const getUserAndPontuation = filterByQuizes.map(({ completed_quizes: completedQuizes, nickname }) => {
-      const pontuation = completedQuizes.reduce((acc, curr) => {
+    const getUserAndScore = filterByQuizes.map(({ completed_quizes: completedQuizes, nickname }) => {
+      const score = completedQuizes.reduce((acc, curr) => {
         if (type === 'All' && difficulty === 'All') return acc += curr.score;
         if (type === 'All' && difficulty === curr.difficulty) return acc += curr.score;
         if (difficulty === 'All' && type === curr.type) return acc += curr.score;
         if (difficulty === curr.difficulty && type === curr.type) return acc += curr.score;
         return acc;
       }, 0);
-      return { nickname, pontuation }
+      return { nickname, score }
     });
-    const getTop10Players = getUserAndPontuation
-      .sort(({ pontuation: a }, { pontuation: b }) => b - a)
+    const getTop10Players = getUserAndScore
+      .sort(({ score: a }, { score: b }) => b - a)
       .slice(0, 10);
 
     return getTop10Players;
@@ -57,11 +57,11 @@ const Leaderboard = () => {
 
   const renderLeaderboard = () => {
     const players = getPlayers();
-    const rows = players.map(({ nickname, pontuation }, index) => (
-      <tr key={ `jogador - ${nickname} / pontuacao - ${ pontuation }` }>
+    const rows = players.map(({ nickname, score }, index) => (
+      <tr key={ `jogador - ${nickname} / pontuacao - ${ score }` }>
         <td>{ index + 1 + 'º' }</td>
         <td>{ nickname }</td>
-        <td>{ pontuation }</td>
+        <td>{ score }</td>
       </tr>
     ))
 
