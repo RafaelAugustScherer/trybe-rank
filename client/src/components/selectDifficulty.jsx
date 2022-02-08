@@ -1,6 +1,6 @@
 import DifficultyButton from "./difficultyButton";
 
-const SelectDificulty = ({ color }) => {
+const SelectDifficulty = ({ color }) => {
   const hexColor = `#${color}`
 
   const renderButtons = () => {
@@ -17,11 +17,11 @@ const SelectDificulty = ({ color }) => {
 
   return (
     <div
-      className="select-dificulty"
+      className="select-difficulty"
     >
       { renderButtons() }
     </div>
   )
 }
 
-export default SelectDificulty;
+export default SelectDifficulty;

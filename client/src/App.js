@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route  } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import InfoProvider from './providers/InfoProvider';
 import GameProvider from './providers/GameProvider';
 import SelectQuiz from './pages/Select-quiz';
@@ -9,6 +9,7 @@ import Score from './pages/Score';
 import Home from './pages/Home';
 import Leaderboard from './pages/Leaderboard';
 import './App.css';
+import TypeCardsProvider from './providers/TypeCardsProvider';
 
 
 function App() {
@@ -19,19 +20,24 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={ <SignIn /> }
+              element={<SignIn />}
             />
             <Route
               path="/home"
-              element={ <Home /> }
+              element={<Home />}
             />
-            <Route
-              path="/select-quiz"
-              element={ <SelectQuiz /> }
-            />
+            
+              <Route
+                path="/select-quiz"
+                element={
+                <TypeCardsProvider>
+                  <SelectQuiz />
+                </TypeCardsProvider>
+                }
+              />
             <Route
               path="/quiz"
-              element={ <Quiz /> }
+              element={<Quiz />}
             />
             <Route
               path="/sign-up"
@@ -39,9 +45,9 @@ function App() {
             />
             <Route
               path="/score"
-              element={ <Score /> }
+              element={<Score />}
             />
-            <Route 
+            <Route
               path="/leaderboard"
               element={<Leaderboard />}
             />

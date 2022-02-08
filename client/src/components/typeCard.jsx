@@ -1,45 +1,57 @@
-import { useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { gameContext } from '../providers/GameProvider';
 import { infoContext } from '../providers/InfoProvider';
+import { typeCardsContext } from '../providers/TypeCardsProvider';
 import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import ProgressBar from './progressBar';
 
-const TypeCard = ({ id, play, name, quantity, dificulty, completedQuestions, color, selected, setSelected, setActive }) => {
-  const { questions } = useContext(infoContext)
+const TypeCard = ({ name, color, difficulty, completedQuestions, totalQuestions, activeCard }) => {
+  const { questions } = useContext(infoContext);
   const { setType, getGameQuestions } = useContext(gameContext);
+  const { selected, active, setSelected, setActive } = useContext(typeCardsContext);
+  const [isSelected, setIsSelected] = useState(selected);
+  const [isActive, setIsActive] = useState(active)
+
+  useEffect(() => {
+    if (activeCard) {
+      setIsSelected(true);
+      return;
+    };
+    setIsSelected(selected === name);
+    setIsActive(active === name);
+  }, [selected, active]);
 
   const createStars = () => {
     const stars = [];
-    for (let i = 0; i < dificulty; i += 1) {
-      stars.push(<AiFillStar key={ `${id} - estrela - ${i}` } />)
+    for (let i = 0; i < difficulty; i += 1) {
+      stars.push(<AiFillStar key={ `${name}-star-${i}` } />)
     }
     return stars;
   }
 
   return (
     <div
-      onClick={ () => selected !== name ? setSelected(name) : setSelected(null) }
-      className={ `type-container ${selected === name ? 'active' : ''}` }
+      onClick={ () => !isSelected ? setSelected(name) : setSelected(null)}
+      className={ `card-container ${isSelected ? 'selected' : ''}` }
     >
       <div className="type-title">
         <div className="star-container">{ createStars() }</div>
-        <h1 style={ { 'color': `#${color}` } }>{ `.${name}()` }</h1>
+        <h1 style={ { color: `#${color}` } }>{ `.${name}()` }</h1>
       </div>
       <div className="type-info">
         <ProgressBar
-          id={ id }
+          id={ name }
           completed={ completedQuestions }
-          active={ selected === name }
-          quantity={ quantity }
-          selected={ selected }
+          total={ totalQuestions }
+          active={ isSelected }
         />
-        <p>{ `${quantity} questões` }</p>
+        <p>{ `${totalQuestions} questões` }</p>
         <Link to="/quiz">
           <button
             type="button"
             onClick={ (e) => {
-              if (play) {
+              if (isActive) {
                 getGameQuestions(questions)
               } else {
                 e.preventDefault();
@@ -48,7 +60,7 @@ const TypeCard = ({ id, play, name, quantity, dificulty, completedQuestions, col
               }
             }}
           >
-            { play ? 'Jogar' : 'Entrar' }
+            { isActive ? 'Jogar' : 'Entrar' }
           </button>
         </Link>
       </div>
