@@ -10,14 +10,12 @@ const TypeCard = ({ name, color, difficulty, completedQuestions, totalQuestions,
   const { questions } = useContext(infoContext);
   const { setType, getGameQuestions } = useContext(gameContext);
   const { selected, active, setSelected, setActive } = useContext(typeCardsContext);
-  const [isSelected, setIsSelected] = useState(selected);
-  const [isActive, setIsActive] = useState(active)
+  const [isSelected, setIsSelected] = useState(true);
+  const [isActive, setIsActive] = useState(active);
 
   useEffect(() => {
-    if (activeCard) {
-      setIsSelected(true);
-      return;
-    };
+    if (activeCard) return;
+
     setIsSelected(selected === name);
     setIsActive(active === name);
   }, [selected, active]);
