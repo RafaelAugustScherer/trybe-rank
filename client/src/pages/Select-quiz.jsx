@@ -14,7 +14,7 @@ const SelectQuiz = () => {
   useEffect(() => resetGame(), []);
 
   return (
-    <div className="container-master">
+    <>
       <Menu path="quiz" />
       <div
         onClick={ () => setSelected(null) }
@@ -27,7 +27,7 @@ const SelectQuiz = () => {
           { userInfo && <TypeCards /> }
         </div>
       </div>
-    </div>
+    </>
   )
 };
 

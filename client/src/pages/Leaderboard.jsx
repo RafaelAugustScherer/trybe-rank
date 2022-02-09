@@ -37,7 +37,7 @@ const Leaderboard = () => {
   }
 
   return (
-    <div className="container-master">
+    <>
       <Menu path="leaderboard"/>
       <div className="leaderboard-page">
         <h1 className="hero-title">
@@ -72,7 +72,7 @@ const Leaderboard = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

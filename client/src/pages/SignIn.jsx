@@ -1,4 +1,4 @@
-import trybeIcon from '../svg/trybeIcon.svg';
+import trybeIcon from '../img/trybeIcon.svg';
 import Style from '../css/Login.module.css';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
@@ -32,7 +32,7 @@ function SignIn() {
         navigate('/home');
       })
       .catch(() => {
-        setError('Usuário não encontrado!');
+        setError('Usuário ou senha incorreto!');
       })
   }
 

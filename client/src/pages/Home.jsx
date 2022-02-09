@@ -33,13 +33,12 @@ const Home = () => {
   }, [nickname, token]);
 
   return (
-    <div className="container-master">
+    <>
       <Menu path="home"/>
       <div className="home-page">
-        <h1 className="hero-title">Home</h1>
         <section
           key="welcome-section"
-          className="welcome home-section"
+          className="home-section welcome"
         >
           <h2>Bem-vindo {nickname}!</h2>
           <ProfileCard score={ score } rank={ rank } />
@@ -77,7 +76,7 @@ const Home = () => {
           </div>
         </section>
       </div>
-    </div>
+    </>
   );
 }
 
