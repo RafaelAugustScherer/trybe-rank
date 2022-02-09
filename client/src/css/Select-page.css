@@ -57,7 +57,7 @@ a {
   left: 0;
   justify-content: center;
   width: 100%;
-  z-index: 1;
+  z-index: -1;
 }
 
 .on-active-card {

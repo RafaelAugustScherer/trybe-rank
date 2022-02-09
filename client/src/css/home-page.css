@@ -12,6 +12,11 @@
   text-align: center;
 }
 
+.welcome > h2 {
+  border: none !important;
+  margin: 0 !important;
+}
+
 .home-section > h2 {
   border-bottom: 2px solid #61C9A3;
   color: white;
