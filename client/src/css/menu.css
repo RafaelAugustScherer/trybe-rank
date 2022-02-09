@@ -86,6 +86,10 @@
   margin-right: 5px;
 }
 
+.leave {
+  text-align: center;
+}
+
 .button-active-menu {
   font-weight: 900;
   font-style: bold;
