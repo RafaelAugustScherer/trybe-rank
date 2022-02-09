@@ -1,4 +1,4 @@
-import trybeIcon from '../svg/trybeIcon.svg';
+import trybeIcon from '../img/trybeIcon.svg';
 import Style from '../css/Login.module.css';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
@@ -8,7 +8,7 @@ import { setCookie } from '../utils/cookie';
 
 function SignIn() {
   const navigate = useNavigate();
-  const { token, getToken } = useContext(infoContext);
+  const { token, setToken, getToken } = useContext(infoContext);
   const [state, setState] = useState({ username: '', password: '' });
   const [error, setError] = useState(null);
 
@@ -32,7 +32,7 @@ function SignIn() {
         navigate('/home');
       })
       .catch(() => {
-        setError('Usuário não encontrado!');
+        setError('Usuário ou senha incorreto!');
       })
   }
 
@@ -76,7 +76,6 @@ function SignIn() {
         <Link to="/select-quiz">
           <p
             onClick={() => {
-              setNickname('Convidado');
               setToken('guest');
             } }
           >

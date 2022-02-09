@@ -1,6 +1,7 @@
 .home-page {
   display: flex;
   flex-direction: column;
+  overflow: scroll;
   margin: 20px;
 }
 
@@ -9,6 +10,11 @@
   font-size: 5em;
   margin: 3vh 0;
   text-align: center;
+}
+
+.welcome > h2 {
+  border: none !important;
+  margin: 0 !important;
 }
 
 .home-section > h2 {
@@ -146,3 +152,4 @@
     margin: 10px 0;
   }
 }
+
