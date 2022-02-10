@@ -23,6 +23,6 @@ router
 
 router
   .route('/users')
-  .get(userMiddleware.authenticateToken, user.getAll);
+  .get(user.getAll);
 
 export default router;

@@ -2,8 +2,7 @@ import axios from "axios";
 
 const fetchUsers = async (token) => {
   if (!token) return;
-  const headers = { Authorization: token }
-  const { users } = await axios.get('http://localhost:5000/users', { headers })
+  const { users } = await axios.get('http://localhost:5000/users')
     .then((res) => res.data);
   
   return users;
