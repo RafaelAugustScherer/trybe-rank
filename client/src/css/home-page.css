@@ -1,8 +1,8 @@
 .home-page {
   display: flex;
+  width: 60vw;
   flex-direction: column;
-  overflow: scroll;
-  margin: 20px;
+  margin-top: 10vh;
 }
 
 .hero-title {
@@ -139,6 +139,12 @@
 
 .ranking-div {
   margin-left: 40px;
+}
+
+.leaderboard-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 750px) {

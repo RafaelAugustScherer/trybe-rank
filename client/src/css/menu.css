@@ -18,7 +18,7 @@
   padding: 5px;
   z-index: 10;
   background-color: #292929;
-  position: absolute;
+  position: fixed;
   border-right: 2px solid #2FC18C;
   left: -25%;
   transition: 1s ease;
@@ -30,11 +30,13 @@
 
 .header {
   display: flex;
+  position: fixed;
   align-items: center;
+  background-color: #292929;
   width: 100vw;
   height: 6vh;
   color: white;
-  z-index: 10;
+  z-index: 15;
   border-bottom: 2px solid #2FC18C;
 }
 
@@ -55,6 +57,7 @@
 }
 
 .menu-links {
+  margin-top: 6vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,7 +108,6 @@
 }
 
 .leave-container {
-  height: 16%;
   display: flex;
   flex-direction: column;
   align-items: center;

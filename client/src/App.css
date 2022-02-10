@@ -7,6 +7,12 @@
   font-family: Poppins, sans-serif;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 body {
   background-color: #292929;
   overflow-x: hidden;

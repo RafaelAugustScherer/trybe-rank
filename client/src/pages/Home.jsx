@@ -71,8 +71,10 @@ const Home = () => {
           key="leaderboard-section"
           className="home-section">
           <h2>Leaderboard</h2>
-          <div className="leaderboard">
-            { !!players.length && createTable(players) }
+          <div className="leaderboard-container">
+            <div className="leaderboard">
+              { !!players.length && createTable(players) }
+            </div>
           </div>
         </section>
       </div>
