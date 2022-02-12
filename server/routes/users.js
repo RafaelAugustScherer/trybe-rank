@@ -9,11 +9,12 @@ router
 
 router
   .route('/sign-up')
-  .post(userMiddleware.validateUserInfo, user.insertOne);
+  .post(user.insertOne);
 
 router
   .route('/user')
   .get(userMiddleware.authenticateToken, user.getOne)
+  .put(userMiddleware.authenticateToken, user.updateOne)
 
 router
   .route('/user-progress')
@@ -22,6 +23,6 @@ router
 
 router
   .route('/users')
-  .get(userMiddleware.authenticateToken, user.getAll);
+  .get(user.getAll);
 
 export default router;

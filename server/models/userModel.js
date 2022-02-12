@@ -48,9 +48,18 @@ const createUser = (params) => {
   return user;
 }
 
+const updateUser = async (params, data) => {
+  const user = await usersCollection.updateOne(
+    { ...params }, 
+    { $set: { ...data } }
+  );
+  return user;
+}
+
 export default { 
   getCompletedQuestions,
   getUsers, 
-  getUser, 
-  createUser 
+  getUser,
+  createUser,
+  updateUser 
 };

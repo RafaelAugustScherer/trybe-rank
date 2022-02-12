@@ -67,6 +67,19 @@ const insertOne = async ({ body }, res) => {
     .json({ message: "OK" });
 }
 
+const updateOne = async ({ body }, res) => {
+  const { username_prev, username, nickname } = body;
+
+  await userModel.updateUser(
+    { username: username_prev },
+    { username, nickname }
+  );
+
+  res
+    .status(200)
+    .json({ message: "OK" });
+}
+
 const signIn = async ({ headers }, res) => {
   const { username, password } = headers;
   const user = await userModel.getUser({ username, password })
@@ -77,10 +90,16 @@ const signIn = async ({ headers }, res) => {
 
   const token = jwt.sign({ username, password }, secret, jwtConfig);
 
-  const { nickname } = user;
   res
     .status(200)
-    .json({ message: 'OK', token, nickname })
+    .json({ message: 'OK', token })
 }
 
-export default { updateProgress, getOne, getAll, insertOne, signIn }
+export default {
+  updateProgress,
+  getOne,
+  getAll, 
+  insertOne,
+  updateOne,
+  signIn
+}

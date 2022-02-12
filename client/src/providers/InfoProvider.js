@@ -7,7 +7,11 @@ export const infoContext = createContext();
 
 const InfoProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState(null);
+  const [userInfo, setUserInfo] = useState({
+    username: '',
+    nickname: '',
+    completed_questions: []
+  });
   const [token, setToken] = useState(null);
   const [types, setTypes] = useState([]);
   const [questions, setQuestions] = useState([]);
@@ -22,9 +26,24 @@ const InfoProvider = ({ children }) => {
     const bdTypes = await axios.get('http://localhost:5000/types')
       .then(res => res.data);
     setTypes(bdTypes);
+  };
+
+  const fetchUser = async () => {
+    if (token === 'guest') {
+      setUserInfo({
+        ...userInfo,
+        username: 'Convidado',
+        nickname: 'Convidado'
+      });
+      return;
+    }
+    const headers = { Authorization: token };
+    const bdUser = await axios.get('http://localhost:5000/user', { headers })
+      .then(({ data }) => data.user);
+    setUserInfo({ ...bdUser });
   }
   
-  const GetToken = async () => {
+  const getToken = async () => {
     const tokenCookie = getCookie('token');
 
     if (tokenCookie) {
@@ -35,17 +54,22 @@ const InfoProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    GetToken();
+    getToken();
     fetchQuestions();
     fetchTypes();
   }, []);
 
+  useEffect(() => {
+    token && fetchUser();
+  }, [token]);
+
   const value = {
     questions,
     types,
-    nickname,
     token,
-    setNickname,
+    userInfo,
+    getToken,
+    setUserInfo,
     setToken
   }
 
