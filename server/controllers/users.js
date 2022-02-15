@@ -15,11 +15,7 @@ router
   .route('/user')
   .get(userMiddleware.authenticateToken, user.getOne)
   .put(userMiddleware.authenticateToken, user.updateOne)
-
-router
-  .route('/user-progress')
-  .put(userMiddleware.authenticateToken, user.updateProgress);
-
+  .patch(userMiddleware.authenticateToken, user.updateProgress)
 
 router
   .route('/users')

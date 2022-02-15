@@ -1,15 +1,11 @@
 import { MongoClient } from 'mongodb';
-import fs from 'fs';
+import dotenv from 'dotenv';
+dotenv.config();
 
-
-const readTextFile = (file) => {
-    const data = fs.readFileSync(file, 'utf8');
-    return data.toString();
-}
 
 const connect = async () => {
   const uri =
-    `mongodb+srv://admin:${readTextFile('./keys/dbPassword.txt')}@cluster0.gfw2a.mongodb.net/test?retryWrites=true&w=majority`;
+    `mongodb+srv://admin:${process.env.DB_PASSWORD}@cluster0.gfw2a.mongodb.net/test?retryWrites=true&w=majority`;
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   
   await client.connect();

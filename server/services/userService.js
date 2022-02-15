@@ -1,11 +1,12 @@
 import userModel from '../models/userModel.js';
-import connect from '../connection.js';
+import connect from '../models/connection.js';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import { ObjectId } from 'mongodb';
-import { readFileSync } from 'fs';
 const { usersCollection } = await connect();
+dotenv.config();
 
-const secret = readFileSync('./keys/secret.txt', 'utf-8');
+const secret = process.env.TOKEN_KEY;
 const jwtConfig = {
   expiresIn: '24h',
   algorithm: 'HS256',
@@ -88,7 +89,7 @@ const signIn = async ({ headers }, res) => {
       .status(409)
       .json({ message: 'User or Password Incorrect' });
 
-  const token = jwt.sign({ username, password }, secret, jwtConfig);
+  const token = jwt.sign(user, secret, jwtConfig);
 
   res
     .status(200)

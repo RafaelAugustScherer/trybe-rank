@@ -1,5 +1,5 @@
 import Mongoose from 'mongoose';
-import connect from '../connection.js';
+import connect from './connection.js';
 const { typesCollection } = await connect();
 
 const TypeSchema = new Mongoose.Schema({
