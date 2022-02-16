@@ -24,37 +24,32 @@ const questionSchema = new Mongoose.Schema({
 });
 const Question = Mongoose.model('Question', questionSchema);
 
-const insertOne = async ({ body }, res) => {
-  let { answers } = body;
+const insertOne = async (answers) => {
   const UUID_Correct = ObjectId();
-  answers = answers.reduce((obj, answer, index) => {
+  const answersWithId = answers.reduce((obj, answer, index) => {
     const newKey = index === 0 ? UUID_Correct : ObjectId();
     return { ...obj, [newKey]: answer };
   }, {});
+
   const question = new Question({
     ...body,
-    answers,
+    answers: answersWithId,
     correct_id: UUID_Correct,
   });
+
   questionsCollection.insertOne(question);
 
-  res
-    .status(201)
-    .json({ message: 'question has been saved' });
+  return { message: 'OK' };
 }
 
-const getOne = async ({ body }, res) => {
-  const question = await questionsCollection.findOne({ ...body });
-  res
-    .status(200)
-    .json(question);
+const getOne = async (filter) => {
+  const question = await questionsCollection.findOne({ ...filter });
+  return question;
 }
 
-const getAll = async (_req, res) => {
-  const questions  = await questionsCollection.find({}).toArray();
-  res
-    .status(200)
-    .json(questions);
+const getAll = async () => {
+  const questions  = await questionsCollection.find().toArray();
+  return questions;
 }
 
 export default { Question, getAll, getOne, insertOne };

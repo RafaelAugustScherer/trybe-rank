@@ -8,12 +8,9 @@ router
   .get(user.signIn)
 
 router
-  .route('/sign-up')
-  .post(user.insertOne);
-
-router
   .route('/user')
   .get(userMiddleware.authenticateToken, user.getOne)
+  .post(user.insertOne)
   .put(userMiddleware.authenticateToken, user.updateOne)
   .patch(userMiddleware.authenticateToken, user.updateProgress)
 

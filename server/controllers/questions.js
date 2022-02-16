@@ -1,15 +1,15 @@
 import express from 'express';
-import questionModel from '../models/questionModel.js';
+import questionService from '../services/questionService.js';
 
 const router = express.Router();
 
 router
   .route('/question')
-  .get(questionModel.getOne)
-  .post(questionModel.insertOne);
+  .get(questionService.getOne)
+  .post(questionService.insertOne);
 
 router
   .route('/questions')
-  .get(questionModel.getAll);
+  .get(questionService.getAll);
 
 export default router;
