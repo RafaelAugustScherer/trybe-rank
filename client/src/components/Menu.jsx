@@ -5,16 +5,18 @@ import { BsFillPeopleFill } from 'react-icons/bs';
 import { deleteCookie } from "../utils/cookie";
 import { useContext, useState } from "react";
 import { infoContext } from "../providers/InfoProvider";
+import { gameContext } from "../providers/GameProvider";
 import logo from '../img/trybe-icon.png';
 import '../css/menu.css';
 
 const Menu = ({ path }) => {
   const [active, setActive] = useState(false);
+  const { resetGame } = useContext(gameContext);
   const { setToken, userInfo } = useContext(infoContext);
   const navigate = useNavigate();
 
   const logOff = () => {
-    setToken("")
+    setToken(null)
     deleteCookie();
     navigate('/');
   }
@@ -34,17 +36,26 @@ const Menu = ({ path }) => {
       <div className={ `menu ${active ? 'menu-active' : ''}` }>
         <div className="menu-links">
           <Link to="/home">
-            <button className={ `menu-link ${path === 'home' ? 'button-active-menu' : ''}` }>
+            <button
+              onClick={ resetGame }
+              className={ `menu-link ${path === 'home' ? 'button-active-menu' : ''}` }
+            >
               Home
             </button>
           </Link>
           <Link to="/select-quiz">
-            <button className={ `menu-link ${path === 'quiz' ? 'button-active-menu' : ''}` }>
+            <button
+              onClick={ resetGame }
+              className={ `menu-link ${path === 'quiz' ? 'button-active-menu' : ''}` }
+            >
               Quizes
             </button>
           </Link>
           <Link to="/leaderboard">
-            <button className={ `menu-link ${path === 'leaderboard' ? 'button-active-menu' : ''}` }>
+            <button
+              onClick={ resetGame }
+              className={ `menu-link ${path === 'leaderboard' ? 'button-active-menu' : ''}` }
+            >
               Leaderboard
             </button>
           </Link>
