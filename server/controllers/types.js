@@ -1,8 +1,6 @@
 import express from 'express';
-import Type from '../models/typeModel.js';
+import Type from '../services/typeService.js';
 const router = express.Router();
-
-
 
 router
   .route('/types')

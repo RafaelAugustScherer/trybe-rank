@@ -23,6 +23,7 @@ const Home = () => {
     const thisPlayer = newPlayers.find(({nickname: ply3rNickname}) => ply3rNickname === nickname);
     if (thisPlayer) {
       const newRank = newPlayers.indexOf(thisPlayer) + 1;
+      
       setScore(thisPlayer.score);
       setRank(newRank);
     } 

@@ -17,9 +17,9 @@ const InfoProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
 
   const fetchQuestions = async () => {
-    let bdQuestions = await axios.get('http://localhost:5000/questions', JSON.stringify())
+    const { questions } = await axios.get('http://localhost:5000/questions', JSON.stringify())
       .then(res => res.data);
-    setQuestions(bdQuestions);
+    setQuestions(questions);
   };
 
   const fetchTypes = async () => {

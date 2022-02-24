@@ -8,18 +8,11 @@ router
   .get(user.signIn)
 
 router
-  .route('/sign-up')
-  .post(user.insertOne);
-
-router
   .route('/user')
   .get(userMiddleware.authenticateToken, user.getOne)
+  .post(user.insertOne)
   .put(userMiddleware.authenticateToken, user.updateOne)
-
-router
-  .route('/user-progress')
-  .put(userMiddleware.authenticateToken, user.updateProgress);
-
+  .patch(userMiddleware.authenticateToken, user.updateProgress)
 
 router
   .route('/users')

@@ -1,8 +1,9 @@
-import { readFileSync } from 'fs';
 import jwt from 'jsonwebtoken';
-import connect from '../connection.js';
-const secret = readFileSync('./keys/secret.txt', 'utf-8');
+import connect from '../models/connection.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
+const secret = process.env.TOKEN_KEY;
 const { usersCollection } = await connect();
 
 const validateUserInfo = (req, res, next) => {
