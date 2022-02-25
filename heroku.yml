@@ -1,3 +1,5 @@
 build:
-  application:
-    app: docker-compose.yml
+  front:
+    client: ./client/Dockerfile
+  back:
+    server: ./server/Dockerfile
