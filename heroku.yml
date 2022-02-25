@@ -3,3 +3,7 @@ build:
     client: ./client/Dockerfile
   back:
     server: ./server/Dockerfile
+
+run:
+  client:
+  server:
