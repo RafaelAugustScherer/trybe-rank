@@ -1,6 +1,3 @@
 build:
   application:
     app: docker-compose.yml
-
-run:
-  app:
