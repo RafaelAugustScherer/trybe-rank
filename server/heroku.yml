@@ -1,3 +1,0 @@
-build:
-  back:
-    web: Dockerfile
