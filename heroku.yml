@@ -1,8 +1,8 @@
 build:
   front:
-    client: ./client/Dockerfile
+    client: /client/Dockerfile
   back:
-    server: ./server/Dockerfile
+    server: /server/Dockerfile
 
 run:
   client:
