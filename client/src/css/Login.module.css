@@ -11,8 +11,9 @@ body {
 .page {
   background-color: #292929;
   width: 100vw;
-  height: 100vh;
+  height: 94vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

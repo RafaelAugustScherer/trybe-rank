@@ -17,8 +17,9 @@ const InfoProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
 
   const fetchQuestions = async () => {
-    const { questions } = await axios.get('http://localhost:5000/questions', JSON.stringify())
+    const questions = await axios.get('http://localhost:5000/questions', JSON.stringify())
       .then(res => res.data);
+    
     setQuestions(questions);
   };
 
@@ -39,7 +40,7 @@ const InfoProvider = ({ children }) => {
     }
     const headers = { Authorization: token };
     const bdUser = await axios.get('http://localhost:5000/user', { headers })
-      .then(({ data }) => data.user);
+      .then(({ data }) => data);
     setUserInfo({ ...bdUser });
   }
   

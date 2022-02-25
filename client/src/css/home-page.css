@@ -5,6 +5,32 @@
   margin-top: 10vh;
 }
 
+.footer {
+  bottom: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.footer p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer a {
+  margin: 0 5px;
+  color: white;
+  font-weight: 700;
+}
+
+.footer svg {
+  color: #61C9A3;
+  margin:0 5px;
+}
+
 .hero-title {
   color: #61C9A3;
   font-size: 5em;

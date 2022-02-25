@@ -7,6 +7,7 @@ import Menu from '../components/Menu';
 import ProfileCard from '../components/profileCard';
 import TypeCards from '../components/typeCards';
 import '../css/home-page.css';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ const Home = () => {
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 }
