@@ -1,6 +1,3 @@
 build:
   back:
-    server: /server/Dockerfile
-
-run:
-  server:
+    server: Dockerfile
