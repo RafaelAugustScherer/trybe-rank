@@ -1,6 +1,7 @@
 import trybeIcon from '../img/trybeIcon.svg';
 import Style from '../css/Login.module.css';
 import axios from 'axios';
+import Footer from '../components/Footer';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { infoContext } from '../providers/InfoProvider';
@@ -19,7 +20,7 @@ function SignIn() {
 
   const onLogin = () => {
     const { username, password } = state;
-    axios.get('http://localhost:5000/sign-in', 
+    axios.get('http://localhost:5000/user/auth', 
       { headers: {
         username,
         password
@@ -43,6 +44,7 @@ function SignIn() {
   }, [token, navigate]);
 
   return (
+    <>
     <div className={ Style.page }>
       <div className={ Style.container }> 
         <div className={ Style.imgContainer }>
@@ -87,6 +89,8 @@ function SignIn() {
         </Link>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 
