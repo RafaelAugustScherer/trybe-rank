@@ -3,6 +3,7 @@ import { gameContext } from "../providers/GameProvider";
 import { infoContext } from "../providers/InfoProvider";
 import axios from 'axios';
 import { Link } from "react-router-dom";
+const SERVER_URL = process.env.REACT_APP_SERVER;
 
 const QuizButton = ({ answers, correctAnswer }) => {
   const [questions, setQuestions] = useState([]);
@@ -49,7 +50,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
     const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
     const newQuiz = { type, score, difficulty }
     axios
-      .patch('https://trybe-rank-back.herokuapp.com/user', { newQuestions, newQuiz }, { headers })
+      .patch(`${SERVER_URL}/user`, { newQuestions, newQuiz }, { headers })
       .catch((err) => new Error(err.message))
   }
 
