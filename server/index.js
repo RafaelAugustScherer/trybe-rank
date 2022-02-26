@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const corsOptions = {
-  origin: '*',
+  origin: 'https://trybe-rank-front.herokuapp.com/',
   optionSuccessStatus: 200,
 };
 
