@@ -20,7 +20,7 @@ function SignIn() {
 
   const onLogin = () => {
     const { username, password } = state;
-    axios.get('http://localhost:5000/user/auth', 
+    axios.get('https://trybe-rank-back.herokuapp.com/user/auth', 
       { headers: {
         username,
         password

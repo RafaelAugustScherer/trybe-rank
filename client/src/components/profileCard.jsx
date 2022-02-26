@@ -26,7 +26,7 @@ const ProfileCard = ({ score, rank }) => {
 
     const headers = { Authorization: token };
     await axios
-      .put('http://localhost:5000/user', {
+      .put('https://trybe-rank-back.herokuapp.com/user', {
         username,
         nickname
       }, { headers })

@@ -16,7 +16,7 @@ const SignUp = () => {
   
   const CreateUser = () => {
     const newUser = { username, password };
-    axios.post('http://localhost:5000/user', newUser)
+    axios.post('https://trybe-rank-back.herokuapp.com/user', newUser)
       .then(() => {
         setCreated(true);
         setTimeout(() => {
