@@ -21,7 +21,7 @@ function SignIn() {
 
   const onLogin = () => {
     const { username, password } = state;
-    axios.get(`${SERVER_URL}/user/auth'`, 
+    axios.get(SERVER_URL + '/user/auth', 
       { headers: {
         username,
         password

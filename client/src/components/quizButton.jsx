@@ -50,7 +50,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
     const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
     const newQuiz = { type, score, difficulty }
     axios
-      .patch(`${SERVER_URL}/user`, { newQuestions, newQuiz }, { headers })
+      .patch(SERVER_URL + '/user', { newQuestions, newQuiz }, { headers })
       .catch((err) => new Error(err.message))
   }
 

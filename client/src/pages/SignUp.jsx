@@ -17,7 +17,7 @@ const SignUp = () => {
   
   const CreateUser = () => {
     const newUser = { username, password };
-    axios.post(`${SERVER_URL}/user`, newUser)
+    axios.post(SERVER_URL + '/user', newUser)
       .then(() => {
         setCreated(true);
         setTimeout(() => {
