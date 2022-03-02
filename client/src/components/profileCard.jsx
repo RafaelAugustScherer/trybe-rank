@@ -26,7 +26,7 @@ const ProfileCard = ({ score, rank }) => {
 
     const headers = { Authorization: token };
     await axios
-      .put('http://localhost:3000/user', {
+      .put('http://localhost:5000/user', {
         username,
         nickname
       }, { headers })

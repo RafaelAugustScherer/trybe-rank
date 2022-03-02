@@ -16,7 +16,7 @@ const SignUp = () => {
   
   const CreateUser = () => {
     const newUser = { username, password };
-    axios.post('http://localhost:3000/user', newUser)
+    axios.post('http://localhost:5000/user', newUser)
       .then(() => {
         setCreated(true);
         setTimeout(() => {
