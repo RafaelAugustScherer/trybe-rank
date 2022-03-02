@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import axios from 'axios';
 import { getCookie } from '../utils/cookie';
 import { useNavigate } from 'react-router-dom';
+const SERVER_URL = process.env.REACT_APP_SERVER;
 
 export const infoContext = createContext();
 
@@ -17,14 +18,14 @@ const InfoProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
 
   const fetchQuestions = async () => {
-    const questions = await axios.get('http://localhost:5000/questions', JSON.stringify())
+    const questions = await axios.get(SERVER_URL + '/questions', JSON.stringify())
       .then(res => res.data);
     
     setQuestions(questions);
   };
 
   const fetchTypes = async () => {
-    const bdTypes = await axios.get('http://localhost:5000/types')
+    const bdTypes = await axios.get(SERVER_URL + '/types')
       .then(res => res.data);
     setTypes(bdTypes);
   };
@@ -39,7 +40,7 @@ const InfoProvider = ({ children }) => {
       return;
     }
     const headers = { Authorization: token };
-    const bdUser = await axios.get('http://localhost:5000/user', { headers })
+    const bdUser = await axios.get(SERVER_URL + '/user', { headers })
       .then(({ data }) => data);
     setUserInfo({ ...bdUser });
   }

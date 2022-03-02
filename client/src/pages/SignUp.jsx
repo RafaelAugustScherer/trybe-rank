@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Style from '../css/Login.module.css';
 import axios from 'axios';
+const SERVER_URL = process.env.REACT_APP_SERVER;
 
 
 const SignUp = () => {
@@ -16,7 +17,7 @@ const SignUp = () => {
   
   const CreateUser = () => {
     const newUser = { username, password };
-    axios.post('http://localhost:5000/user', newUser)
+    axios.post(SERVER_URL + '/user', newUser)
       .then(() => {
         setCreated(true);
         setTimeout(() => {

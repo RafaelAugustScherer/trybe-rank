@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { infoContext } from '../providers/InfoProvider';
 import { setCookie } from '../utils/cookie';
+const SERVER_URL = process.env.REACT_APP_SERVER;
 
 function SignIn() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function SignIn() {
 
   const onLogin = () => {
     const { username, password } = state;
-    axios.get('http://localhost:5000/user/auth', 
+    axios.get(SERVER_URL + '/user/auth', 
       { headers: {
         username,
         password

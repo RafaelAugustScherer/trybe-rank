@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { infoContext } from '../providers/InfoProvider';
 import { BsPersonCircle, BsPencilSquare } from 'react-icons/bs';
+const SERVER_URL = process.env.REACT_APP_SERVER;
 
 const ProfileCard = ({ score, rank }) => {
   const { token, userInfo, setUserInfo, questions } = useContext(infoContext);
@@ -9,7 +10,7 @@ const ProfileCard = ({ score, rank }) => {
   const [usernameBkp, setUsernameBkp] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [hoverInfo, setHoverInfo] = useState(false);
-
+  
   useEffect(() => {
     if (!usernameBkp && username) {
       setUsernameBkp(username);
@@ -26,7 +27,7 @@ const ProfileCard = ({ score, rank }) => {
 
     const headers = { Authorization: token };
     await axios
-      .put('http://localhost:5000/user', {
+      .put(SERVER_URL + '/user', {
         username,
         nickname
       }, { headers })
