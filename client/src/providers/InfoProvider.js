@@ -3,7 +3,6 @@ import axios from 'axios';
 import { getCookie } from '../utils/cookie';
 import { useNavigate } from 'react-router-dom';
 const SERVER_URL = process.env.REACT_APP_SERVER;
-console.log(process.env)
 
 export const infoContext = createContext();
 
