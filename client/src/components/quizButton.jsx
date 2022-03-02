@@ -49,7 +49,7 @@ const QuizButton = ({ answers, correctAnswer }) => {
     const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
     const newQuiz = { type, score, difficulty }
     axios
-      .patch('https://trybe-rank-back.herokuapp.com/user', { newQuestions, newQuiz }, { headers })
+      .patch('http://localhost:3000/user', { newQuestions, newQuiz }, { headers })
       .catch((err) => new Error(err.message))
   }
 

@@ -17,14 +17,14 @@ const InfoProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
 
   const fetchQuestions = async () => {
-    const questions = await axios.get('https://trybe-rank-back.herokuapp.com/questions', JSON.stringify())
+    const questions = await axios.get('http://localhost:3000/questions', JSON.stringify())
       .then(res => res.data);
     
     setQuestions(questions);
   };
 
   const fetchTypes = async () => {
-    const bdTypes = await axios.get('https://trybe-rank-back.herokuapp.com/types')
+    const bdTypes = await axios.get('http://localhost:3000/types')
       .then(res => res.data);
     setTypes(bdTypes);
   };
@@ -39,7 +39,7 @@ const InfoProvider = ({ children }) => {
       return;
     }
     const headers = { Authorization: token };
-    const bdUser = await axios.get('https://trybe-rank-back.herokuapp.com/user', { headers })
+    const bdUser = await axios.get('http://localhost:3000/user', { headers })
       .then(({ data }) => data);
     setUserInfo({ ...bdUser });
   }
