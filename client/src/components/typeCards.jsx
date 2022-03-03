@@ -72,7 +72,8 @@ const TypeCards = ({ isMini, isActive }) => {
       );
     });
 
-  return !isActive ? createCards() : createCardActive();
+  return !isActive ? createCards() : createCardActive()
+
 }
 
 export default TypeCards;
