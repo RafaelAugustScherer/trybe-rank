@@ -6,8 +6,9 @@ import { getPlayersAround, createTable } from '../utils/leaderboard';
 import Menu from '../components/Menu';
 import ProfileCard from '../components/profileCard';
 import TypeCards from '../components/typeCards';
-import '../css/home-page.css';
 import Footer from '../components/Footer';
+import Loading from '../components/Loading';
+import '../css/home-page.css';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Home = () => {
     token && getPlayers();
   }, [nickname, token]);
 
-  return (
+  const renderPage = () => (
     <>
       <Menu path="home"/>
       <div className="home-page">
@@ -81,6 +82,12 @@ const Home = () => {
         </section>
       </div>
       <Footer />
+    </>
+  )
+
+  return (
+    <>
+      { !nickname ? <Loading /> : renderPage() }
     </>
   );
 }
