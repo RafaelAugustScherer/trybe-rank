@@ -1,0 +1,85 @@
+FORMAT: 1A
+HOST: https://localhost:5000/
+
+# TrybeRank
+
+TrybeRank is an API that allows for the communication between the Front-end React Web Application and the Back-end MongoDB database.
+The communication is made by using the endpoints described in this document
+
+## Sign-in [/sign-in]
+Authenticate a user with nickname/password.
+
+* nickname 
+* password (required, string)
+
+### Authenticate [GET]
+
++ Parameters
+    + nickname - (required, string)
+    + password - (required, string)
+
++ Response 200 (application/json)
+
+        [
+            {
+                "nickname": "User One",
+                "password": "samplePassword123",
+                "completed_quizes": [
+                    {
+                        "quiz": "61e83849f0aa7158f5dab6e4",
+                        "difficulty": 
+                        "score": 95
+                    },
+                    {
+                        "quiz": "61e83885f0aa7158f5dab6e6",
+                        "score": 85
+                    }
+                ]
+            }
+        ]
+
+### Create a New Question [POST]
+
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
+
++ Request (application/json)
+
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
