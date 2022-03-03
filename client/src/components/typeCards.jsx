@@ -3,7 +3,6 @@ import { infoContext } from '../providers/InfoProvider';
 import { typeCardsContext } from '../providers/TypeCardsProvider';
 import TypeCard from './typeCard';
 import SelectDifficulty from './selectDifficulty';
-import Loading from './Loading.jsx';
 
 const TypeCards = ({ isMini, isActive }) => {
   const { questions, types, userInfo } = useContext(infoContext);
