@@ -38,9 +38,9 @@ const create = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   try {
-    const { prevUsername } = req.user;
+    const { username } = req.user;
 
-    const result = await user.update({ username: prevUsername }, req.body);
+    await user.update({ username }, req.body);
     return res.status(200).json(req.body);
   } catch (err) {
     next(err)
