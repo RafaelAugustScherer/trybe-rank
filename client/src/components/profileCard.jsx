@@ -7,7 +7,6 @@ const SERVER_URL = process.env.REACT_APP_SERVER;
 const ProfileCard = ({ score, rank }) => {
   const { token, userInfo, setUserInfo, questions } = useContext(infoContext);
   const { username, nickname, completed_questions: completedQuestions } = userInfo;
-  const [usernameBkp, setUsernameBkp] = useState(null);
   const [hover, setHover] = useState({
     info: false,
     image: false,
@@ -16,12 +15,6 @@ const ProfileCard = ({ score, rank }) => {
     profile: false,
     image: false,
   });
-  
-  useEffect(() => {
-    if (!usernameBkp && username) {
-      setUsernameBkp(username);
-    }
-  }, [username]);
 
   const onChange = ({ target: { id, value } }) => {
     setUserInfo({ ...userInfo, [id]: value });
