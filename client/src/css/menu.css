@@ -52,7 +52,7 @@
 }
 
 .profileCardHeader {
-  width: 150px;
+  width: 180px;
   height: 50px;
   display: grid;
   place-items: center;
@@ -71,7 +71,7 @@
 }
 
 .leave-card-header {
-  width: 120px;
+  width: 140px;
   position: absolute;
   bottom: -100%;
   border: 2px solid white;
@@ -100,6 +100,13 @@
   align-items: center;
   font-size: 1.1em;
   border: 2px solid #2FC18C;
+}
+
+.profileCardHeader button img {
+  height: 20px;
+  width: 20px;
+  border: .5px solid rgb(134, 134, 134);
+  border-radius: 100%;
 }
 
 .profileCardHeader > button > p {

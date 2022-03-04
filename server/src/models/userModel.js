@@ -14,7 +14,8 @@ const userSchema = new Mongoose.Schema({
     required: true
   },
   completed_questions: Array,
-  completed_quizes: Array
+  completed_quizes: Array,
+  image_url: String,
 });
 const User = Mongoose.model('User', userSchema);
 

@@ -4,15 +4,15 @@ const create = Joi.object({
   username: Joi.string().pattern(/^[\w]{4,10}$/i).required()
     .messages({
       'any.required': '400|"username" is required',
-      'string.base': '400|"username" is a string',
-      'string.empty': '400|"username" can not be empty',
-      'string.pattern': '400|"username" must have between 4 and 10 of length',
+      'string.base': '400|"username" must be of type string',
+      'string.empty': '400|"username" cannot be empty',
+      'string.pattern': '400|"username" must have between 4 and 10 characters',
     }),
   password: Joi.string().pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/).required()
     .messages({
       'any.required': '400|"password" is required',
-      'string.base': '400|"password" is a string',
-      'string.empty': '400|"password" can not be empty',
+      'string.base': '400|"password" must be of type string',
+      'string.empty': '400|"password" cannot be empty',
       'string.pattern': '400|"password" must have one Uppercase, Lowercase and a number',
     })
 });
@@ -21,16 +21,22 @@ const update = Joi.object({
   username: Joi.string().pattern(/[\w]{4,10}/i).required()
   .messages({
     'any.required': '400|"username" is required',
-    'string.base': '400|"username" is a string',
-    'string.empty': '400|"username" can not be empty',
-    'string.pattern': '400|"username" must have between 4 and 10 of length',
+    'string.base': '400|"username" must be be of type string',
+    'string.empty': '400|"username" cannot be empty',
+    'string.pattern': '400|"username" must have between 4 and 10 characters',
   }),
   nickname: Joi.string().pattern(/[\w]{4,10}/i).required()
   .messages({
     'any.required': '400|"nickname" is required',
-    'string.base': '400|"nickname" is a string',
-    'string.empty': '400|"nickname" can not be empty',
-    'string.pattern': '400|"nickname" must have between 4 and 10 of length',
+    'string.base': '400|"nickname" must be be of type string',
+    'string.empty': '400|"nickname" cannot be empty',
+    'string.pattern': '400|"nickname" must have between 4 and 10 characters',
+  }),
+  image_url: Joi.string().pattern(/^https?:.{5,100}/)
+  .messages({
+    'any.required': '400|"image_url" is required',
+    'string.base': '400|"image_url" must be of type string',
+    'string.pattern': '400|"image_url" must be a link to an image'
   }),
 })
 
@@ -38,14 +44,14 @@ const updateQuestions = Joi.object({
   newQuestions: Joi.array().items(Joi.object()).required()
     .messages({
       'any.required': '400|"newQuestions" is required',
-      'array.base': '400|"newQuestions" is an array',
-      'array.empty': '400|"newQuestions" can not be empty',
+      'array.base': '400|"newQuestions" can only be of type array',
+      'array.empty': '400|"newQuestions" cannot be empty',
     }),
   newQuiz: Joi.object().required()
     .messages({
       'any.required': '400|"newQuiz" is required',
-      'object.base': '400|"newQuiz" is a object',
-      'object.empty': '400|"newQuiz" can not be empty',
+      'object.base': '400|"newQuiz" can only be of type object',
+      'object.empty': '400|"newQuiz" cannot be empty',
     })
 });
 

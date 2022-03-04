@@ -44,7 +44,7 @@ const create = async (params) => {
     throw new ValidateError({ status: 409, message: 'User already exists' })
   }
   
-  const user = new userModel({ ...params, nickname: username });
+  const user = new userModel({ ...params, nickname: username, image_url: '' });
   const { insertId } = await usersCollection.insertOne(user);
 
   return { id: insertId, ...params };
