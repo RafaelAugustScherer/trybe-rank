@@ -2,7 +2,7 @@ import { useState } from "react"
 import { BsPersonCircle } from 'react-icons/bs'
 import LeaveButton from "./logOff";
 
-const ProfileCardHeader = ({ nickname }) => {
+const ProfileCardHeader = ({ nickname, imageUrl }) => {
   const [active, setActive] = useState(false);
 
 
@@ -12,7 +12,13 @@ const ProfileCardHeader = ({ nickname }) => {
         type="button"
         onClick={ () => setActive(!active) }
       >
-        <BsPersonCircle />
+        {
+          imageUrl ? (
+            <img src={ imageUrl } alt="profile-header" />
+          ) : (
+            <BsPersonCircle />
+          )
+        }
         <p>{ nickname }</p>
       </button>
       { active && (

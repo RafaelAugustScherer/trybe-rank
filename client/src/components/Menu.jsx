@@ -14,6 +14,8 @@ const Menu = ({ path }) => {
   const { resetGame } = useContext(gameContext);
   const { userInfo } = useContext(infoContext);
 
+  const { nickname, image_url: imageUrl } = userInfo;
+
   return (
     <>
       <div className="header">
@@ -27,7 +29,7 @@ const Menu = ({ path }) => {
           <img src={ logo } alt="logo-trybe" />
           <h2>TrybeRank</h2>
         </div>
-        <ProfileCardHeader nickname={ userInfo.nickname } />
+        <ProfileCardHeader nickname={ nickname } imageUrl={ imageUrl } />
       </div>
       <div className={ `menu ${active ? 'menu-active' : ''}` }>
         <div className="menu-links">
@@ -64,7 +66,7 @@ const Menu = ({ path }) => {
         <div className="leave-container">
           <div className="leave-info">
             <BsFillPeopleFill />
-            { userInfo.nickname }
+            { nickname }
           </div>
           <LeaveButton />
         </div>
