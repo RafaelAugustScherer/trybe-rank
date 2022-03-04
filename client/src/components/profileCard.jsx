@@ -1,12 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
 import { infoContext } from '../providers/InfoProvider';
 import { BsPersonCircle, BsPencilSquare, BsPlusLg } from 'react-icons/bs';
-const SERVER_URL = process.env.REACT_APP_SERVER;
 
 const ProfileCard = ({ score, rank }) => {
-  const { token, userInfo, setUserInfo, questions } = useContext(infoContext);
-  const { username, nickname, completed_questions: completedQuestions } = userInfo;
+  const { userInfo, setUserInfo, questions, updateUser } = useContext(infoContext);
+  const {
+    username,
+    nickname,
+    completed_questions: completedQuestions,
+    image_url: imageUrl,
+    is_guest: isGuest
+  } = userInfo;
   const [hover, setHover] = useState({
     info: false,
     image: false,
@@ -21,34 +25,37 @@ const ProfileCard = ({ score, rank }) => {
   };
 
   const onEdit = async () => {
-    setEditing({...editing, profile: !editing.profile});
-    if (!editing.profile) return;
-
-    const headers = { Authorization: token };
-    await axios
-      .put(SERVER_URL + '/user', {
-        username,
-        nickname
-      }, { headers })
-      .catch((err) => new Error(err.message));
+    const { profile: editingProfile } = editing;
+    setEditing({profile: !editingProfile, image: false });
+    editingProfile && updateUser();
   };
 
   return (
     <div
       className="profile-div"
-      onMouseEnter={ () => setHover({...hover, info: true}) }
+      onMouseEnter={ () => !isGuest && setHover({...hover, info: true}) }
       onMouseLeave={ () => setHover({...hover, info: false}) }
       >
       <div>
         <div
-          onClick={ () => setEditing({ ...editing, image: !editing.image }) }
+          onClick={ () => editing.profile && setEditing({ ...editing, image: !editing.image }) }
           onMouseEnter={ () => setHover({...hover, image: true}) }
           onMouseLeave={ () => setHover({...hover, image: false}) }
         >
-        <BsPersonCircle
-          className={ hover.image ? 'profile-image-blur' : 'profile-image' }
-        />
-        { hover.image && <BsPlusLg className="profile-image-add" /> }
+          {
+            imageUrl ? (
+              <img
+                src={ imageUrl }
+                alt="profile"
+                className={ `profile-image ${hover.image && editing.profile ? 'blur' : ''}` }
+              />
+            ) : (
+              <BsPersonCircle
+                className={ `profile-image ${hover.image && editing.profile ? 'blur' : ''}` }
+              />
+            )
+          }
+        { hover.image && editing.profile && <BsPlusLg className="profile-image-add" /> }
         </div>
         <h3 className="nickname">{nickname}</h3>
         {

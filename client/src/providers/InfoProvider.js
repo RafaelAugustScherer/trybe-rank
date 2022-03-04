@@ -8,11 +8,7 @@ export const infoContext = createContext();
 
 const InfoProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-    nickname: '',
-    completed_questions: []
-  });
+  const [userInfo, setUserInfo] = useState({});
   const [token, setToken] = useState(null);
   const [types, setTypes] = useState([]);
   const [questions, setQuestions] = useState([]);
@@ -35,14 +31,16 @@ const InfoProvider = ({ children }) => {
       setUserInfo({
         ...userInfo,
         username: 'Convidado',
-        nickname: 'Convidado'
+        nickname: 'Convidado',
+        image_url: '',
+        is_guest: true,
       });
       return;
     }
     const headers = { Authorization: token };
     const bdUser = await axios.get(SERVER_URL + '/user', { headers })
       .then(({ data }) => data);
-    setUserInfo({ ...bdUser });
+    setUserInfo(bdUser);
   }
   
   const getToken = async () => {
@@ -53,6 +51,16 @@ const InfoProvider = ({ children }) => {
     } else {
       navigate('/');
     }
+  }
+
+  const updateUser = async () => {
+    const { completed_questions, completed_quizes, is_guest: isGuest, ...fieldsToUpdate } = userInfo;
+    if (isGuest) return;
+
+    const headers = { Authorization: token };
+    await axios
+      .put(SERVER_URL + '/user', fieldsToUpdate, { headers })
+      .catch((err) => new Error(err.message));
   }
 
   useEffect(() => {
@@ -72,7 +80,8 @@ const InfoProvider = ({ children }) => {
     userInfo,
     getToken,
     setUserInfo,
-    setToken
+    setToken,
+    updateUser
   }
 
   return (
