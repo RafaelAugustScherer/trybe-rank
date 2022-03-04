@@ -55,6 +55,7 @@ const ProfileCard = ({ score, rank }) => {
                 id="username"
                 onChange={(e) => onChange(e)}
                 value={username}
+                maxLength="10"
               ></input>
             </p>
             <p>
@@ -64,6 +65,7 @@ const ProfileCard = ({ score, rank }) => {
                 id="nickname"
                 onChange={onChange}
                 value={nickname}
+                maxLength="10"
               ></input>
             </p>
           </>
