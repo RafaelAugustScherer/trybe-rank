@@ -6,7 +6,7 @@ import SelectDifficulty from './selectDifficulty';
 
 const TypeCards = ({ isMini, isActive }) => {
   const { questions, types, userInfo } = useContext(infoContext);
-  const { completed_questions: completedQuestions } = userInfo;
+  const { completed_questions: completedQuestions = [] } = userInfo;
 
   const filterByType = (type) => {
     const completed = completedQuestions.filter(({ type: completedType }) => completedType === type).length;

@@ -33,6 +33,8 @@ const InfoProvider = ({ children }) => {
         username: 'Convidado',
         nickname: 'Convidado',
         image_url: '',
+        completed_questions: [],
+        completed_quizes: [],
         is_guest: true,
       });
       return;
