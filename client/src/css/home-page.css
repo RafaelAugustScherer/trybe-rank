@@ -96,13 +96,11 @@
   font-size: 8em;
   border: 3px solid #00fb9f;
   border-radius: 100%;
+  max-width: 128px;
+  max-height: 128px;
 }
 
-.profile-image-blur {
-  font-size: 8em;
-  border: 3px solid #00fb9f;
-  cursor: pointer;
-  border-radius: 100%;
+.blur {
   opacity: 50%;
 }
 
