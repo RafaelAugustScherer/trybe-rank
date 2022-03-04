@@ -1,15 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { infoContext } from '../providers/InfoProvider';
-import { BsPersonCircle, BsPencilSquare } from 'react-icons/bs';
+import { BsPersonCircle, BsPencilSquare, BsPlusLg } from 'react-icons/bs';
 const SERVER_URL = process.env.REACT_APP_SERVER;
 
 const ProfileCard = ({ score, rank }) => {
   const { token, userInfo, setUserInfo, questions } = useContext(infoContext);
   const { username, nickname, completed_questions: completedQuestions } = userInfo;
   const [usernameBkp, setUsernameBkp] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [hoverInfo, setHoverInfo] = useState(false);
+  const [hover, setHover] = useState({
+    info: false,
+    image: false,
+  });
+  const [editing ,setEditing] = useState({
+    profile: false,
+    image: false,
+  });
   
   useEffect(() => {
     if (!usernameBkp && username) {
@@ -22,8 +28,8 @@ const ProfileCard = ({ score, rank }) => {
   };
 
   const onEdit = async () => {
-    setIsEditing(!isEditing);
-    if (!isEditing) return;
+    setEditing({...editing, profile: !editing.profile});
+    if (!editing.profile) return;
 
     const headers = { Authorization: token };
     await axios
@@ -37,23 +43,44 @@ const ProfileCard = ({ score, rank }) => {
   return (
     <div
       className="profile-div"
-      onMouseEnter={ () => setHoverInfo(true) }
-      onMouseLeave={ () => setHoverInfo(false) }
-    >
+      onMouseEnter={ () => setHover({...hover, info: true}) }
+      onMouseLeave={ () => setHover({...hover, info: false}) }
+      >
       <div>
-        <BsPersonCircle className="profile-image" />
+        <div
+          onClick={ () => setEditing({ ...editing, image: !editing.image }) }
+          onMouseEnter={ () => setHover({...hover, image: true}) }
+          onMouseLeave={ () => setHover({...hover, image: false}) }
+        >
+        <BsPersonCircle
+          className={ hover.image ? 'profile-image-blur' : 'profile-image' }
+        />
+        { hover.image && <BsPlusLg className="profile-image-add" /> }
+        </div>
         <h3 className="nickname">{nickname}</h3>
+        {
+          editing.image && (
+            <input
+              type="url"
+              id="image_url"
+              className="profile-image-input"
+              placeholder='URL da imagem'
+              value={userInfo.image_url}
+              onChange={onChange}
+            />
+          )
+        }
       </div>
       <div className="profile-info-div">
       <div className="profile-div-edit">
-        {isEditing ? (
+        {editing.profile ? (
           <>
             <p>
               Nome:
               <input
                 type="text"
                 id="username"
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
                 value={username}
                 maxLength="10"
               ></input>
@@ -75,7 +102,7 @@ const ProfileCard = ({ score, rank }) => {
             <p>Apelido: <span>{nickname}</span></p>
           </>
         )}
-        <BsPencilSquare onClick={onEdit} className={ hoverInfo ? 'show' : '' } />
+        <BsPencilSquare onClick={onEdit} className={ hover.info ? 'show' : '' } />
       </div>
       <div className="ranking-div">
           <p>Pontuação: <span>{ score }</span></p>

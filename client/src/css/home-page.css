@@ -98,6 +98,36 @@
   border-radius: 100%;
 }
 
+.profile-image-blur {
+  font-size: 8em;
+  border: 3px solid #00fb9f;
+  cursor: pointer;
+  border-radius: 100%;
+  opacity: 50%;
+}
+
+.profile-image-add {
+  position: absolute;
+  font-size: 2em;
+  cursor: pointer;
+  top: 60px;
+  left: 67px;
+  z-index: 1;
+}
+
+.profile-image-input {
+  position: absolute;
+  top: 145px;
+  left: -20px;
+  text-align: center;
+  width: 200px;
+  padding-left: 5px;
+  border-radius: 5px;
+  border: 2px solid black;
+  outline: none;
+}
+
+
 .profile-info-div {
   display: flex;
   margin-top: 10px;
@@ -209,5 +239,8 @@
   .profile-info-div p {
     margin: 10px 0;
   }
-}
 
+  .profile-image-add {
+    left: calc(50% - 16px);
+  }
+}
