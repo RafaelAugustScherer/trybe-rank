@@ -23,6 +23,14 @@
   place-items: center;
 }
 
+.quiz-question code {
+  background-color: #eee;
+  color: crimson;
+  border-radius: 3px;
+  font-family: courier, monospace;
+  padding: 5px;
+}
+
 .next-prev-buttons {
   display: flex;
   width: 40vw;
