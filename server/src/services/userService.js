@@ -107,7 +107,7 @@ const auth = async (params) => {
     throw new ValidateError({ status: 404, message: 'User not found!' })
   }
 
-  const token = jwt.sign(user, secret, jwtConfig);
+  const token = jwt.sign({ username, password }, secret, jwtConfig);
   return token;
 }
 
