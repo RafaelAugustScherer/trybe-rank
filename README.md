@@ -9,7 +9,7 @@ Aprendemos muito enquanto desenvolvemos o projeto e conforme íamos aprendendo n
 ## Deploys
 Site: [TrybeRank](https://trybe-rank.herokuapp.com/) / [Alternativo](https://tryberank.herokuapp.com/)
 
-API: [TrybeRank](https://tryberank-api.herokuapp.com/)
+API: [TrybeRank](https://trybe-rank-backend.herokuapp.com/) / [Alternativo](https://tryberank-api.herokuapp.com/)
 
 ## Tecnologias Usadas
 
