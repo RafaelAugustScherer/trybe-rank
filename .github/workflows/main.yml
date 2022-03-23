@@ -26,3 +26,4 @@ jobs:
           appdir: server
           usedocker: true
           stack: container
+      - run: heroku auth:login
