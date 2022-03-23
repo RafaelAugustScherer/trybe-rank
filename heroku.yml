@@ -2,3 +2,7 @@ build:
   docker:
     web: client/Dockerfile
     backend: server/Dockerfile
+release:
+  command:
+    - ./client/deploy/release.sh
+    - ./server/deploy/release.sh
