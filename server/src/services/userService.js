@@ -45,6 +45,8 @@ const create = async (params) => {
   }
   
   const user = new userModel({ ...params, nickname: username, image_url: '' });
+  user.hashPassword();
+
   const { insertId } = await usersCollection.insertOne(user);
 
   return { id: insertId, ...params };
@@ -101,13 +103,20 @@ const updateProgress = async (params) => {
 }
 const auth = async (params) => {
   const { username, password } = params;
-  const user = await usersCollection.findOne({ username, password })
+  const user = await usersCollection.findOne({ username });
 
   if (!user) {
     throw new ValidateError({ status: 404, message: 'User not found!' })
   }
 
-  const token = jwt.sign({ username, password }, secret, jwtConfig);
+  const validPassword = new userModel(user).validatePassword(password);
+
+  if (!validPassword) {
+    throw new ValidateError({ status: 403, message: 'Invalid password' })
+  }
+
+  const token = jwt.sign({ username, password: user.password }, secret, jwtConfig);
+  console.log(token)
   return token;
 }
 
