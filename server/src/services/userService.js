@@ -116,7 +116,6 @@ const auth = async (params) => {
   }
 
   const token = jwt.sign({ username, password: user.password }, secret, jwtConfig);
-  console.log(token)
   return token;
 }
 
