@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 const questionSchema = Joi.object({
-  question: Joi.string().min(8).max(150).required()
+  question: Joi.string().min(8).max(200).required()
     .messages({
       'any.required': '400|"question" is required!',
       'string.base': '400|"question" is a string',
