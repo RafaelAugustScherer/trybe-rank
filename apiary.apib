@@ -1,85 +1,98 @@
 FORMAT: 1A
-HOST: https://localhost:5000/
+HOST: https://tryberank-api.herokuapp.com/
 
 # TrybeRank
 
-TrybeRank is an API that allows for the communication between the Front-end React Web Application and the Back-end MongoDB database.
-The communication is made by using the endpoints described in this document
+TrybeRank API allows for the communication between the Front-end React Web Application and the Back-end MongoDB database.
+The communication is made with the use of endpoints described in this document
 
-## Sign-in [/sign-in]
-Authenticate a user with nickname/password.
+## User Routes [/user]
+User-related routes
 
-* nickname 
-* password (required, string)
+### Information [GET]
 
-### Authenticate [GET]
+This route is used to GET current user information such as nickname, progress in the quizes, etc.
 
-+ Parameters
-    + nickname - (required, string)
-    + password - (required, string)
++ Request
+    + Headers
+        
+            Authorization: JWT Token
 
 + Response 200 (application/json)
-
-        [
-            {
-                "nickname": "User One",
-                "password": "samplePassword123",
-                "completed_quizes": [
-                    {
-                        "quiz": "61e83849f0aa7158f5dab6e4",
-                        "difficulty": 
-                        "score": 95
-                    },
-                    {
-                        "quiz": "61e83885f0aa7158f5dab6e6",
-                        "score": 85
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
+    
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            username: string,
+            nickname: string,
+            completed_questions: object[],
+            completed_quizes: object[],
+            image_url: string
         }
 
-+ Response 201 (application/json)
 
+### Create [POST]
+
+You may add a new user using this POST route.
+
++ Request (application/json)
+    + Body
+    
+            {
+                username: string (required, pattern)
+                password: string (required, pattern)
+            }
+
++ Response 200 (application/json)
+       
+        {
+            username: string
+            password: string
+        }
+
+### Update Information [PUT]
+
+You may update current user's information with this PUT route.
+
++ Request (application/json)
     + Headers
-
-            Location: /questions/2
+    
+            Authorization: JWT Token
 
     + Body
-
+    
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                username: string (required, pattern)
+                nickname: string (pattern)
+                image_url: string (pattern)
             }
+
++ Response 200 (application/json)
+        
+        {
+            username: string
+            nickname: string
+            image_url: string
+        }
+
+### Update Questions [PATCH]
+
+User completed questions, quizes and points are updated using this PATCH route.
+
++ Request (application/json)
+    + Headers
+    
+            Authorization: JWT Token
+
+    + Body
+    
+            {
+                newQuestions: object[] (required)
+                newQuiz: object (required)
+            }
+
++ Response 200 (application/json)
+        
+        {
+            username: string
+            completed_questions: object[]
+            completed_quizes: object[]
+        }
