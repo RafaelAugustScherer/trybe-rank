@@ -10,14 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ""
-          heroku_email: "rafaelaugustscherer@gmail.com"
-          justlogin: true
-      - run: heroku auth:whoami
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Build and Deploy Front-end
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "tryberank"
@@ -25,7 +19,8 @@ jobs:
           appdir: client
           usedocker: true
           stack: container
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Build and Deploy Back-end
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "tryberank-api"
