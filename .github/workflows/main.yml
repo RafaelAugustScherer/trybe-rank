@@ -14,12 +14,6 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ""
-          heroku_email: "rafaelaugustscherer@gmail.com"
-          justlogin: true
-      - uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "tryberank"
           heroku_email: "rafaelaugustscherer@gmail.com"
           appdir: client
