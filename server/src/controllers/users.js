@@ -17,7 +17,7 @@ const findOne = async (req, res, next) => {
 
     const username = usernameSearched ? usernameSearched : currentUser
 
-    const result = await user.findOne(username)
+    const { _id, ...result } = await user.findOne(username)
 
     return res.status(200).json(result);
   } catch (err) {

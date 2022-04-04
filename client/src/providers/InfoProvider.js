@@ -40,7 +40,7 @@ const InfoProvider = ({ children }) => {
       return;
     }
     const headers = { Authorization: token };
-    const { _id, ...bdUser } = await axios.get(SERVER_URL + '/user', { headers })
+    const bdUser = await axios.get(SERVER_URL + '/user', { headers })
       .then(({ data }) => data);
     setUserInfo(bdUser);
   }

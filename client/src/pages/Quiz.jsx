@@ -4,8 +4,7 @@ import QuizButton from '../components/quizButton';
 import '../css/quiz-page.css';
 
 const Quiz = () => {
-  const { gameQuestions } = useContext(gameContext);
-  const { score, gameIndex } = useContext(gameContext);
+  const { gameQuestions, score, gameIndex } = useContext(gameContext);
 
   const handleCodeFormatting = (text) => {
     const lineHandle = (line) => line.split('`').map((string, index) => index === 1 ? <code>{ string }</code> : <>{ string }</>);

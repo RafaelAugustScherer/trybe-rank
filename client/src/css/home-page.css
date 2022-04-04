@@ -242,3 +242,24 @@
     left: calc(50% - 16px);
   }
 }
+
+@media screen and (max-width: 700px) {
+  .home-section {
+    margin-right: 0;
+  }
+
+  .question-card {
+    width: 20vw;
+    min-width: 120px;
+    height: 110px;
+    padding: 12px;
+    margin: 12px;
+  }
+
+  .quick-access button {
+    width: 130px;
+    padding: 10px;
+    margin: 8px;
+    font-size: 1.1em;
+  }
+}
