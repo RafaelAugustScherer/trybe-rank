@@ -3,7 +3,6 @@ WORKDIR /app
 COPY . .
 
 RUN npm i
-RUN sed -i "s|http://localhost:3000|* |g" .env
 
 CMD ["npm", "start"]
 
