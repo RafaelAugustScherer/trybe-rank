@@ -41,7 +41,7 @@ You may add a new user using this POST route.
                 password: string (required, pattern)
             }
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
        
         {
             username: string
@@ -95,4 +95,47 @@ User completed questions, quizes and points are updated using this PATCH route.
             username: string
             completed_questions: object[]
             completed_quizes: object[]
+        }
+
+## Questions Routes [/questions]
+Question-related routes
+
+### List All [GET]que
+
+This route is used to GET every quiz questions in the database
+
++ Response 200 (application/json)
+        
+        [
+            {
+                _id: string,
+                question: string,
+                type: string,
+                difficulty: object,
+                correct_id: string
+            }
+        ]
+
+
+### Create [POST]
+
+This POST route is used to create a new question in the database.
+
++ Request (application/json)
+    + Body
+    
+            {
+                question: string (required, length: 8 - 200)
+                type: string (required, length: 3 - 15)
+                difficulty: string (required, length: 5 - 20)
+                answers: : string[] (required, pattern)
+            }
+
++ Response 201 (application/json)
+       
+        {
+                question: string (required, length: 8 - 200)
+                type: string (required, length: 3 - 15)
+                difficulty: string (required, length: 5 - 20)
+                answers: : string[] (required, pattern)
         }
