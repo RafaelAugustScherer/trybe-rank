@@ -21,11 +21,11 @@ This route is used to GET current user information such as nickname, progress in
 + Response 200 (application/json)
     
         {
-            username: string,
-            nickname: string,
-            completed_questions: object[],
-            completed_quizes: object[],
-            image_url: string
+            username: "Tester" (string),
+            nickname: "Tester" (string),
+            completed_questions: [...] (object[]),
+            completed_quizes: [...] (object[]),
+            image_url: "https://avatars.githubusercontent.com/u/63298781?v=4" (string)
         }
 
 
@@ -37,15 +37,15 @@ You may add a new user using this POST route.
     + Body
     
             {
-                username: string (required, pattern)
-                password: string (required, pattern)
+                username: "Tester" (string)
+                password: "Password123" (string)
             }
 
 + Response 201 (application/json)
        
         {
-            username: string
-            password: string
+            username: "Tester" (string)
+            password: "Password123" (string)
         }
 
 ### Update Information [PUT]
@@ -60,17 +60,17 @@ You may update current user's information with this PUT route.
     + Body
     
             {
-                username: string (required, pattern)
-                nickname: string (pattern)
-                image_url: string (pattern)
+                username: "Tester" (string)
+                nickname: "Tester" (string)
+                image_url: "https://avatars.githubusercontent.com/u/63298781?v=4" (string)
             }
 
 + Response 200 (application/json)
         
         {
-            username: string
-            nickname: string
-            image_url: string
+            username: "Tester" (string)
+            nickname: "Tester" (string)
+            image_url: "https://avatars.githubusercontent.com/u/63298781?v=4" (string)
         }
 
 ### Update Questions [PATCH]
@@ -85,22 +85,22 @@ User completed questions, quizes and points are updated using this PATCH route.
     + Body
     
             {
-                newQuestions: object[] (required)
-                newQuiz: object (required)
+                newQuestions: [...] (object[])
+                newQuiz: {...} (object)
             }
 
 + Response 200 (application/json)
         
         {
-            username: string
-            completed_questions: object[]
-            completed_quizes: object[]
+            username: "Tester" (string)
+            completed_questions: [...] (object[])
+            completed_quizes: [...] (object[])
         }
 
 ## Questions Routes [/questions]
 Question-related routes
 
-### List All [GET]que
+### List All [GET]
 
 This route is used to GET every quiz questions in the database
 
@@ -108,14 +108,34 @@ This route is used to GET every quiz questions in the database
         
         [
             {
-                _id: string,
-                question: string,
-                type: string,
-                difficulty: object,
-                correct_id: string
+                _id: "61f5edf862b94ab0c5ca6f39" (string),
+                question: "O que faz o segundo parâmetro de `reduce`?" (string),
+                type: "reduce" (string),
+                difficulty: "Dificil" (string),
+                answers: {...} (object),
+                correct_id: "61f5edf862b94ab0c5ca6f35" (string)
             }
         ]
 
+### List By Type [GET /questions/{type}]
+
+This route is used to GET every quiz questions in the database
+
++ Parameters
+    + type (string) - Type of the question (Higher Order Function name)
+
++ Response 200 (application/json)
+        
+        [
+            {
+                _id: "61f5ee5e62b94ab0c5ca6f3e" (string),
+                question: "O que o `.map()` recebe como primeiro parâmetro?" (string),
+                type: "map" (string),
+                difficulty: "Dificil" (string),
+                answers: {...} (object),
+                correct_id: "61f5ee5e62b94ab0c5ca6f3a" (string)
+            }
+        ]
 
 ### Create [POST]
 
@@ -125,17 +145,59 @@ This POST route is used to create a new question in the database.
     + Body
     
             {
-                question: string (required, length: 8 - 200)
-                type: string (required, length: 3 - 15)
-                difficulty: string (required, length: 5 - 20)
-                answers: : string[] (required, pattern)
+                question: "O que o `.map()` recebe como primeiro parâmetro?" (string),
+                type: "map" (string),
+                difficulty: "Dificil" (string),
+                answers: {...} (object) //First answer is the correct
             }
 
 + Response 201 (application/json)
        
         {
-                question: string (required, length: 8 - 200)
-                type: string (required, length: 3 - 15)
-                difficulty: string (required, length: 5 - 20)
-                answers: : string[] (required, pattern)
+                _id: "61f5ee5e62b94ab0c5ca6f3e" (string),
+                question: "O que o `.map()` recebe como primeiro parâmetro?" (string),
+                type: "map" (string),
+                difficulty: "Dificil" (string),
+                answers: {...} (object),
+                correct_id: "61f5ee5e62b94ab0c5ca6f3a" (string)
+        }
+
+## Types Routes [/types]
+Type-related routes
+
+### List All [GET]
+
+This route is used to GET every type of question available in the application.
+
++ Response 200 (application/json)
+        
+        [
+            {
+                _id: "61e83875f0aa7158f5dab6e6" (string),
+                color: "00E593" (string),
+                difficulty: 5 (number),
+                name: "reduce" (string),
+            }
+        ]
+
+### Create [POST /types]
+
+This route is used to POST a new type in the database
+
++ Request (application/json)
+    + Body
+    
+            {
+                name: "map" (string),
+                color: "83BCFF" (string),
+                difficulty: 1 (number),
+            }
+
++ Response 201 (application/json)
+       
+        {
+            _id: "61e83875f0aa7158f5dab6e5" (string),  
+            name: "map" (string),
+            color: "83BCFF" (string),
+            difficulty: 1 (number),
         }
