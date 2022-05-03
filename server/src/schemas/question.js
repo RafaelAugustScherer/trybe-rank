@@ -1,5 +1,8 @@
 import Joi from 'joi';
 
+const VALID_TYPES = ['map', 'reduce', 'filter', 'find', 'every', 'some', 'forEach', 'sort']
+const VALID_DIFFICULTIES = ['Iniciante', 'Intermediario', 'Dificil'];
+
 const questionSchema = Joi.object({
   question: Joi.string().min(8).max(200).required()
     .messages({
@@ -9,7 +12,7 @@ const questionSchema = Joi.object({
       'string.min': '400|"question" must have a minimum length of 8',
       'string.max': '400|"question" must have a maximum lengrh of 150'
     }),
-  type: Joi.string().min(3).max(15).required()
+  type: Joi.string().valid(...VALID_TYPES).required()
     .messages({
       'any.required': '400|"type" is required!',
       'string.base': '400|"type" is a string',
@@ -17,7 +20,7 @@ const questionSchema = Joi.object({
       'string.min': '400|"type" must have a minimum length of 3',
       'string.max': '400|"type" must have a maximum lengrh of 15'
     }),
-  difficulty: Joi.string().min(5).max(20).required()
+  difficulty: Joi.string().valid(...VALID_DIFFICULTIES).required()
     .messages({
       'any.required': '400|"difficulty" is required!',
       'string.base': '400|"difficulty" is a string',
