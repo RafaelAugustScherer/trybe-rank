@@ -28,10 +28,16 @@ const TypeCard = ({ name, color, difficulty, completedQuestions, totalQuestions,
     return stars;
   }
 
+  const focusCard = () => {
+    if (totalQuestions !==0) {
+      !isSelected ? setSelected(name) : setSelected(null)
+    }
+  }
+
   return (
     <div
-      onClick={ () => !isSelected ? setSelected(name) : setSelected(null)}
-      className={ `card-container ${isSelected ? 'selected' : ''}` }
+      onClick={ focusCard }
+      className={ `card-container${isSelected ? ' selected' : ''}${totalQuestions === 0 ? ' card-disabled' : ''}` }
     >
       <div className="type-title">
         <div className="star-container">{ createStars() }</div>
