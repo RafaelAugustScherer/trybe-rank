@@ -1,7 +1,7 @@
 FROM node:alpine AS build
 WORKDIR /app
 COPY . .
-ENV REACT_APP_SERVER=https://tryberank-api.herokuapp.com
+
 RUN ["npm", "i"]
 RUN ["npm", "run", "build"]
 

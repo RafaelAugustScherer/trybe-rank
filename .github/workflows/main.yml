@@ -19,6 +19,8 @@ jobs:
           appdir: client
           usedocker: true
           stack: container
+        env:
+          REACT_APP_SERVER: 'https://tryberank-api.herokuapp.com'
       - name: Build and Deploy Back-end
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
@@ -28,3 +30,8 @@ jobs:
           appdir: server
           usedocker: true
           stack: container
+        env:
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+          ORIGIN: '*'
+          SALT: ${{secrets.SALT}}
+          TOKEN_KEY: ${{secrets.TOKEN_KEY}}
