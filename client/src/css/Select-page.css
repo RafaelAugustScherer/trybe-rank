@@ -2,7 +2,6 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
   width: 100%;
   min-height: 100vh;
   padding-bottom: 5vh;
