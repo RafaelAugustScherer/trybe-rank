@@ -19,8 +19,6 @@ jobs:
           appdir: client
           usedocker: true
           stack: container
-        env:
-          HD_REACT_APP_SERVER: 'https://tryberank-api.herokuapp.com'
       - name: Build and Deploy Back-end
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
