@@ -1,16 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { infoContext } from '../providers/InfoProvider';
 import { BsPersonCircle, BsPencilSquare, BsPlusLg } from 'react-icons/bs';
 
 const ProfileCard = ({ score, rank }) => {
-  const { userInfo, setUserInfo, questions, updateUser } = useContext(infoContext);
   const {
-    username,
-    nickname,
-    completed_questions: completedQuestions,
-    image_url: imageUrl,
-    is_guest: isGuest
-  } = userInfo;
+    userInfo: {
+      username,
+      nickname,
+      completed_questions: completedQuestions,
+      image_url: imageUrl,
+      is_guest: isGuest
+    },
+    setUserInfo,
+    questions,
+    updateUser
+  } = useContext(infoContext);
+
   const [hover, setHover] = useState({
     info: false,
     image: false,

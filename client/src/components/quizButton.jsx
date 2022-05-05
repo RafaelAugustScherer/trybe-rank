@@ -8,7 +8,7 @@ const SERVER_URL = process.env.REACT_APP_SERVER;
 const QuizButton = ({ answers, correctAnswer }) => {
   const [questions, setQuestions] = useState([]);
   const [quizSelected, setQuizSelected] = useState(null);
-  const { token } = useContext(infoContext)
+  const { token, userInfo, setUserInfo } = useContext(infoContext)
   const {
     type,
     difficulty,
@@ -42,16 +42,49 @@ const QuizButton = ({ answers, correctAnswer }) => {
     setActive(false);
   }
 
+  const updateQuestions = (questions, quiz) => {
+    const { completed_questions, completed_quizes } = userInfo;
+
+    const newQuestions = questions.reduce((acc, cur) => {
+      const questionIsDifferent = completed_questions
+        .every(({ question_id }) => question_id !== cur.question_id);
+      
+      if (questionIsDifferent) {
+        return [...acc, cur];
+      }
+      return acc;
+    }, completed_questions);
+
+    const quizCompletedIndex = completed_quizes
+      .findIndex(({ type, difficulty }) => type === quiz.type && difficulty === quiz.difficulty);
+
+    let newQuizes = [...completed_quizes];
+    if (quizCompletedIndex !== -1) {
+      newQuizes[quizCompletedIndex] = quiz;
+    } else {
+      newQuizes.push(quiz);
+    }
+
+    setUserInfo({
+      ...userInfo,
+      completed_questions: newQuestions,
+      completed_quizes: newQuizes
+    });
+
+    const headers = { Authorization: token }
+    axios
+      .patch(SERVER_URL + '/user', { newQuestions: questions, newQuiz: quiz }, { headers })
+      .catch((err) => new Error(err.message));
+  }
+
   const finishGame = () => {
     const correctAnswer = userAnswers.filter(({ correct }) => correct);
     if (!correctAnswer.length) return;
-
-    const headers = { Authorization: token }
+  
     const newQuestions = correctAnswer.map(({ question_id }) => ({ type, question_id }));
     const newQuiz = { type, score, difficulty }
-    axios
-      .patch(SERVER_URL + '/user', { newQuestions, newQuiz }, { headers })
-      .catch((err) => new Error(err.message))
+
+    updateQuestions(newQuestions, newQuiz);
   }
 
   const nextPage = () => {

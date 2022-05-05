@@ -7,12 +7,18 @@ const Quiz = () => {
   const { gameQuestions, score, gameIndex } = useContext(gameContext);
 
   const handleCodeFormatting = (text) => {
-    const lineHandle = (line) => line.split('`').map((string, index) => index === 1 ? <code>{ string }</code> : <>{ string }</>);
+    const lineHandle = (line) => line
+      .split('`')
+      .map((string, index) => index === 1
+        ? <code key={`question-code-${index}`}>{ string }</code>
+        : <>{ string }</>);
 
     const blockHandle = text
       .split('```')
       .map((line, index) => (
-        index === 1 ? <p><code>{ lineHandle(line) }</code></p> : <span>{ lineHandle(line) }</span>
+        index === 1
+          ? <p key={`question-paragraph-${index}`} ><code>{ lineHandle(line) }</code></p>
+          : <span key={`question-span-${index}`}>{ lineHandle(line) }</span>
       ));
 
     return typeof blockHandle === 'string' ? lineHandle(text) : blockHandle;
