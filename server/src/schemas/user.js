@@ -32,9 +32,8 @@ const update = Joi.object({
     'string.empty': '400|"nickname" cannot be empty',
     'string.pattern': '400|"nickname" must have between 4 and 10 characters',
   }),
-  image_url: Joi.string().pattern(/^https?:.{5,100}/)
+  image_url: Joi.string().pattern(/^https?:.{5,100}/).allow('')
   .messages({
-    'any.required': '400|"image_url" is required',
     'string.base': '400|"image_url" must be of type string',
     'string.pattern': '400|"image_url" must be a link to an image'
   }),
