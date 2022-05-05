@@ -4,17 +4,19 @@ import { BsPersonCircle, BsPencilSquare, BsPlusLg } from 'react-icons/bs';
 
 const ProfileCard = ({ score, rank }) => {
   const {
-    userInfo: {
-      username,
-      nickname,
-      completed_questions: completedQuestions,
-      image_url: imageUrl,
-      is_guest: isGuest
-    },
+    userInfo,
     setUserInfo,
     questions,
     updateUser
   } = useContext(infoContext);
+
+  const {
+    username,
+    nickname,
+    completed_questions: completedQuestions,
+    image_url: imageUrl,
+    is_guest: isGuest
+  } = userInfo;
 
   const [hover, setHover] = useState({
     info: false,

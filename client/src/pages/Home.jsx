@@ -17,6 +17,7 @@ const Home = () => {
   const [players, setPlayers] = useState([]);
   const [score, setScore] = useState(0);
   const [rank, setRank] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getPlayers = async () => {
     const newPlayers = await getPlayersAround(token, nickname);
@@ -35,6 +36,8 @@ const Home = () => {
       setPlayers([...players, { nickname, score }]);
       setRank(players.length);
     }
+    
+    Object.entries(userInfo).length > 0 && setIsLoading(false);
   }
 
   useEffect(() => {
@@ -97,7 +100,7 @@ const Home = () => {
 
   return (
     <>
-      { !nickname ? <Loading /> : renderPage() }
+      { isLoading ? <Loading /> : renderPage() }
     </>
   );
 }
