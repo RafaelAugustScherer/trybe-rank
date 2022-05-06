@@ -1,7 +1,11 @@
 import { fetchUsers } from './fetch/users';
 
-const getPlayers = async (token) => {
+const getPlayers = async (token, userInfo) => {
   const users = await fetchUsers(token);
+
+  if (userInfo.is_guest) {
+    users.push({ ...userInfo });
+  }
 
   const usersAndPoints = users.reduce((arr, { completed_quizes: completedQuizes, nickname }) => {
     if (!completedQuizes.length) return arr;
@@ -9,7 +13,12 @@ const getPlayers = async (token) => {
     const score = completedQuizes.reduce((acc, { score }) => acc + score, 0);
     return [ ...arr, { nickname, score, completedQuizes } ];
   }, []);
-  usersAndPoints.sort(({ score: a }, { score: b }) => b - a);
+  usersAndPoints.sort(({ score: a, nickname }, { score: b }) => {
+    if (b - a === 0 && nickname === userInfo.nickname) {
+      return -1;
+    }
+    return b - a;
+  });
 
   return usersAndPoints;
 };
@@ -37,8 +46,9 @@ const getPlayersByFilter = async (token, type, difficulty) => {
   return topTenPlayers;
 }
 
-const getPlayersAround = async (token, nickname) => {
-  const players = await getPlayers(token);
+const getPlayersAround = async (token, userInfo) => {
+  const players = await getPlayers(token, userInfo);
+  const { nickname } = userInfo;
 
   const userPosition = players.findIndex(({ nickname: ply3rNickname }) => ply3rNickname === nickname);
 

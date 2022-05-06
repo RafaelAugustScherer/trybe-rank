@@ -20,7 +20,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getPlayers = async () => {
-    const newPlayers = await getPlayersAround(token, nickname);
+    const newPlayers = await getPlayersAround(token, userInfo);
     setPlayers(newPlayers);
   };
 
@@ -32,17 +32,14 @@ const Home = () => {
 
       setScore(thisPlayer.score);
       setRank(newRank);
-    } else {
-      setPlayers([...players, { nickname, score }]);
-      setRank(players.length);
     }
-    
+    console.log(userInfo)
     Object.entries(userInfo).length > 0 && setIsLoading(false);
   }
 
   useEffect(() => {
     token && getPlayers();
-  }, [nickname, token]);
+  }, [token]);
 
   useEffect(() => {
     getRank();
