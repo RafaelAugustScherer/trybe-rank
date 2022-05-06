@@ -3,7 +3,7 @@ import { fetchUsers } from './fetch/users';
 const getPlayers = async (token, userInfo) => {
   const users = await fetchUsers(token);
 
-  if (userInfo.is_guest) {
+  if (userInfo && userInfo.is_guest) {
     users.push({ ...userInfo });
   }
 
@@ -23,8 +23,8 @@ const getPlayers = async (token, userInfo) => {
   return usersAndPoints;
 };
 
-const getPlayersByFilter = async (token, type, difficulty) => {
-  const players = await getPlayers(token);
+const getPlayersByFilter = async (token, type, difficulty, userInfo) => {
+  const players = await getPlayers(token, userInfo);
 
   const filteredPlayers = players.map(({ completedQuizes, nickname }) => {
     const score = completedQuizes.reduce((acc, cur) => {

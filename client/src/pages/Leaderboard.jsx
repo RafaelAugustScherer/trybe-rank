@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { infoContext } from "../providers/InfoProvider";
-import { Link } from "react-router-dom";
 import { getPlayersByFilter, createTable } from '../utils/leaderboard';
 import '../css/Leaderboard.css';
 import Menu from "../components/Menu";
@@ -9,10 +8,10 @@ const Leaderboard = () => {
   const [type, setType] = useState('All');
   const [difficulty, setDificulty] = useState('All')
   const [players, setPlayers] = useState([]);
-  const { types, token } = useContext(infoContext);
+  const { types, token, userInfo } = useContext(infoContext);
 
   const getPlayers = async () => {
-    const newPlayers = await getPlayersByFilter(token, type, difficulty);
+    const newPlayers = await getPlayersByFilter(token, type, difficulty, userInfo);
     setPlayers(newPlayers);
   }
 
