@@ -45,10 +45,20 @@
   display: flex;
 }
 
-.header > div > img {
+.header-title-link {
+  display: flex;
+  align-items: center;
+}
+
+.header-title {
+  color: white;
+  display: inline-block;
+}
+
+.header-logo {
   width: 26px;
   height: 28px;
-  margin-right: 15px;
+  margin: 0 15px;
 }
 
 .profileCardHeader {
@@ -100,6 +110,7 @@
   align-items: center;
   font-size: 1.1em;
   border: 2px solid #2FC18C;
+  cursor: pointer;
 }
 
 .profileCardHeader button img {
@@ -114,10 +125,12 @@
 }
 
 .menu-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   background-color: transparent;
   color: white;
-  height: 100%;
   font-size: 1.5em;
   width: 64px;
   cursor: pointer;

@@ -5,7 +5,6 @@ import LeaveButton from "./logOff";
 const ProfileCardHeader = ({ nickname, imageUrl }) => {
   const [active, setActive] = useState(false);
 
-
   return (
     <div className="profileCardHeader">
       <button
