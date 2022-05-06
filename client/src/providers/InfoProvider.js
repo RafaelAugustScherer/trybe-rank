@@ -56,12 +56,12 @@ const InfoProvider = ({ children }) => {
   }
 
   const updateUser = async () => {
-    const { completed_questions, completed_quizes, is_guest: isGuest, ...fieldsToUpdate } = userInfo;
+    const { nickname, image_url, is_guest: isGuest } = userInfo;
     if (isGuest) return;
 
     const headers = { Authorization: token };
     await axios
-      .put(SERVER_URL + '/user', fieldsToUpdate, { headers })
+      .put(SERVER_URL + '/user', { nickname, image_url }, { headers })
       .catch((err) => new Error(err.message));
   }
 

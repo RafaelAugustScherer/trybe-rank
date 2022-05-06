@@ -82,16 +82,7 @@ const ProfileCard = ({ score, rank }) => {
       <div className="profile-div-edit">
         {editing.profile ? (
           <>
-            <p>
-              Nome:
-              <input
-                type="text"
-                id="username"
-                onChange={onChange}
-                value={username}
-                maxLength="10"
-              ></input>
-            </p>
+            <p>Nome: <span>{username}</span></p>
             <p>
               Apelido:
               <input
