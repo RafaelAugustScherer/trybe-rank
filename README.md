@@ -7,9 +7,9 @@ Esse projeto foi feito em 2 meses enquanto estudávamos na *Trybe*, desenvolvemo
 Aprendemos muito enquanto desenvolvemos o projeto e conforme íamos aprendendo novas técnicas aplicávamos no projeto. Dessa forma consolidamos todo o conhecimento aprendido colocando-o em prática.
 
 ## Deploys
-Site: [TrybeRank](https://trybe-rank.herokuapp.com/) / [Alternativo](https://tryberank.herokuapp.com/)
+Site: [TrybeRank](https://tryberank.herokuapp.com/)
 
-API: [TrybeRank](https://trybe-rank-backend.herokuapp.com/) / [Alternativo](https://tryberank-api.herokuapp.com/)
+API: [TrybeRank-API](https://tryberank-api.herokuapp.com/)
 
 ## Tecnologias Usadas
 
