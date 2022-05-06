@@ -26,9 +26,11 @@ const Menu = ({ path }) => {
           >
             <AiOutlineMenu />
           </button>
-          <img src={ logo } alt="logo-trybe" />
-          <h2>TrybeRank</h2>
         </div>
+          <Link to="/home" className="header-title-link">
+            <img src={ logo } className="header-logo" alt="logo-trybe" />
+            <h2 className="header-title">TrybeRank</h2>
+          </Link>
         <ProfileCardHeader nickname={ nickname } imageUrl={ imageUrl } />
       </div>
       <div className={ `menu ${active ? 'menu-active' : ''}` }>

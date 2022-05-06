@@ -142,6 +142,16 @@
   font-weight: 800;
 }
 
+.profile-div-error {
+  color: red;
+  margin: 0 !important;
+  font-weight: 600 !important;
+  font-size: 1.1em !important;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
 .nickname {
   margin-top: .5em;
   margin-left: .3em;
@@ -161,10 +171,10 @@
 
 .profile-div-edit input[type="text"],
 .profile-div-edit input[type="text"]:focus {
+  display: block;
   background-color: #00000000;
   border: none;
   border-bottom: 1px solid black;
-  margin-left: 10px;
   max-width: 100px;
   font-size: .9em;
   outline:none;
@@ -232,6 +242,11 @@
     flex-direction: column;
     align-items: center;
     height: auto;
+    padding-bottom: 50px;
+  }
+
+  .profile-div-error {
+    right: auto;
   }
 
   .profile-info-div p {

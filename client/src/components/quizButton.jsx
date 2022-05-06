@@ -55,15 +55,8 @@ const QuizButton = ({ answers, correctAnswer }) => {
       return acc;
     }, completed_questions);
 
-    const quizCompletedIndex = completed_quizes
-      .findIndex(({ type, difficulty }) => type === quiz.type && difficulty === quiz.difficulty);
-
-    let newQuizes = [...completed_quizes];
-    if (quizCompletedIndex !== -1) {
-      newQuizes[quizCompletedIndex] = quiz;
-    } else {
-      newQuizes.push(quiz);
-    }
+    const newQuizes = [...completed_quizes];
+    newQuizes.push(quiz);
 
     setUserInfo({
       ...userInfo,

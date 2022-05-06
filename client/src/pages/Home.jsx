@@ -13,13 +13,14 @@ import '../css/home-page.css';
 const Home = () => {
   const navigate = useNavigate();
   const { token, userInfo } = useContext(infoContext);
-  const { nickname } = userInfo;
+  const { username, nickname } = userInfo;
   const [players, setPlayers] = useState([]);
   const [score, setScore] = useState(0);
   const [rank, setRank] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getPlayers = async () => {
-    const newPlayers = await getPlayersAround(token, nickname);
+    const newPlayers = await getPlayersAround(token, userInfo);
     setPlayers(newPlayers);
   };
 
@@ -31,15 +32,14 @@ const Home = () => {
 
       setScore(thisPlayer.score);
       setRank(newRank);
-    } else {
-      setPlayers([...players, { nickname, score }]);
-      setRank(players.length);
     }
+    Object.entries(userInfo).length > 0 && setIsLoading(false);
   }
 
   useEffect(() => {
-    token && getPlayers();
-  }, [nickname, token]);
+    setIsLoading(true);
+    getPlayers();
+  }, [username, nickname]);
 
   useEffect(() => {
     getRank();
@@ -97,7 +97,7 @@ const Home = () => {
 
   return (
     <>
-      { !nickname ? <Loading /> : renderPage() }
+      { isLoading ? <Loading /> : renderPage() }
     </>
   );
 }

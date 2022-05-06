@@ -55,14 +55,20 @@ const InfoProvider = ({ children }) => {
     }
   }
 
-  const updateUser = async () => {
-    const { completed_questions, completed_quizes, is_guest: isGuest, ...fieldsToUpdate } = userInfo;
+  const updateUser = async (data) => {
+    const { is_guest: isGuest } = userInfo;
     if (isGuest) return;
 
     const headers = { Authorization: token };
-    await axios
-      .put(SERVER_URL + '/user', fieldsToUpdate, { headers })
-      .catch((err) => new Error(err.message));
+    const response = await axios
+      .put(SERVER_URL + '/user', data, { headers })
+      .catch((err) => {
+        const { message, code } = err.response.data.error;
+        return { status: code, message };
+      });
+    if (response.status !== 200) return response.message;
+
+    setUserInfo({ ...userInfo, ...data });
   }
 
   useEffect(() => {
