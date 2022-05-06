@@ -8,9 +8,16 @@ const getPlayers = async (token, userInfo) => {
   }
 
   const usersAndPoints = users.reduce((arr, { completed_quizes: completedQuizes, nickname }) => {
-    if (!completedQuizes.length) return arr;
+    let score;
 
-    const score = completedQuizes.reduce((acc, { score }) => acc + score, 0);
+    if (!completedQuizes.length && nickname !== userInfo.nickname) {
+      return arr;
+    } else if (!completedQuizes.length) {
+      score = 0;
+    } else {
+      score = completedQuizes.reduce((acc, { score }) => acc + score, 0);
+    }
+
     return [ ...arr, { nickname, score, completedQuizes } ];
   }, []);
   usersAndPoints.sort(({ score: a, nickname }, { score: b }) => {
