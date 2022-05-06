@@ -14,7 +14,6 @@ const ProfileCard = ({ score, rank }) => {
   
   const {
     completed_questions: completedQuestions,
-    image_url: imageUrl,
     is_guest: isGuest
   } = userInfo;
   
@@ -46,11 +45,15 @@ const ProfileCard = ({ score, rank }) => {
   const onEdit = async () => {
     const { profile: editingProfile } = editing;
     const { nickname, image_url } = cardUserInfo;
+    const isDataNew = Object.entries(cardUserInfo).some(([key, value]) => (
+      userInfo[key] !== value
+    ));
+    
     if (nickname === '') {
       setError('Nickname não pode estar vazio');
       return;
     }
-    if (editingProfile && nickname !== userInfo.nickname) {
+    if (editingProfile && isDataNew) {
       const error = await updateUser({ nickname, image_url });
       if (error) {
         setError(error);
@@ -66,16 +69,16 @@ const ProfileCard = ({ score, rank }) => {
       onMouseEnter={() => !isGuest && setHover({ ...hover, info: true })}
       onMouseLeave={() => setHover({ ...hover, info: false })}
     >
-      <div>
+      <div className="profile-div-header">
         <div
           onClick={() => editing.profile && setEditing({ ...editing, image: !editing.image })}
           onMouseEnter={() => setHover({ ...hover, image: true })}
           onMouseLeave={() => setHover({ ...hover, image: false })}
         >
           {
-            imageUrl ? (
+            cardUserInfo.image_url ? (
               <img
-                src={imageUrl}
+                src={cardUserInfo.image_url}
                 alt="profile"
                 className={`profile-image ${hover.image && editing.profile ? 'blur' : ''}`}
               />
@@ -95,7 +98,7 @@ const ProfileCard = ({ score, rank }) => {
               id="image_url"
               className="profile-image-input"
               placeholder='URL da imagem'
-              value={userInfo.image_url}
+              value={cardUserInfo.image_url}
               onChange={onChange}
             />
           )

@@ -54,9 +54,10 @@ const create = async (params) => {
 
 const update = async (params, data) => {
   const { nickname } = data;
+  const { username } = params;
 
-  const nicknameAlreadyExists = await usersCollection.findOne({ nickname });
-  if (nicknameAlreadyExists) {
+  const userWithNickname = await usersCollection.findOne({ nickname });
+  if (userWithNickname && userWithNickname.username !== username) {
     throw new ValidateError({ status: 409, message: 'Nickname already occupied' });
   }
 
