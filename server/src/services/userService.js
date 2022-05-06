@@ -39,7 +39,7 @@ const findOne = async (username) => {
 const create = async (params) => {
   const { username } = params;
   
-  const alreadyExists = await usersCollection.findOne({ "username": username });
+  const alreadyExists = await usersCollection.findOne({ username });
   if (alreadyExists) {
     throw new ValidateError({ status: 409, message: 'User already exists' })
   }
@@ -53,6 +53,13 @@ const create = async (params) => {
 }
 
 const update = async (params, data) => {
+  const { nickname } = data;
+
+  const nicknameAlreadyExists = await usersCollection.findOne({ nickname });
+  if (nicknameAlreadyExists) {
+    throw new ValidateError({ status: 409, message: 'Nickname already occupied' });
+  }
+
   const user = await usersCollection.updateOne(
     { ...params }, 
     { $set: { ...data } }

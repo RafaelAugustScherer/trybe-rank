@@ -1,8 +1,8 @@
 import { fetchUsers } from './fetch/users';
 
 const getPlayers = async (token, userInfo) => {
-  const users = await fetchUsers(token);
-
+  const users = await fetchUsers(token) || [];
+  
   if (userInfo && userInfo.is_guest) {
     users.push({ ...userInfo });
   }

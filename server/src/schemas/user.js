@@ -18,13 +18,6 @@ const create = Joi.object({
 });
 
 const update = Joi.object({
-  username: Joi.string().pattern(/[\w]{4,10}/i).required()
-  .messages({
-    'any.required': '400|"username" is required',
-    'string.base': '400|"username" must be be of type string',
-    'string.empty': '400|"username" cannot be empty',
-    'string.pattern': '400|"username" must have between 4 and 10 characters',
-  }),
   nickname: Joi.string().pattern(/[\w]{4,10}/i).required()
   .messages({
     'any.required': '400|"nickname" is required',

@@ -39,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     setIsLoading(true);
     getPlayers();
-  }, [username]);
+  }, [username, nickname]);
 
   useEffect(() => {
     getRank();

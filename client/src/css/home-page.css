@@ -142,6 +142,16 @@
   font-weight: 800;
 }
 
+.profile-div-error {
+  color: red;
+  margin: 0 !important;
+  font-weight: 600 !important;
+  font-size: 1.1em !important;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
 .nickname {
   margin-top: .5em;
   margin-left: .3em;
@@ -232,6 +242,11 @@
     flex-direction: column;
     align-items: center;
     height: auto;
+    padding-bottom: 50px;
+  }
+
+  .profile-div-error {
+    right: auto;
   }
 
   .profile-info-div p {
